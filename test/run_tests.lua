@@ -24,7 +24,7 @@ ARGUMENTS:
 os.execute("chcp 65001 > nul 2>&1")
 
 local function printHelp()
-    print([[
+	print([[
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║           EmmyLua API Test Runner - Help                                   ║
 ╚════════════════════════════════════════════════════════════════════════════╝
@@ -42,12 +42,12 @@ OPTIONS:
 ARGUMENTS:
     API_DIR             Directory containing generated API files
                         Default: api
-                        
+
                         ⚠️  IMPORTANT: Path must be in QUOTES if it contains:
                             - Spaces
                             - Dots (.)
                             - Slashes (/)
-                        
+
                         Examples:
                             "api"                    ✓
                             "my api"                 ✓ (with spaces)
@@ -167,7 +167,7 @@ A: Always use QUOTES for paths with:
    - Spaces: "my folder"
    - Dots: "./api" or "../api"
    - Slashes: "path/to/api"
-   
+
    WRONG: lua test/run_tests.lua ./api
    RIGHT: lua test/run_tests.lua "./api"
 
@@ -195,143 +195,143 @@ For more information, check the test files:
 end
 
 local function getApiFiles(apiDir)
-    local files = {}
-    apiDir = apiDir or "api"
-    
-    -- Normalize path separators
-    apiDir = apiDir:gsub("\\", "/")
-    
-    -- Remove trailing slash if present
-    if apiDir:sub(-1) == "/" then
-        apiDir = apiDir:sub(1, -2)
-    end
-    
-    -- Windows
-    local cmd = 'dir "' .. apiDir .. '" /b /s'
-    local isWindows = package.config:sub(1,1) == '\\'
-    
-    if not isWindows then
-        -- Linux/Mac
-        cmd = 'find "' .. apiDir .. '" -type f -name "*.lua"'
-    end
-    
-    local handle = io.popen(cmd)
-    if handle then
-        for line in handle:lines() do
-            if line:find("%.lua$") then
-                -- Normalize path separators to forward slash
-                line = line:gsub("\\", "/")
-                
-                -- Extract relative path from API directory
-                -- Find the position where apiDir ends in the path
-                local apiDirPattern = apiDir:gsub("[%(%)%.%+%-%*%?%[%]%^%$|]", "%%%1")
-                local startPos = line:find(apiDirPattern)
-                
-                if startPos then
-                    -- Get everything after apiDir/
-                    local relPath = line:sub(startPos + #apiDir + 1)
-                    table.insert(files, relPath)
-                else
-                    -- Fallback: just use the filename
-                    table.insert(files, line:match("([^/]+)$") or line)
-                end
-            end
-        end
-        handle:close()
-    end
-    
-    table.sort(files)
-    return files
+	local files = {}
+	apiDir = apiDir or "api"
+
+	-- Normalize path separators
+	apiDir = apiDir:gsub("\\", "/")
+
+	-- Remove trailing slash if present
+	if apiDir:sub(-1) == "/" then
+		apiDir = apiDir:sub(1, -2)
+	end
+
+	-- Windows
+	local cmd = 'dir "' .. apiDir .. '" /b /s'
+	local isWindows = package.config:sub(1, 1) == "\\"
+
+	if not isWindows then
+		-- Linux/Mac
+		cmd = 'find "' .. apiDir .. '" -type f -name "*.lua"'
+	end
+
+	local handle = io.popen(cmd)
+	if handle then
+		for line in handle:lines() do
+			if line:find("%.lua$") then
+				-- Normalize path separators to forward slash
+				line = line:gsub("\\", "/")
+
+				-- Extract relative path from API directory
+				-- Find the position where apiDir ends in the path
+				local apiDirPattern = apiDir:gsub("[%(%)%.%+%-%*%?%[%]%^%$|]", "%%%1")
+				local startPos = line:find(apiDirPattern)
+
+				if startPos then
+					-- Get everything after apiDir/
+					local relPath = line:sub(startPos + #apiDir + 1)
+					table.insert(files, relPath)
+				else
+					-- Fallback: just use the filename
+					table.insert(files, line:match("([^/]+)$") or line)
+				end
+			end
+		end
+		handle:close()
+	end
+
+	table.sort(files)
+	return files
 end
 
 local function runTests()
-    print("=== Running EmmyLua API Tests ===\n")
-    
-    -- Parse arguments
-    local debugMode = false
-    local apiDir = "api"
-    
-    for i = 1, #arg do
-        local argument = arg[i]
-        
-        if argument == "HELP" or argument == "-h" or argument == "--help" then
-            printHelp()
-            return true
-        elseif argument == "DEBUG" then
-            debugMode = true
-        else
-            -- Treat as API directory
-            apiDir = argument
-        end
-    end
-    
-    local testDir = "test"
-    local tests = {
-        "test_generated_api",
-        "test_types_validation",
-    }
-    
-    local totalPassed = 0
-    local totalFailed = 0
-    
-    for _, testName in ipairs(tests) do
-        print("Running " .. testName .. "...")
-        local testPath = testDir .. "/" .. testName .. ".lua"
-        
-        -- Pass debug mode and API directory to test
-        local originalArg = {}
-        for i = 1, #arg do
-            table.insert(originalArg, arg[i])
-        end
-        
-        arg = {apiDir}
-        if debugMode then
-            table.insert(arg, "DEBUG")
-        end
-        
-        local success, result = pcall(function()
-            return dofile(testPath)
-        end)
-        
-        -- Restore original args
-        arg = originalArg
-        
-        if success then
-            if result then
-                totalPassed = totalPassed + 1
-                print("✅ " .. testName .. " passed\n")
-            else
-                totalFailed = totalFailed + 1
-                print("❌ " .. testName .. " failed\n")
-            end
-        else
-            totalFailed = totalFailed + 1
-            print("❌ " .. testName .. " error: " .. result .. "\n")
-        end
-    end
-    
-    print("=== Final Results ===")
-    print("Passed: " .. totalPassed)
-    print("Failed: " .. totalFailed)
-    print("Total: " .. (totalPassed + totalFailed))
-    print()
-    
-    -- Show found API files
-    print("=== Found API Files ===")
-    local apiFiles = getApiFiles(apiDir)
-    print("Directory: " .. apiDir)
-    print("Total files: " .. #apiFiles)
-    for _, file in ipairs(apiFiles) do
-        print("  - " .. file)
-    end
-    print()
-    
-    if debugMode then
-        print("(Debug mode enabled)")
-        print()
-    end
-    
-    return totalFailed == 0
+	print("=== Running EmmyLua API Tests ===\n")
+
+	-- Parse arguments
+	local debugMode = false
+	local apiDir = "api"
+
+	for i = 1, #arg do
+		local argument = arg[i]
+
+		if argument == "HELP" or argument == "-h" or argument == "--help" then
+			printHelp()
+			return true
+		elseif argument == "DEBUG" then
+			debugMode = true
+		else
+			-- Treat as API directory
+			apiDir = argument
+		end
+	end
+
+	local testDir = "test"
+	local tests = {
+		"test_generated_api",
+		"test_types_validation",
+	}
+
+	local totalPassed = 0
+	local totalFailed = 0
+
+	for _, testName in ipairs(tests) do
+		print("Running " .. testName .. "...")
+		local testPath = testDir .. "/" .. testName .. ".lua"
+
+		-- Pass debug mode and API directory to test
+		local originalArg = {}
+		for i = 1, #arg do
+			table.insert(originalArg, arg[i])
+		end
+
+		arg = { apiDir }
+		if debugMode then
+			table.insert(arg, "DEBUG")
+		end
+
+		local success, result = pcall(function()
+			return dofile(testPath)
+		end)
+
+		-- Restore original args
+		arg = originalArg
+
+		if success then
+			if result then
+				totalPassed = totalPassed + 1
+				print("✅ " .. testName .. " passed\n")
+			else
+				totalFailed = totalFailed + 1
+				print("❌ " .. testName .. " failed\n")
+			end
+		else
+			totalFailed = totalFailed + 1
+			print("❌ " .. testName .. " error: " .. result .. "\n")
+		end
+	end
+
+	print("=== Final Results ===")
+	print("Passed: " .. totalPassed)
+	print("Failed: " .. totalFailed)
+	print("Total: " .. (totalPassed + totalFailed))
+	print()
+
+	-- Show found API files
+	print("=== Found API Files ===")
+	local apiFiles = getApiFiles(apiDir)
+	print("Directory: " .. apiDir)
+	print("Total files: " .. #apiFiles)
+	for _, file in ipairs(apiFiles) do
+		print("  - " .. file)
+	end
+	print()
+
+	if debugMode then
+		print("(Debug mode enabled)")
+		print()
+	end
+
+	return totalFailed == 0
 end
 
 return runTests()
