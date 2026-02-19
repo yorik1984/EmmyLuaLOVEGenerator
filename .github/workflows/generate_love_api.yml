@@ -1,0 +1,55 @@
+name: Generate LÖVE EmmyLua API
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  generate-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Lua 5.1
+        uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "5.1"
+
+      - name: Generate API
+        run: |
+          # Clone love-api repository
+          git clone https://github.com/love2d-community/love-api love_source
+          
+          # Copy required files
+          cp -r love_source/modules .
+          cp love_source/love_api.lua .
+          
+          # Generate API files (outputs to api/ directory by default)
+          lua genEmmyAPI.lua
+
+      - name: Test
+        run: |
+          if [ -f "test/run_tests.lua" ]; then
+            lua test/run_tests.lua
+          fi
+
+      - name: Cleanup
+        run: |
+          rm -rf modules love_api.lua love_source
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add api/
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "chore: regenerate LÖVE API from official love-api"
+            git push origin main
+          fi
