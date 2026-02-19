@@ -1,53 +1,219 @@
-# EmmyLua LÖVE Generator
+# EmmyLua ♡ LÖVE ♡ Generator
 
-A script to generate [LÖVE](https://love2d.org/) API autocomplete files for [EmmyLua](https://github.com/EmmyLuaLs/emmylua-analyzer-rust), based off of [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api).
+<!-- BADGE_VERSIONS_START -->
+<!-- LUA_VERSION_START -->5.1<!-- LUA_VERSION_END -->
+<!-- LOVE_VERSION_START -->11.5<!-- LOVE_VERSION_END -->
+<!-- BADGE_VERSIONS_END -->
 
-## Instructions
+[![Generate LÖVE EmmyLua API](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml/badge.svg)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml)
+[![License](https://img.shields.io/github/license/yorik1984/EmmyLuaLOVEGenerator)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/blob/main/LICENSE)
+[![Lua](https://img.shields.io/badge/Lua-5.1-blue.svg)](https://www.lua.org/)
+[![LÖVE API](https://img.shields.io/badge/L%C3%96VE_API-11.5-EA316E.svg)](https://github.com/love2d-community/love-api?tab=readme-ov-file#l%C3%B6ve-api)
 
-1. Download this repository.
-2. Download the version of the [LÖVE API](https://github.com/love2d-community/love-api) that you want.
-3. Ensure that the `api` folder exists. If not, create it.
-4. Copy both the LÖVE API's `modules` folder and the `love_api.lua` file into this repository's root directory.
-5. Run `genEmmyAPI.lua` using your computer's installation of Lua. Ex. `lua genEmmyAPI.lua`.
-6. Copy the `api` folder into your project's source folder, the same folder where `main.lua` is (you can rename it whatever you want, it doesn't have to be called `api`).
-7. In your project, add the directory you just created into your `.emmyrc.json`, in the array in `workspace` -> `library`.
+Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) framework, compatible with [EmmyLua analyzer](https://github.com/EmmyLuaLs/emmylua-analyzer-rust).
 
-Once you start or refresh your IDE (might be automatic) you should have autocomplete and quick documentation for LÖVE!
+## 📑 Table of Contents
 
-## Other LÖVE versions
+- [🚀 Features](#-features)
+- [📦 Usage](#-usage)
+  - [Using Pre-generated Files from Repository](#using-pre-generated-files-from-repository)
+  - [Manual API Generation](#manual-api-generation)
+- [🧪 Testing](#-testing)
+- [🔄 Automatic Updates](#-automatic-updates)
+- [📋 What Gets Generated](#-what-gets-generated)
+- [🆚 Differences from Emmy-love-api](#-differences-from-emmy-love-api)
+- [🙏 Credits](#-credits)
+- [📄 License](#-license)
 
-When you want to regenerate the autocomplete files, delete the contents of the `api` folder (not the folder itself!) and redo the steps.
+## 🚀 Features
 
-## Changes from Emmy-love-api
+### Compatibility
 
-- Nothing included in this repository by default to avoid people using old versions of the LÖVE API
-- Optional arguments are now properly generated
-  - Marked as optional in the `---@param` defines
-  - Appends `(Defaults to <default>.)` to the description
-  - Marked as optional in overloads (although you can't add descriptions to them unfortunately)
-  - Overloads are now sorted, so the function signature should have the most arguments
+- **EmmyLua**: <!-- EMMYLUA_VERSION_START -->modern versions (with `---@meta` support)<!-- EMMYLUA_VERSION_END -->
+- **Lua**: <!-- LUA_COMPAT_VERSION_START -->5.1<!-- LUA_COMPAT_VERSION_END -->
+- **LÖVE**: <!-- LOVE_COMPAT_VERSION_START -->11.5<!-- LOVE_COMPAT_VERSION_END -->
 
-- Should now work with modern EmmyLua:
-  - Definition files now use `---@meta` rather than classes
-  - `m.function` and `return m` were removed, now relying on meta syntax
-  - All files have a namespace definition for `love`, meaning that `love.Object` is the type, which will not conflict with your own `Object` type
-  - Enums are now `---@alias`es rather than (unannotated) tables. Originally I just added `---@enum`, but you can't actually access those tables in LÖVE.
-  - Region comments now have proper newlines around them
-  - Class definitions are now above the tables
+### Automatic API Generation
 
-- Added console output
-- Styling changes
-  - Replaced generated tabs with spaces
-  - Indents should now be more consistent
-  - None of the generated files should have default warnings
+- **GitHub Actions Automation** - API automatically updates when changes occur in the official [love-api](https://github.com/love2d-community/love-api)
+- **Ready-to-use Annotation Files** - `api/` folder contains ready-to-use files for all LÖVE modules
 
-- Supertypes are now generated properly. For example, anything which takes `love.Drawable` will now accept `love.Image` without a cast.
-- Small organization changes
+### Enhanced Type System
 
-## Credits
+- **Type Tracking** - automatic collection and validation of all types from the API
+- **Namespace Prefixes** - correct addition of `love.` prefix to API types
+- **Union Type Support** - handles `type1 or type2` → `type1 | type2`
+- **Type Inheritance** - supports supertypes (e.g., `love.Drawable`)
+- **Table Types** - inline definitions `{field:type, ...}`
 
-Original script by [@tangzx](https://github.com/tangzx)
+### Improved Generation
 
-Modifications & original README by [@kindfulkirby](https://github.com/kindfulkirby)
+- **Proper Optional Parameters** - marked as `type?` in annotations
+- **Default Value Information** - `(Defaults to <value>.)` in descriptions
+- **Variant Sorting** - functions with the most arguments come first
+- **Overload Annotations** - correct generation of function overloads
+- **Varargs Support** - proper handling of `...` parameters
+- **Parameter Expansion** - handles `param1, param2` as separate parameters
 
-Updated for modern EmmyLua by [@NyakoFox](https://github.com/NyakoFox)
+### Debug Mode
+
+- **DEBUG Mode** - detailed statistics on collected types
+- **Type Validation** - checks defined vs used types
+- **Automatic Testing** - test suite to verify generation
+
+## 📦 Usage
+
+### Using Pre-generated Files from Repository
+
+1. Download the `api/` folder from the repository:
+   - For the **latest version**: use the [`main`](https://github.com/yorik1984/EmmyLuaLOVEGenerator/tree/main) branch
+   - For a **specific version**: use the branch named with that version (e.g., [`11.5`](https://github.com/yorik1984/EmmyLuaLOVEGenerator/tree/11.5) for LÖVE 11.5)
+
+1. Add the library path to `.emmyrc.json` or configure your LSP server similarly, as shown below:
+
+```json
+{
+  "workspace": {
+    "library": ["<full path to api directory>"]
+  }
+}
+```
+
+1. Restart or reload your IDE
+
+### Manual API Generation
+
+> [!WARNING]
+> Generate API manually only if the LÖVE version you need is missing from the repository branches. Branch name corresponds to LÖVE version number (e.g., branch `11.5` contains API for LÖVE 11.5). The `main` branch always contains the latest API version.
+
+1. Download [LÖVE API](https://github.com/love2d-community/love-api) for the version you need
+2. Copy `modules/` and `love_api.lua` to the root of this repository
+3. Run the generator:
+
+```bash
+# Basic generation (outputs to api/)
+lua genEmmyAPI.lua
+
+# Generate to custom folder
+lua genEmmyAPI.lua "my_love_api"
+
+# With debug information
+lua genEmmyAPI.lua DEBUG
+
+# With debug and custom folder
+lua genEmmyAPI.lua DEBUG "my_api"
+
+# Help
+lua genEmmyAPI.lua HELP
+```
+
+1. Add the library path to `.emmyrc.json` or configure your LSP server similarly, as shown below:
+
+```json
+{
+  "workspace": {
+    "library": ["<full path to api directory>"]
+  }
+}
+```
+
+1. Restart or reload your IDE
+
+## 🧪 Testing
+
+The repository includes a suite of automatic tests:
+
+```bash
+lua test/run_tests.lua
+```
+
+Tests verify:
+
+- Correct type generation
+- Namespace prefix validation
+- Proper handling of optional parameters
+- Overload annotation generation
+
+## 🔄 Automatic Updates
+
+The repository is configured for automatic updates via GitHub Actions:
+
+- On every push to `main` branch
+- Can be manually triggered via `workflow_dispatch`
+
+The workflow automatically:
+
+1. Clones the official love-api
+2. Generates EmmyLua annotations
+3. Runs tests
+4. Commits updates to the repository
+
+## 📋 What Gets Generated
+
+The generator creates files for all LÖVE modules:
+
+```
+api/
+├── love.lua           # Core module
+├── love.audio.lua     # Audio
+├── love.graphics.lua  # Graphics
+├── love.physics.lua   # Physics
+├── love.filesystem.lua # File system
+└── ... (all other modules)
+```
+
+Each file contains:
+
+- `---@meta` and `---@namespace love` headers
+- `---@class` type definitions with inheritance
+- `---@alias` definitions for enums
+- `---@param`, `---@return`, `---@overload` function annotations
+- Links to official LÖVE documentation
+- Region markers for convenient navigation
+
+## 🆚 Differences from Emmy-love-api
+
+### Architectural Improvements
+
+- ✅ Nothing included by default - avoiding outdated API versions
+- ✅ Ready files in `api/` - can be used immediately
+- ✅ Automatic updates via GitHub Actions
+- ✅ Works with modern EmmyLua (uses `---@meta` instead of classes)
+- ✅ Namespace definitions - `love.Object` doesn't conflict with your types
+
+### Generation Improvements
+
+- ✅ Optional parameters properly marked (`type?`)
+- ✅ Default values in descriptions
+- ✅ Correct overload annotations
+- ✅ Function variant sorting
+- ✅ Type inheritance support (supertypes)
+- ✅ Enums as `---@alias` instead of tables
+- ✅ Correct newlines around region comments
+- ✅ Class definitions before tables
+- ✅ Enhanced type system with validation
+- ✅ DEBUG mode for type analysis
+- ✅ Custom output directory support
+
+### Code Improvements
+
+- ✅ Console output for progress tracking
+- ✅ Tabs replaced with spaces
+- ✅ Consistent indentation
+- ✅ No warnings in generated files
+- ✅ Automatic tests
+
+## 🙏 Credits
+
+Based on [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api).
+
+- **[@tangzx](https://github.com/tangzx)** - original script
+- **[@kindfulkirby](https://github.com/kindfulkirby)** - modifications and initial README
+- **[@NyakoFox](https://github.com/NyakoFox)** - update for modern EmmyLua
+- **[@yorik1984](https://github.com/yorik1984)** - enhanced type system, GitHub Actions, tests
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
+
+Based on [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api) which has no explicit license.
