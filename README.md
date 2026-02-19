@@ -1,10 +1,5 @@
 # EmmyLua ♡ LÖVE ♡ Generator
 
-<!-- BADGE_VERSIONS_START -->
-<!-- LUA_VERSION_START -->5.1<!-- LUA_VERSION_END -->
-<!-- LOVE_VERSION_START -->11.5<!-- LOVE_VERSION_END -->
-<!-- BADGE_VERSIONS_END -->
-
 [![Generate LÖVE EmmyLua API](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml/badge.svg)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml)
 [![License](https://img.shields.io/github/license/yorik1984/EmmyLuaLOVEGenerator)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/blob/main/LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1-blue.svg)](https://www.lua.org/)
@@ -29,9 +24,9 @@ Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) 
 
 ### Compatibility
 
-- **EmmyLua**: <!-- EMMYLUA_VERSION_START -->modern versions (with `---@meta` support)<!-- EMMYLUA_VERSION_END -->
-- **Lua**: <!-- LUA_COMPAT_VERSION_START -->5.1<!-- LUA_COMPAT_VERSION_END -->
-- **LÖVE**: <!-- LOVE_COMPAT_VERSION_START -->11.5<!-- LOVE_COMPAT_VERSION_END -->
+- **EmmyLua**: modern versions (with `---@meta` support)
+- **Lua**: 5.1
+- **LÖVE**: 11.5
 
 ### Automatic API Generation
 
