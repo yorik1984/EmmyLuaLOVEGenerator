@@ -184,7 +184,7 @@ jobs:
         shell: bash
 
       - name: Sync branches (develop ↔ main)
-        if: steps.check_changes.outputs.changed == 'true' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main')
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -202,6 +202,11 @@ jobs:
           git fetch origin
 
           # Checkout the other branch
+          if git diff --quiet "origin/$CURRENT_BRANCH" "origin/$OTHER_BRANCH"; then
+            echo "✅ Branches are already in sync"
+            exit 0
+          fi
+
           git checkout "$OTHER_BRANCH"
           git pull origin "$OTHER_BRANCH"
 
@@ -210,21 +215,9 @@ jobs:
             git push origin "$OTHER_BRANCH"
             echo "✅ Successfully merged $CURRENT_BRANCH into $OTHER_BRANCH"
           else
-            echo "❌ Merge conflict detected. Attempting to resolve by keeping both branches updated..."
+            echo "❌ Merge conflict detected between $CURRENT_BRANCH and $OTHER_BRANCH"
+            echo "🔍 Please resolve conflicts manually"
             git merge --abort || true
-
-            # If merge fails, we still want to ensure the other branch has latest API
-            # Checkout current branch again to get the generated files
-            git checkout "$CURRENT_BRANCH"
-
-            # Create a temporary branch for the other branch with our changes
-            git checkout -b "sync-temp-$OTHER_BRANCH" "$OTHER_BRANCH"
-            git merge --no-ff --no-edit "$CURRENT_BRANCH" || {
-              echo "❌ Automatic merge failed. Manual intervention required."
-              exit 1
-            }
-            git push origin "sync-temp-$OTHER_BRANCH"
-            echo "⚠️ Created sync-temp-$OTHER_BRANCH for manual merge"
             exit 1
           fi
         shell: bash
