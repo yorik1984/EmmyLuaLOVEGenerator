@@ -1,7 +1,7 @@
 --[[
-EmmyLua LÖVE Generator
+LuaCATS LÖVE Generator
 
-A tool that automatically generates EmmyLua type annotations for the LÖVE 2D API.
+A tool that automatically generates LuaCATS type annotations for the LÖVE 2D API.
 
 TYPE ANNOTATION RULES:
 This generator strictly follows the love_api.lua structure and applies
@@ -56,7 +56,7 @@ implementation in this file (if you change the code, update this documentation).
 For detailed rules see the DETAILED TYPE PROCESSING RULES section below.
 
 USAGE:
-    lua genEmmyAPI.lua [OPTIONS] [OUTPUT_DIR]
+    lua genLOVE2dAPI.lua [OPTIONS] [OUTPUT_DIR]
 
 OPTIONS:
     DEBUG             - Show debug information about type collection
@@ -64,40 +64,40 @@ OPTIONS:
 
 COMMANDS:
     (no argument)     - Generate full API
-                       Output directory: api/
+                       Output directory: library/
 
     "path/to/dir"     - Generate full API to custom directory
                        Output directory: path/to/dir/
 
                        Examples:
-                           lua genEmmyAPI.lua "my_api"
-                           lua genEmmyAPI.lua "./custom/path/api"
+                           lua genLOVE2dAPI.lua "my_api"
+                           lua genLOVE2dAPI.lua "./custom/path/api"
 
     HELP              - Display this help message
 
                        Example:
-                           lua genEmmyAPI.lua HELP
+                           lua genLOVE2dAPI.lua HELP
 
 EXAMPLES:
     # Generate full API to default directory
-    lua genEmmyAPI.lua
+    lua genLOVE2dAPI.lua
 
     # Generate full API to custom directory
-    lua genEmmyAPI.lua "my_emmylua_api"
+    lua genLOVE2dAPI.lua "my_luacats_api"
 
     # Show debug info and generate to default directory
-    lua genEmmyAPI.lua DEBUG
+    lua genLOVE2dAPI.lua DEBUG
 
     # Show debug info and generate to custom directory
-    lua genEmmyAPI.lua DEBUG "my_api"
+    lua genLOVE2dAPI.lua DEBUG "my_luacats_api"
 
     # Show help
-    lua genEmmyAPI.lua HELP
+    lua genLOVE2dAPI.lua HELP
 
 OUTPUT:
-    - Generated API is placed in specified directory (default: api/)
-    - Files are organized as: <output_dir>/<module>.lua
-    - Each file contains EmmyLua annotations compatible with IDEs supporting EmmyLua
+    - Generated API is placed in specified directory (default: library/)
+    - Files are organized as: <output_dir>/love/<module>.d.lua
+    - Each file contains LuaCATS annotations compatible with IDEs supporting LuaCATS
 ]]
 
 --[[
@@ -106,7 +106,7 @@ DETAILED TYPE PROCESSING RULES
 ================================================================================
 
 This generator strictly binds to love_api.lua structure and applies the following
-processing rules to convert API data into valid EmmyLua annotations. The items
+processing rules to convert API data into valid LuaCATS annotations. The items
 below reflect the current implementation in this file.
 
 --------------------------------------------------------------------------------
@@ -382,7 +382,7 @@ Priority order (first match wins):
 10. DEBUG MODE
 --------------------------------------------------------------------------------
 
-10.1 Usage: lua genEmmyAPI.lua DEBUG
+10.1 Usage: lua genLOVE2dAPI.lua DEBUG
 
 Shows:
 - All collected types (knownTypes)
@@ -406,7 +406,7 @@ API data → collectTypes() → knownTypes, definedTypes
                        ↓
                  genFunction()
                        ↓
-                OUTPUT: api/*.lua
+                OUTPUT: library/love/*d.lua
 
 ================================================================================
 END OF DETAILED TYPE PROCESSING RULES
@@ -415,12 +415,12 @@ END OF DETAILED TYPE PROCESSING RULES
 
 local HELP_TEXT = [[
 
-EmmyLua LÖVE Generator
+LuaCATS LÖVE Generator
 
-A tool that automatically generates EmmyLua type annotationsfor the LÖVE 2D API.
+A tool that automatically generates LuaCATS type annotations for the LÖVE 2D API.
 
 USAGE:
-    lua genEmmyAPI.lua [OPTIONS] [OUTPUT_DIR]
+    lua genLOVE2dAPI.lua [OPTIONS] [OUTPUT_DIR]
 
 OPTIONS:
     DEBUG             - Show debug information about type collection
@@ -428,56 +428,67 @@ OPTIONS:
 
 COMMANDS:
     (no argument)     - Generate full API
-                       Output directory: api/
+                       Output directory: library/
 
     "path/to/dir"     - Generate full API to custom directory
                        Output directory: path/to/dir/
 
                        Examples:
-                           lua genEmmyAPI.lua "my_api"
-                           lua genEmmyAPI.lua "./custom/path/api"
+                           lua genLOVE2dAPI.lua "my_api"
+                           lua genLOVE2dAPI.lua "./custom/path/api"
 
 EXAMPLES:
     # Generate full API to default directory
-    lua genEmmyAPI.lua
+    lua genLOVE2dAPI.lua
 
     # Generate full API to custom directory
-    lua genEmmyAPI.lua "my_emmylua_api"
+    lua genLOVE2dAPI.lua "my_luacats_api"
 
     # Show debug info and generate to default directory
-    lua genEmmyAPI.lua DEBUG
+    lua genLOVE2dAPI.lua DEBUG
 
     # Show debug info and generate to custom directory
-    lua genEmmyAPI.lua DEBUG "my_api"
+    lua genLOVE2dAPI.lua DEBUG "my_luacats_api"
 
     # Show help
-    lua genEmmyAPI.lua HELP
+    lua genLOVE2dAPI.lua HELP
 
 OUTPUT:
-    - Generated API is placed in specified directory (default: api/)
+    - Generated API is placed in specified directory (default: library/)
     - Files are organized as: <output_dir>/<module>.lua
-    - Each file contains EmmyLua annotations compatible with IDEs supporting EmmyLua
+    - Each file contains LuaCATS annotations compatible with IDEs supporting LuaCATS
 ]]
 
-local INTRO_TEXT = "EmmyLua LÖVE Generator. Run 'lua genEmmyAPI.lua HELP' to view usage."
+local INTRO_TEXT = "LuaCATS LÖVE Generator. Run 'lua genLOVE2dAPI.lua HELP' to view usage."
 
 -- Best-effort UTF-8 on Windows
 pcall(function()
     os.execute("chcp 65001 > nul 2>&1")
 end)
 
-local time         = os.clock()
+local time = os.clock()
 
 --------------------------------------------------------------------------------
 -- Type discovery
 --------------------------------------------------------------------------------
-local apiName      = "love"
-local apiEngine    = "love2d"
-local apiFile      = "love_api"
-local apiFileExt   = "lua"
-local fileExt      = "lua"
-local wikiLinkName = "Open in Browser"
-local wikiLinkUrl  = "https://love2d.org/wiki/"
+local API  = {
+    NAME           = "love",
+    ENGINE         = "love2d",
+    FILE           = "love_api",
+    FILE_EXT       = "lua",
+    -- definition files *.d.lua for documentation and not implementation code.
+    LIB_FILE_EXT   = "d.lua",
+    OUTPUT_DIR     = "library",
+    WIKI_LINK_NAME = "Open in Browser",
+    WIKI_LINK_URL  = "https://love2d.org/wiki/",
+}
+
+setmetatable(API, {
+    __index = API,
+    __newindex = function()
+        error("Attempt to modify a constant", 2)
+    end
+})
 
 local builtinTypes = {
     ['any']               = true,
@@ -564,15 +575,6 @@ local function countTable(t)
     return count
 end
 
-local function createDirectory(path)
-    local current = ""
-    for part in string.gmatch(path, "[^/\\]+") do
-        current = current .. part
-        os.execute("mkdir " .. current .. " 2>nul || true")
-        current = current .. "/"
-    end
-end
-
 -- Return the separator used between module/type and function name.
 -- love.window.setMode -> delimiter(true) == "."
 -- RecordingDevice:getBitDepth -> delimiter(false) == ":"
@@ -646,9 +648,18 @@ end
 --------------------------------------------------------------------------------
 -- CLI
 --------------------------------------------------------------------------------
-local debugMode = false
-local outputDir = "api"
+local function createDirectory(path)
+    local isWindows = package.config:sub(1, 1) == '\\'
+    if isWindows then
+        path = path:gsub("/", "\\")
+        os.execute("mkdir " .. path .. " 2>nul")
+    else
+        os.execute("mkdir -p " .. path .. " 2>/dev/null")
+    end
+end
 
+local debugMode = false
+local outputDir = API.OUTPUT_DIR
 for i = 1, #arg do
     local a = arg[i]
     if a == "DEBUG" then
@@ -662,21 +673,22 @@ for i = 1, #arg do
     end
 end
 createDirectory(outputDir)
+createDirectory(outputDir .. "/" .. API.NAME)
 
 --------------------------------------------------------------------------------
 -- Load love_api
 --------------------------------------------------------------------------------
 local ok, apiRequire = pcall(function()
-    return require(apiFile)
+    return require(API.FILE)
 end)
 if not ok then
     io.stderr:write(
         "Error: could not require '"
-        .. apiFile
+        .. API.FILE
         .. "'. Make sure "
-        .. apiFile
+        .. API.FILE
         .. "."
-        .. apiFileExt
+        .. API.FILE_EXT
         .. " is present in package.path\n"
     )
     os.exit(1)
@@ -875,7 +887,7 @@ local function addNamespaceToType(typeStr)
     end
 
     if (knownTypes and knownTypes[typeStr]) or (definedTypes and definedTypes[typeStr]) then
-        return apiName .. "." .. typeStr
+        return API.NAME .. "." .. typeStr
     end
 
     if typeStr:lower() == "any" then
@@ -1014,7 +1026,7 @@ local function printDebugInfo()
     end
     table.sort(definedCap)
     for _, v in ipairs(definedCap) do
-        print("  - " .. apiName .. "." .. v)
+        print("  - " .. API.NAME .. "." .. v)
     end
     print("Total defined capital letter types: " .. #definedCap)
     print("")
@@ -1033,7 +1045,7 @@ local function printDebugInfo()
     local seen = {}
     for _, v in ipairs(undef) do
         if not seen[v] then
-            print("  - " .. (knownTypes[v] and (apiName .. "." .. v) or v))
+            print("  - " .. (knownTypes[v] and (API.NAME .. "." .. v) or v))
             seen[v] = true
         end
     end
@@ -1192,10 +1204,7 @@ local function genClassForTable(module, func, param, fields, desc, static)
 
         for i, f in ipairs(node.fields) do
             if f.name ~= "..." then
-                local isOptional = (f.default ~= nil)
-                if firstNonVarFieldIdx ~= nil and i == firstNonVarFieldIdx then
-                    isOptional = false
-                end
+                local isOptional = (f.default ~= nil) and (i ~= firstNonVarFieldIdx)
 
                 local ftype = f.type or "any"
                 if string.find(ftype, " or ") or string.find(ftype, " and ") then
@@ -1246,32 +1255,45 @@ end
 --------------------------------------------------------------------------------
 -- Returns helpers: build inline type AND optionally className+classCode if fieldsRequireClass
 --------------------------------------------------------------------------------
+local function buildInlineFromFields(fields)
+    if not fields then return "{}" end
+
+    local parts = {}
+    for _, f in ipairs(fields) do
+        if f.name ~= "..." then
+            local ftype = f.type or "any"
+
+            if ftype:find(" or ") or ftype:find(" and ") then
+                ftype = processTypeString(ftype, knownTypes)
+            end
+
+            if f.table and #f.table > 0 then
+                local nestedParts = {}
+                for _, nf in ipairs(f.table) do
+                    if nf.name ~= "..." then
+                        local nftype = nf.type
+                        if nftype and (nftype:find(" or ") or nftype:find(" and ")) then
+                            nftype = processTypeString(nftype, knownTypes)
+                        end
+                        nftype = proc(nftype)
+                        nestedParts[#nestedParts + 1] = keyConvert(nf.name) .. ": " .. nftype
+                    end
+                end
+                ftype = "{ " .. table.concat(nestedParts, ", ") .. " }"
+            else
+                ftype = proc(ftype)
+            end
+
+            parts[#parts + 1] = keyConvert(f.name) .. ": " .. ftype
+        end
+    end
+
+    return "{ " .. table.concat(parts, ", ") .. " }"
+end
+
 local function getReturnType(ret, moduleName, functionName, returnIndex, static)
     if not ret then
         return "any", nil, nil
-    end
-
-    local function buildInlineFromFields(fields)
-        local parts = {}
-        for _, f in ipairs(fields or {}) do
-            if f.name ~= "..." then
-                local ftype
-                if f.table and #f.table > 0 then
-                    local nested = {}
-                    for _, nf in ipairs(f.table) do
-                        if nf.name ~= "..." then
-                            local nt = proc(nf.type)
-                            nested[#nested + 1] = keyConvert(nf.name) .. ": " .. nt
-                        end
-                    end
-                    ftype = "{ " .. table.concat(nested, ", ") .. " }"
-                else
-                    ftype = proc(f.type)
-                end
-                parts[#parts + 1] = keyConvert(f.name) .. ": " .. ftype
-            end
-        end
-        return "{ " .. table.concat(parts, ", ") .. " }"
     end
 
     if ret.arraytype and (not ret.table or #ret.table == 0) then
@@ -1280,11 +1302,9 @@ local function getReturnType(ret, moduleName, functionName, returnIndex, static)
 
     if ret.table and #ret.table > 0 then
         local inlineType = buildInlineFromFields(ret.table)
-        if ret.type then
-            local plural = select(1, isPlural(ret.type, knownTypes))
-            if plural then
-                inlineType = inlineType .. "[]"
-            end
+        local plural = select(1, isPlural(ret.type, knownTypes))
+        if plural then
+            inlineType = inlineType .. "[]"
         end
 
         if fieldsRequireClass(ret.table) then
@@ -1362,40 +1382,6 @@ local function reuseReturnForArg(variant, arg, moduleName, funName)
     return paramFields, paramArrayType, paramClassName
 end
 
-local function buildInlineFromFields(fields)
-    local parts = {}
-    for _, f in ipairs(fields) do
-        if f.name == "..." then
-            -- skip vararg-like field
-        else
-            local ftype = f.type or "any"
-            if ftype:find(" or ") or ftype:find(" and ") then
-                ftype = processTypeString(ftype, knownTypes)
-            end
-
-            if f.table and #f.table > 0 then
-                local nestedParts = {}
-                for _, nf in ipairs(f.table) do
-                    if nf.name ~= "..." then
-                        local nftype = nf.type
-                        if nftype and (nftype:find(" or ") or nftype:find(" and ")) then
-                            nftype = processTypeString(nftype, knownTypes)
-                        end
-                        nftype = proc(nftype)
-                        nestedParts[#nestedParts + 1] = keyConvert(nf.name) .. ": " .. nftype
-                    end
-                end
-                ftype = "{ " .. table.concat(nestedParts, ", ") .. " }"
-            else
-                ftype = proc(ftype)
-            end
-
-            parts[#parts + 1] = keyConvert(f.name) .. ": " .. ftype
-        end
-    end
-    return "{ " .. table.concat(parts, ", ") .. " }"
-end
-
 local function genFunction(moduleName, fun, static)
     local code = ""
     local funcDesc = fun.description or ""
@@ -1462,7 +1448,7 @@ local function genFunction(moduleName, fun, static)
     code = code .. (funcDesc ~= "" and safeDesc(funcDesc) or "") .. "\n"
     code = code .. "---\n"
     code = code ..
-        ("---[" .. wikiLinkName .. "](" .. wikiLinkUrl .. moduleName .. delimiter(static) .. fun.name .. ")\n")
+        ("---[" .. API.WIKI_LINK_NAME .. "](" .. API.WIKI_LINK_URL .. moduleName .. delimiter(static) .. fun.name .. ")\n")
     code = code .. "---\n"
 
     local argList = ""
@@ -1483,7 +1469,7 @@ local function genFunction(moduleName, fun, static)
             code = code .. safeDesc(variant.description) .. "\n"
         end
         if vIdx == 1 then
-            code = code .. (not static and ("---@param self %s\n"):format(apiName .. "." .. moduleName) or "")
+            code = code .. (not static and ("---@param self %s\n"):format(API.NAME .. "." .. moduleName) or "")
 
             for argIdx, arg in ipairs(arguments) do
                 argList = (argIdx == 1) and arg.name or (argList .. ", " .. arg.name)
@@ -1564,13 +1550,13 @@ local function genFunction(moduleName, fun, static)
                     if rClassName then
                         rDesc = rDesc .. " See class " .. rClassName .. " for field descriptions."
                     end
-                    code = code .. ("---@return " .. (rType or "any") .. rName  .. rDesc .. "\n")
+                    code = code .. ("---@return " .. (rType or "any") .. rName .. rDesc .. "\n")
                 end
             end
         else
             code = code .. "---@overload fun("
             if not static then
-                code = code .. "self: " .. apiName .. "." .. moduleName .. ((#arguments > 0) and ", " or "")
+                code = code .. "self: " .. API.NAME .. "." .. moduleName .. ((#arguments > 0) and ", " or "")
             end
 
             local firstParam = true
@@ -1660,11 +1646,11 @@ local function genType(type)
         code = code .. safeDesc(type.description) .. "\n"
     end
     code = code .. "---\n"
-    code = code .. ("---[" .. wikiLinkName .. "](" .. wikiLinkUrl .. type.name .. ")\n")
+    code = code .. ("---[" .. API.WIKI_LINK_NAME .. "](" .. API.WIKI_LINK_URL .. type.name .. ")\n")
     code = code .. "---\n"
-    code = code .. "---@class " .. apiName .. "." .. type.name
+    code = code .. "---@class " .. API.NAME .. "." .. type.name
     if type.supertypes then
-        code = code .. " : " .. apiName .. "." .. table.concat(type.supertypes, ", " .. apiName .. ".")
+        code = code .. " : " .. API.NAME .. "." .. table.concat(type.supertypes, ", " .. API.NAME .. ".")
     end
     code = code .. "\nlocal " .. type.name .. " = {}\n\n"
     if type.functions then
@@ -1681,9 +1667,9 @@ local function genEnum(enum)
         code = code .. safeDesc(enum.description) .. "\n"
     end
     code = code .. "---\n"
-    code = code .. ("---[" .. wikiLinkName .. "](" .. wikiLinkUrl .. enum.name .. ")\n")
+    code = code .. ("---[" .. API.WIKI_LINK_NAME .. "](" .. API.WIKI_LINK_URL .. enum.name .. ")\n")
     code = code .. "---\n"
-    code = code .. "---@alias " .. apiName .. "." .. enum.name .. "\n"
+    code = code .. "---@alias " .. API.NAME .. "." .. enum.name .. "\n"
     for _, const in ipairs(enum.constants) do
         code = code .. '---| "' .. const.name .. '" # ' .. stripNewlines(const.description) .. "\n"
     end
@@ -1693,10 +1679,16 @@ end
 
 local function genModule(name, api, outDir)
     print("Generating module " .. name)
-    local f = assert(io.open(outDir .. "/" .. name .. "." .. fileExt, "w"))
-    f:write("---@meta " .. apiEngine .. "\n\n")
 
-    if name == apiName and api and api.version and tostring(api.version) ~= "" then
+    local filePath = API.NAME
+    if name ~= API.NAME then
+        filePath = filePath .. "/" .. name:match("^" .. API.NAME .. "%.(.+)$")
+    end
+
+    local f = assert(io.open(outDir .. "/" .. filePath .. "." .. API.LIB_FILE_EXT, "w"))
+    f:write("---@meta " .. API.ENGINE .. "\n\n")
+
+    if name == API.NAME and api and api.version and tostring(api.version) ~= "" then
         f:write("-- version: " .. tostring(api.version) .. "\n")
     end
 
@@ -1705,7 +1697,7 @@ local function genModule(name, api, outDir)
     end
 
     f:write("---\n")
-    f:write("---[" .. (wikiLinkName or "Open in Browser") .. "](" .. wikiLinkUrl .. name .. ")\n")
+    f:write("---[" .. API.WIKI_LINK_NAME .. "](" .. API.WIKI_LINK_URL .. name .. ")\n")
     f:write("---\n")
 
     f:write("---@class " .. name .. "\n")
@@ -1713,9 +1705,9 @@ local function genModule(name, api, outDir)
 
     if api.types then
         for _, t in ipairs(api.types) do
-            f:write("--region " .. apiName .. "." .. t.name .. "\n\n")
+            f:write("--region " .. API.NAME .. "." .. t.name .. "\n\n")
             f:write(genType(t))
-            f:write("--endregion " .. apiName .. "." .. t.name .. "\n\n")
+            f:write("--endregion " .. API.NAME .. "." .. t.name .. "\n\n")
         end
     end
 
@@ -1743,15 +1735,15 @@ local function genModule(name, api, outDir)
         end
     end
 
-    if name == apiName and api then
-        -- add alias only to toplevel namespaces
+    if name == API.NAME and api then
+        -- add alias for `any` types only to toplevel namespaces
         f:write(aliasTypeToDef(aliasType))
     end
 
     f:close()
 end
 
-genModule(apiName, apiRequire, outputDir)
+genModule(API.NAME, apiRequire, API.OUTPUT_DIR)
 
 local completed = os.clock() - time
 print("--------")
