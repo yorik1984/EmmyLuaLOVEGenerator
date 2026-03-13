@@ -4,3 +4,10 @@ love_api.lua
 
 # Ignore tests
 test/
+
+# Temporary Lua files
+.lua/
+*.log
+tmp/
+
+nul
