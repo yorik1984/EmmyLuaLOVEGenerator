@@ -1,21 +1,29 @@
 name: Generate LÖVE EmmyLua API
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
   schedule:
-    # Run every Monday at 00:00 UTC
-    - cron: '0 0 * * 1'
+    # Runs every Monday at 00:00 UTC
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: write
 
 jobs:
   generate-and-commit:
     runs-on: ubuntu-latest
+    env:
+      REPO: ${{ github.repository }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Lua 5.1
@@ -23,95 +31,292 @@ jobs:
         with:
           luaVersion: "5.1"
 
-      - name: Generate API
+      - name: Determine current branch
+        id: branch
         run: |
-          # Clone love-api repository
-          git clone https://github.com/love2d-community/love-api love_source
+          if [ -n "${GITHUB_HEAD_REF:-}" ]; then
+            BR="${GITHUB_HEAD_REF}"
+          else
+            BR="${GITHUB_REF#refs/heads/}"
+          fi
+          echo "branch=${BR}" >> "$GITHUB_OUTPUT"
+        shell: bash
 
-          # Copy required files
+      - name: Fetch love-api and read API version
+        id: api_version
+        run: |
+          set -euo pipefail
+          TMP="/tmp/love-api-for-version"
+          rm -rf "$TMP"
+          git clone --depth 1 https://github.com/love2d-community/love-api "$TMP"
+          if [ ! -f "$TMP/love_api.lua" ]; then
+            echo "love_api.lua not found in cloned repo"
+            echo "api_version=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Extract version value like version = '11.5'
+          VER_LINE=$(grep -E "version[[:space:]]*=" "$TMP/love_api.lua" || true)
+          API_VER=""
+          if [ -n "$VER_LINE" ]; then
+            API_VER=$(echo "$VER_LINE" | sed -E "s/.*version[[:space:]]*=[[:space:]]*'([^']+)'.*/\1/")
+          fi
+          echo "api_version=${API_VER}" >> "$GITHUB_OUTPUT"
+        shell: bash
+
+      - name: Prepare love-api source
+        run: |
+          git clone https://github.com/love2d-community/love-api love_source
           cp -r love_source/modules .
           cp love_source/love_api.lua .
+        shell: bash
 
-        # Generate API files (outputs to api/ directory by default)
       - name: Generate API
         run: |
           echo "🔧 Generating EmmyLua API..."
           lua genEmmyAPI.lua
           echo "📊 Generated $(find api -name "*.lua" | wc -l) files"
+        shell: bash
 
       - name: Cleanup temporary files
         run: |
           rm -rf modules love_api.lua love_source
+        shell: bash
 
-      - name: Check for changes
-        id: check_changes
+      - name: Update README badge to target version
+        id: update_readme
         run: |
-          if git diff --quiet api/; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ No changes detected"
+          set -euo pipefail
+          BRANCH="${{ steps.branch.outputs.branch }}"
+          API_VER="${{ steps.api_version.outputs.api_version }}"
+
+          # decide target version:
+          if [ "$BRANCH" = "develop" ] || [ "$BRANCH" = "main" ]; then
+            TARGET_VERSION="$API_VER"
+          elif echo "$BRANCH" | grep -Eq "^[0-9]+(\\.[0-9]+)*$"; then
+            TARGET_VERSION="$BRANCH"
           else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "📝 Changes detected"
+            TARGET_VERSION="$API_VER"
           fi
 
-      - name: Commit and push
-        # Only commit on main branch (not on PRs)
-        if: |
-          steps.check_changes.outputs.changed == 'true' &&
-          github.event_name != 'pull_request' &&
-          github.ref == 'refs/heads/main'
+          echo "Detected branch: $BRANCH"
+          echo "Parsed API version: $API_VER"
+          echo "Target version for README badge: $TARGET_VERSION"
+
+          if [ -z "${TARGET_VERSION:-}" ]; then
+            echo "No target version — skipping README badge update"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          CHANGED=false
+          for README in README.md README.MD README; do
+            if [ -f "$README" ]; then
+              TMPFILE="$(mktemp)"
+              # Update only the version number in the LÖVE API badge
+              sed -E "s/(https:\/\/img\.shields\.io\/badge\/L%C3%96VE_API-)[^-]+(-EA316E\.svg)/\1${TARGET_VERSION}\2/g" "$README" > "$TMPFILE"
+
+              if ! cmp -s "$README" "$TMPFILE"; then
+                mv "$TMPFILE" "$README"
+                CHANGED=true
+                echo "Updated README badge version to ${TARGET_VERSION}"
+              else
+                rm -f "$TMPFILE"
+                echo "No changes needed for README badge"
+              fi
+            fi
+          done
+
+          echo "changed=${CHANGED}" >> "$GITHUB_OUTPUT"
+        shell: bash
+
+      - name: Check for changes in api/ or README
+        id: check_changes
         run: |
-          echo "💾 Committing changes..."
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "📝 Changes detected"
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No changes detected"
+          fi
+        shell: bash
 
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Commit and push changes to current branch
+        if: steps.check_changes.outputs.changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add api/
+          BRANCH="${{ steps.branch.outputs.branch }}"
+          API_VER="${{ steps.api_version.outputs.api_version }}"
+
+          echo "Branch: $BRANCH"
+          echo "API version: $API_VER"
+
+          # Add all changes (api/ folder and README)
+          git add -A
 
           # Get statistics for commit message
           file_count=$(find api -name "*.lua" | wc -l)
-          class_count=$(grep -r "@class love\." api/ | wc -l)
+          class_count=$(grep -r "@class love\." api/ | wc -l || true)
 
-          git commit -m "chore: regenerate LÖVE API from official love-api
+          git commit -m "chore: regenerate LÖVE API v${API_VER}
 
           - Generated $file_count API files
           - Created $class_count @class definitions
-          - All tests passed ✅
+          - Updated README badge to v${API_VER}
 
           Auto-generated by GitHub Actions"
 
-          git push origin main
-          echo "✅ Changes pushed"
+          # Configure remote with token for push
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+
+          # Push back to the same branch
+          if git rev-parse --verify --quiet "refs/remotes/origin/${BRANCH}" >/dev/null; then
+            git push origin "HEAD:${BRANCH}"
+          else
+            git push -u origin "HEAD:${BRANCH}"
+          fi
+
+          echo "✅ Changes pushed to ${BRANCH}"
+        shell: bash
+
+      - name: Sync branches (develop ↔ main)
+        if: steps.check_changes.outputs.changed == 'true' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          CURRENT_BRANCH="${{ steps.branch.outputs.branch }}"
+          OTHER_BRANCH=$([ "$CURRENT_BRANCH" = "develop" ] && echo "main" || echo "develop")
+          API_VER="${{ steps.api_version.outputs.api_version }}"
+
+          echo "🔄 Syncing branches: $CURRENT_BRANCH → $OTHER_BRANCH"
+
+          # Fetch latest changes
+          git fetch origin
+
+          # Checkout the other branch
+          git checkout "$OTHER_BRANCH"
+          git pull origin "$OTHER_BRANCH"
+
+          # Merge changes from current branch
+          if git merge --no-ff --no-edit "origin/$CURRENT_BRANCH"; then
+            git push origin "$OTHER_BRANCH"
+            echo "✅ Successfully merged $CURRENT_BRANCH into $OTHER_BRANCH"
+          else
+            echo "❌ Merge conflict detected. Attempting to resolve by keeping both branches updated..."
+            git merge --abort || true
+
+            # If merge fails, we still want to ensure the other branch has latest API
+            # Checkout current branch again to get the generated files
+            git checkout "$CURRENT_BRANCH"
+
+            # Create a temporary branch for the other branch with our changes
+            git checkout -b "sync-temp-$OTHER_BRANCH" "$OTHER_BRANCH"
+            git merge --no-ff --no-edit "$CURRENT_BRANCH" || {
+              echo "❌ Automatic merge failed. Manual intervention required."
+              exit 1
+            }
+            git push origin "sync-temp-$OTHER_BRANCH"
+            echo "⚠️ Created sync-temp-$OTHER_BRANCH for manual merge"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Manage version branch
+        if: steps.check_changes.outputs.changed == 'true' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="${{ steps.branch.outputs.branch }}"
+          API_VER="${{ steps.api_version.outputs.api_version }}"
+
+          if [ -z "${API_VER:-}" ]; then
+            echo "API version is empty — cannot merge into version branch. Skipping."
+            exit 0
+          fi
+
+          VERSION_BRANCH="$API_VER"
+          echo "📌 Managing version branch: ${VERSION_BRANCH}"
+
+          # Fetch remote branches
+          git fetch origin "+refs/heads/*:refs/remotes/origin/*" --prune
+
+          # Check if version branch exists
+          if git ls-remote --exit-code --heads origin "${VERSION_BRANCH}" >/dev/null 2>&1; then
+            echo "Version branch ${VERSION_BRANCH} exists. Merging ${BRANCH} into it."
+
+            # Checkout version branch
+            if git show-ref --verify --quiet "refs/heads/${VERSION_BRANCH}"; then
+              git checkout "${VERSION_BRANCH}"
+              git reset --hard "origin/${VERSION_BRANCH}"
+            else
+              git checkout -b "${VERSION_BRANCH}" "origin/${VERSION_BRANCH}"
+            fi
+
+            # Merge from original branch
+            if git merge --no-ff --no-edit "origin/${BRANCH}"; then
+              git push origin "${VERSION_BRANCH}"
+              echo "✅ Merged ${BRANCH} -> ${VERSION_BRANCH} and pushed."
+            else
+              echo "❌ Merge conflicts detected. Aborting."
+              git merge --abort || true
+              exit 1
+            fi
+          else
+            # Create new version branch
+            echo "Version branch ${VERSION_BRANCH} does not exist. Creating it from ${BRANCH}."
+            git checkout -b "${VERSION_BRANCH}"
+            git push -u origin "${VERSION_BRANCH}"
+            echo "✅ Created and pushed new branch ${VERSION_BRANCH}."
+          fi
+        shell: bash
 
       - name: Summary
         if: always()
         run: |
           echo "════════════════════════════════════════════════════════════"
-          echo "📊 Generation Summary"
+          echo "📊 Generation Summary for LÖVE API v${{ steps.api_version.outputs.api_version }}"
           echo "════════════════════════════════════════════════════════════"
 
           if [ -d "api" ]; then
             file_count=$(find api -name "*.lua" | wc -l)
+            class_count=$(grep -r "@class love\." api/ | wc -l || true)
 
             echo "Event: ${{ github.event_name }}"
-            echo "Branch: ${{ github.ref }}"
+            echo "Branch: ${{ steps.branch.outputs.branch }}"
+            echo "API Version: ${{ steps.api_version.outputs.api_version }}"
             echo ""
             echo "✓ API files: $file_count"
-            echo "✓ Tests: PASSED"
-            echo "✓ Validation: PASSED"
+            echo "✓ Class definitions: $class_count"
 
-            if [ "${{ github.event_name }}" = "pull_request" ]; then
+            if [ "${{ steps.check_changes.outputs.changed }}" = "true" ]; then
               echo ""
-              echo "ℹ️ PR mode: Changes not committed (validation only)"
-            elif [ "${{ steps.check_changes.outputs.changed }}" = "true" ]; then
-              echo ""
-              echo "✓ Changes committed and pushed"
+              echo "✅ Changes committed to ${{ steps.branch.outputs.branch }}"
+
+              if [ "${{ steps.branch.outputs.branch }}" = "develop" ] || [ "${{ steps.branch.outputs.branch }}" = "main" ]; then
+                OTHER_BRANCH=$([ "${{ steps.branch.outputs.branch }}" = "develop" ] && echo "main" || echo "develop")
+                echo "✅ Synced ${{ steps.branch.outputs.branch }} → ${OTHER_BRANCH}"
+                echo "✅ Version branch ${{ steps.api_version.outputs.api_version }} updated"
+              fi
             else
               echo ""
               echo "ℹ️ No changes to commit"
             fi
           else
-            echo "✗ Generation failed"
+            echo "❌ Generation failed - api/ directory not found"
           fi
 
           echo "════════════════════════════════════════════════════════════"

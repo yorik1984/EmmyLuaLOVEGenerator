@@ -3,29 +3,35 @@
 [![Generate LÖVE EmmyLua API](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml/badge.svg)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/blob/main/LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1-blue.svg)](https://www.lua.org/)
-[![LÖVE API](https://img.shields.io/badge/L%C3%96VE_API-11.5-EA316E.svg)](https://github.com/love2d-community/love-api?tab=readme-ov-file#l%C3%B6ve-api)
+[![LÖVE API](https://img.shields.io/badge/L%C3%96VE_API-11.5-EA316E.svg)](https://github.com/love2d-community/love-api)
 
-Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) framework, compatible with [EmmyLua analyzer](https://github.com/EmmyLuaLs/emmylua-analyzer-rust).
+Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) framework.
 
-## 📑 Table of Contents
+<!-- TOC -->
+
+## Table of Contents
 
 - [🚀 Features](#-features)
+  - [Compatibility](#compatibility)
+  - [Automatic API Generation](#automatic-api-generation)
+  - [Enhanced Type System](#enhanced-type-system)
+  - [Improved Generation](#improved-generation)
 - [📦 Usage](#-usage)
   - [Using Pre-generated Files from Repository](#using-pre-generated-files-from-repository)
-  - [Manual API Generation](#manual-api-generation)
-- [🔄 Automatic Updates](#-automatic-updates)
-- [📋 What Gets Generated](#-what-gets-generated)
-- [🆚 Differences from Emmy-love-api](#-differences-from-emmy-love-api)
+- [🔄 Rebuilding the API](#-rebuilding-the-api)
+  - [🤖 Automated Workflow](#-automated-workflow)
+  - [📋 What Gets Generated](#-what-gets-generated)
+  - [✋ Manual Generation (Optional)](#-manual-generation-optional)
+- [🆚 Improvements](#-improvements)
+  - [Architectural Improvements](#architectural-improvements)
+  - [Generation Improvements](#generation-improvements)
+- [📚 References & Related Projects](#-references--related-projects)
 - [🙏 Credits](#-credits)
 - [📄 License](#-license)
 
+<!-- /TOC -->
+
 ## 🚀 Features
-
-### Compatibility
-
-- **EmmyLua**: modern versions (with `---@meta` support)
-- **Lua**: 5.1
-- **LÖVE**: 11.5
 
 ### Automatic API Generation
 
@@ -60,35 +66,76 @@ Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) 
 - **Varargs Support** - proper handling of `...` parameters
 - **Parameter Expansion** - handles `param1, param2` as separate parameters
 
-### Debug Mode
-
-- **DEBUG Mode** - detailed statistics on collected types
-
 ## 📦 Usage
 
 ### Using Pre-generated Files from Repository
 
-1. Download the `api/` folder from the repository:
+* Download the `api/` folder from the repository:
    - For the **latest version**: use the [`main`](https://github.com/yorik1984/EmmyLuaLOVEGenerator/tree/main) branch
    - For a **specific version**: use the branch named with that version (e.g., [`11.5`](https://github.com/yorik1984/EmmyLuaLOVEGenerator/tree/11.5) for LÖVE 11.5)
 
-1. Add the library path to `.emmyrc.json` or configure your LSP server similarly, as shown below:
-
+* Configure your LSP server similarly, as shown below:
 ```json
 {
-  "workspace": {
-    "library": ["<full path to api directory>"]
-  }
+    "workspace": {
+        "library": ["<full path to api directory>"]
+    }
 }
 ```
 
-1. Restart or reload your IDE
+* Restart or reload your IDE
 
-### Manual API Generation
+## 🔄 Rebuilding the API
+
+### 🤖 Automated Workflow
+
+The repository is configured for automatic updates via GitHub Actions:
+
+- On every push to `main` branch
+- Can be manually triggered via `workflow_dispatch`
+
+The workflow automatically:
+
+1. Clones the official love-api
+2. Generates EmmyLua annotations
+3. Commits updates to the repository
+
+### 📋 What Gets Generated
+
+The generator creates files for all LÖVE modules:
+
+```
+api/
+├── love.lua           # Core module
+├── love.audio.lua     # Audio
+├── love.graphics.lua  # Graphics
+├── love.physics.lua   # Physics
+├── love.filesystem.lua # File system
+└── ... (all other modules)
+```
+
+Each file contains:
+
+- `---@meta love2d` headers
+- `---@class` type definitions with inheritance
+- `---@alias` definitions for enums
+- `---@param`, `---@return`, `---@overload` function annotations
+- Links to official LÖVE documentation
+- Region markers for convenient navigation
+
+### ✋ Manual Generation (Optional)
+
+> [!TIP]
+> **You don't need to do this!** The automated workflow keeps everything up-to-date.  
+> Manual generation is only for:
+> - Testing custom modifications
+> - Contributing to plugin development
+> - Offline environments without GitHub Actions
 
 > [!WARNING]
 > Generate API manually only if the LÖVE version you need is missing from the repository branches. Branch name corresponds to LÖVE version number (e.g., branch `11.5` contains API for LÖVE 11.5). The `main` branch always contains the latest API version.
 
+If you still want to generate files manually:
 1. Download [LÖVE API](https://github.com/love2d-community/love-api) for the version you need
 2. Copy `modules/` and `love_api.lua` to the root of this repository
 3. Run the generator:
@@ -110,65 +157,17 @@ lua genEmmyAPI.lua DEBUG "my_api"
 lua genEmmyAPI.lua HELP
 ```
 
-* Add the library path to `.emmyrc.json` or configure your LSP server similarly, as shown below:
+## 🆚 Improvements
 
-```json
-{
-  "workspace": {
-    "library": ["<full path to api directory>"]
-  }
-}
-```
-
-* Restart or reload your IDE
-
-## 🔄 Automatic Updates
-
-The repository is configured for automatic updates via GitHub Actions:
-
-- On every push to `main` branch
-- Can be manually triggered via `workflow_dispatch`
-
-The workflow automatically:
-
-1. Clones the official love-api
-2. Generates EmmyLua annotations
-3. Commits updates to the repository
-
-## 📋 What Gets Generated
-
-The generator creates files for all LÖVE modules:
-
-```
-api/
-├── love.lua           # Core module
-├── love.audio.lua     # Audio
-├── love.graphics.lua  # Graphics
-├── love.physics.lua   # Physics
-├── love.filesystem.lua # File system
-└── ... (all other modules)
-```
-
-Each file contains:
-
-- `---@meta` and `---@namespace love` headers
-- `---@class` type definitions with inheritance
-- `---@alias` definitions for enums
-- `---@param`, `---@return`, `---@overload` function annotations
-- Links to official LÖVE documentation
-- Region markers for convenient navigation
-
-## 🆚 Differences from Emmy-love-api
-
-### Architectural Improvements
+### Architectural
 
 - ✅ Nothing included by default - avoiding outdated API versions
 - ✅ Ready files in `api/` - can be used immediately
 - ✅ Automatic updates via GitHub Actions
-- ✅ Works with modern EmmyLua (uses `---@meta` instead of classes)
+- ✅ Works with modern EmmyLua (uses `---@meta`)
 - ✅ Namespace definitions - `love.Object` doesn't conflict with your types
 
-### Generation Improvements
+### Generation
 
 - ✅ Optional parameters properly marked (`type?`)
 - ✅ Default values in descriptions ```(defaults to `...`)```
@@ -182,12 +181,22 @@ Each file contains:
 - ✅ DEBUG mode for type analysis
 - ✅ Custom output directory support
 
-### Code Improvements
+## 📚 References & Related Projects
 
-- ✅ Console output for progress tracking
-- ✅ Tabs replaced with spaces
-- ✅ Consistent indentation
-- ✅ No warnings in generated files
+Expand your LÖVE development toolkit with these complementary resources:
+
+#### [love2d-docs.nvim](https://github.com/yorik1984/love2d-docs.nvim) 📘
+A comprehensive (Neo)Vim plugin that brings the entire LÖVE framework documentation into your editor with beautiful syntax highlighting.
+
+*   **What it does:** Provides complete LÖVE API documentation via `:help`, syntax highlighting for LÖVE functions, modules, types, and callbacks, with full **Treesitter support**.
+*   **✨ Key Features:**
+    *   **🎨 Dual Editor Support:** Works flawlessly in both **Neovim** (with Treesitter) and **classic Vim**.
+    *   **🤖 Automated Updates:** Uses GitHub Actions to stay in sync with the official love-api, just like this generator.
+    *   **📖 Built-in Help:** Access documentation for any function (e.g., `:help love2d-docs-love.graphics.rectangle`) or type directly from your editor.
+    *   **⚙️ Fully Customizable:** Offers flexible styling options for colors and font styles (bold, italic, etc.) for both Neovim and Vim.
+    *   **📌 Version Branches:** Maintains version-specific branches (e.g., `11.5`) to match different LÖVE releases.
+
+> **💡 Pro Tip:** Use **love2d-docs.nvim** alongside this generator for the ultimate LÖVE development setup—get beautiful inline syntax highlighting in your editor *and* intelligent IDE autocompletion from these EmmyLua annotations.
 
 ## 🙏 Credits
 
