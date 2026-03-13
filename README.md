@@ -5,7 +5,7 @@
 [![Lua](https://img.shields.io/badge/Lua-5.1-blue.svg)](https://www.lua.org/)
 [![LÖVE API](https://img.shields.io/badge/L%C3%96VE_API-11.5-EA316E.svg)](https://github.com/love2d-community/love-api)
 
-Automatic LuaCATS type annotation generator for [LÖVE 2D](https://love2d.org/) framework.
+Automatic [LuaCATS](https://luals.github.io/wiki/annotations/) type annotation generator for [LÖVE 2D](https://love2d.org/) framework.
 
 <!-- TOC -->
 
@@ -215,12 +215,10 @@ A comprehensive (Neo)Vim plugin that brings the entire LÖVE framework documenta
 
 ## 🙏 Credits
 
-Based on [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api).
+Based on [@NyakoFox](https://github.com/NyakoFox)'s [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api).
 
 - [@tangzx](https://github.com/tangzx) - original script
 - [@kindfulkirby](https://github.com/kindfulkirby) - modifications and initial README
-- [@NyakoFox](https://github.com/NyakoFox) - update for modern LuaCATS
-- [@yorik1984](https://github.com/yorik1984) - enhanced type system, GitHub Actions
 
 ## 📄 License
 
