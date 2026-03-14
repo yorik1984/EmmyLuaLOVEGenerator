@@ -1140,7 +1140,7 @@ local function appendDefaultDesc(desc, default)
     local dstr = tostring(default)
 
     -- treat string "true"/"false" as boolean-like default to
-    return desc .. (desc == "" and "" or " ") .. "(defaults to `" .. dstr .. "`.)"
+    return desc .. (desc == "" and "" or " ") .. "(defaults to `" .. dstr .. "`)."
 end
 
 -- genClassForTable now accepts `static` and uses that separator when building class names/descriptions
@@ -1491,8 +1491,6 @@ local function genFunction(moduleName, fun, static)
 
                     -- Build param inline type:
                     local paramClassName
-
-                    desc = appendDefaultDesc(desc, arg.default)
                     atype = proc(atype)
 
                     if atype == "table" then
@@ -1512,18 +1510,19 @@ local function genFunction(moduleName, fun, static)
                             atype = "table"
                         end
 
-                        desc = appendDefaultDesc(desc, arg.default)
-
                         if paramClassName ~= nil then
-                            local link = ("See class " .. paramClassName .. " for field descriptions.")
+                            local link = ("See class `" .. paramClassName .. "` for field descriptions.")
                             desc = desc .. (desc ~= "" and " " or "") .. link
                         end
                     elseif atype == "function" then
                         atype = buildCallbackType(arg.callback)
                     end
 
-                    atype = atype .. (isOptional and "?" or "")
+                    if arg.default ~= nil and not desc:find("%(defaults to `") then
+                        desc = appendDefaultDesc(desc, arg.default)
+                    end
 
+                    atype = atype .. (isOptional and "?" or "")
                     desc = desc ~= "" and " " .. desc or ""
                     code = code .. ("---@param " .. arg.name .. " " .. atype .. desc .. "\n")
                 end
@@ -1546,9 +1545,13 @@ local function genFunction(moduleName, fun, static)
                     if rDesc == "" and r.name == "..." then
                         rName = " " .. r.name
                     end
+
+                    -- Described Function Return
+                    rName = rName ~= "" and rName or " #"
+
                     -- If there is a class for this return, append reference in comment
                     if rClassName then
-                        rDesc = rDesc .. " See class " .. rClassName .. " for field descriptions."
+                        rDesc = rDesc .. " See class `" .. rClassName .. "` for field descriptions."
                     end
                     code = code .. ("---@return " .. (rType or "any") .. rName .. rDesc .. "\n")
                 end
@@ -1671,7 +1674,7 @@ local function genEnum(enum)
     code = code .. "---\n"
     code = code .. "---@alias " .. API.NAME .. "." .. enum.name .. "\n"
     for _, const in ipairs(enum.constants) do
-        code = code .. '---| "' .. const.name .. '" # ' .. stripNewlines(const.description) .. "\n"
+        code = code .. '---| \'"' .. const.name .. '"\' # ' .. stripNewlines(const.description) .. "\n"
     end
     code = code .. "\n"
     return code

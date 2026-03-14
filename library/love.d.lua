@@ -146,62 +146,62 @@ function love.setDeprecationOutput(enable) end
 
 ---Options for `love.conf`.
 ---@class love.conf.t
----@field identity string This flag determines the name of the save directory for your game. Note that you can only specify the name, not the location where it will be created: (defaults to `nil`.)
----@field appendidentity? boolean This flag determines if game directory should be searched first then save directory (true) or otherwise (false) (defaults to `false`.)
----@field version? string t.version should be a string, representing the version of LÖVE for which your game was made. It should be formatted as "X.Y.Z" where X is the major release number, Y the minor, and Z the patch level. It allows LÖVE to display a warning if it isn't compatible. Its default is the version of LÖVE running. (defaults to `"11.5"`.)
----@field console? boolean Determines whether a console should be opened alongside the game window (Windows only) or not. Note: On OSX you can get console output by running LÖVE through the terminal. (defaults to `false`.)
----@field accelerometerjoystick? boolean Sets whether the device accelerometer on iOS and Android should be exposed as a 3-axis Joystick. Disabling the accelerometer when it's not used may reduce CPU usage. (defaults to `true`.)
----@field externalstorage? boolean Sets whether files are saved in external storage (true) or internal storage (false) on Android. (defaults to `false`.)
----@field gammacorrect? boolean Determines whether gamma-correct rendering is enabled, when the system supports it. (defaults to `false`.)
+---@field identity string This flag determines the name of the save directory for your game. Note that you can only specify the name, not the location where it will be created: (defaults to `nil`).
+---@field appendidentity? boolean This flag determines if game directory should be searched first then save directory (true) or otherwise (false) (defaults to `false`).
+---@field version? string t.version should be a string, representing the version of LÖVE for which your game was made. It should be formatted as "X.Y.Z" where X is the major release number, Y the minor, and Z the patch level. It allows LÖVE to display a warning if it isn't compatible. Its default is the version of LÖVE running. (defaults to `"11.5"`).
+---@field console? boolean Determines whether a console should be opened alongside the game window (Windows only) or not. Note: On OSX you can get console output by running LÖVE through the terminal. (defaults to `false`).
+---@field accelerometerjoystick? boolean Sets whether the device accelerometer on iOS and Android should be exposed as a 3-axis Joystick. Disabling the accelerometer when it's not used may reduce CPU usage. (defaults to `true`).
+---@field externalstorage? boolean Sets whether files are saved in external storage (true) or internal storage (false) on Android. (defaults to `false`).
+---@field gammacorrect? boolean Determines whether gamma-correct rendering is enabled, when the system supports it. (defaults to `false`).
 ---@field audio love.conf.t.audio Audio options.
 ---@field window love.conf.t.window It is possible to defer window creation until love.window.setMode is first called in your code. To do so, set t.window = nil in love.conf (or t.screen = nil in older versions.) If this is done, LÖVE may crash if any function from love.graphics is called before the first love.window.setMode in your code.
 ---@field modules love.conf.t.modules Module options.
 
 ---Options for `love.conf`.
 ---@class love.conf.t.audio
----@field mic boolean Request microphone permission from the user. When user allows it, love.audio.getRecordingDevices will lists recording devices available. Otherwise, love.audio.getRecordingDevices returns empty table and a message is shown to inform user when called. (defaults to `false`.)
----@field mixwithsystem? boolean Sets whether background audio / music from other apps should play while LÖVE is open. See love.system.hasBackgroundMusic for more details. (defaults to `true`.)
+---@field mic boolean Request microphone permission from the user. When user allows it, love.audio.getRecordingDevices will lists recording devices available. Otherwise, love.audio.getRecordingDevices returns empty table and a message is shown to inform user when called. (defaults to `false`).
+---@field mixwithsystem? boolean Sets whether background audio / music from other apps should play while LÖVE is open. See love.system.hasBackgroundMusic for more details. (defaults to `true`).
 
 ---Options for `love.conf`.
 ---@class love.conf.t.window
----@field title string Sets the title of the window the game is in. Alternatively love.window.setTitle can be used to change the window title outside of the config file. (defaults to `"Untitled"`.)
----@field icon? string A filepath to an image to use as the window's icon. Not all operating systems support very large icon images. The icon can also be changed with love.window.setIcon. (defaults to `nil`.)
----@field width? number Sets the window's dimensions. If these flags are set to 0 LÖVE automatically uses the user's desktop dimensions. (defaults to `800`.)
----@field height? number Sets the window's dimensions. If these flags are set to 0 LÖVE automatically uses the user's desktop dimensions. (defaults to `600`.)
----@field borderless? boolean Removes all border visuals from the window. Note that the effects may wary between operating systems. (defaults to `false`.)
----@field resizable? boolean If set to true this allows the user to resize the game's window. (defaults to `false`.)
----@field minwidth? number Sets the minimum width and height for the game's window if it can be resized by the user. If you set lower values to window.width and window.height LÖVE will always favor the minimum dimensions set via window.minwidth and window.minheight. (defaults to `1`.)
----@field minheight? number Sets the minimum width and height for the game's window if it can be resized by the user. If you set lower values to window.width and window.height LÖVE will always favor the minimum dimensions set via window.minwidth and window.minheight. (defaults to `1`.)
----@field fullscreen? boolean Whether to run the game in fullscreen (true) or windowed (false) mode. The fullscreen can also be toggled via love.window.setFullscreen or love.window.setMode. (defaults to `false`.)
----@field fullscreentype? string Specifies the type of fullscreen mode to use (normal or desktop). Generally the desktop is recommended, as it is less restrictive than normal mode on some operating systems. (defaults to `"desktop"`.)
----@field usedpiscale? boolean Sets whetever to enable or disable automatic DPI scaling. (defaults to `true`.)
----@field vsync? number Enables or deactivates vertical synchronization. Vsync tries to keep the game at a steady framerate and can prevent issues like screen tearing. It is recommended to keep vsync activated if you don't know about the possible implications of turning it off. Before LÖVE 11.0, this value was boolean (true or false). Since LÖVE 11.0, this value is number (1 to enable vsync, 0 to disable vsync, -1 to use adaptive vsync when supported). (defaults to `true`.)
----@field depth? number The number of bits per sample in the depth buffer (16/24/32, default nil) (defaults to `nil`.)
----@field stencil? number Then number of bits per sample in the depth buffer (generally 8, default nil) (defaults to `nil`.)
----@field msaa? number The number of samples to use with multi-sampled antialiasing. (defaults to `0`.)
----@field display? number The index of the display to show the window in, if multiple monitors are available. (defaults to `1`.)
----@field highdpi? boolean See love.window.getPixelScale, love.window.toPixels, and love.window.fromPixels. It is recommended to keep this option disabled if you can't test your game on a Mac or iOS system with a Retina display, because code will need tweaking to make sure things look correct. (defaults to `false`.)
----@field x? number Determines the position of the window on the user's screen. Alternatively love.window.setPosition can be used to change the position on the fly. (defaults to `nil`.)
----@field y? number Determines the position of the window on the user's screen. Alternatively love.window.setPosition can be used to change the position on the fly. (defaults to `nil`.)
+---@field title string Sets the title of the window the game is in. Alternatively love.window.setTitle can be used to change the window title outside of the config file. (defaults to `"Untitled"`).
+---@field icon? string A filepath to an image to use as the window's icon. Not all operating systems support very large icon images. The icon can also be changed with love.window.setIcon. (defaults to `nil`).
+---@field width? number Sets the window's dimensions. If these flags are set to 0 LÖVE automatically uses the user's desktop dimensions. (defaults to `800`).
+---@field height? number Sets the window's dimensions. If these flags are set to 0 LÖVE automatically uses the user's desktop dimensions. (defaults to `600`).
+---@field borderless? boolean Removes all border visuals from the window. Note that the effects may wary between operating systems. (defaults to `false`).
+---@field resizable? boolean If set to true this allows the user to resize the game's window. (defaults to `false`).
+---@field minwidth? number Sets the minimum width and height for the game's window if it can be resized by the user. If you set lower values to window.width and window.height LÖVE will always favor the minimum dimensions set via window.minwidth and window.minheight. (defaults to `1`).
+---@field minheight? number Sets the minimum width and height for the game's window if it can be resized by the user. If you set lower values to window.width and window.height LÖVE will always favor the minimum dimensions set via window.minwidth and window.minheight. (defaults to `1`).
+---@field fullscreen? boolean Whether to run the game in fullscreen (true) or windowed (false) mode. The fullscreen can also be toggled via love.window.setFullscreen or love.window.setMode. (defaults to `false`).
+---@field fullscreentype? string Specifies the type of fullscreen mode to use (normal or desktop). Generally the desktop is recommended, as it is less restrictive than normal mode on some operating systems. (defaults to `"desktop"`).
+---@field usedpiscale? boolean Sets whetever to enable or disable automatic DPI scaling. (defaults to `true`).
+---@field vsync? number Enables or deactivates vertical synchronization. Vsync tries to keep the game at a steady framerate and can prevent issues like screen tearing. It is recommended to keep vsync activated if you don't know about the possible implications of turning it off. Before LÖVE 11.0, this value was boolean (true or false). Since LÖVE 11.0, this value is number (1 to enable vsync, 0 to disable vsync, -1 to use adaptive vsync when supported). (defaults to `true`).
+---@field depth? number The number of bits per sample in the depth buffer (16/24/32, default nil) (defaults to `nil`).
+---@field stencil? number Then number of bits per sample in the depth buffer (generally 8, default nil) (defaults to `nil`).
+---@field msaa? number The number of samples to use with multi-sampled antialiasing. (defaults to `0`).
+---@field display? number The index of the display to show the window in, if multiple monitors are available. (defaults to `1`).
+---@field highdpi? boolean See love.window.getPixelScale, love.window.toPixels, and love.window.fromPixels. It is recommended to keep this option disabled if you can't test your game on a Mac or iOS system with a Retina display, because code will need tweaking to make sure things look correct. (defaults to `false`).
+---@field x? number Determines the position of the window on the user's screen. Alternatively love.window.setPosition can be used to change the position on the fly. (defaults to `nil`).
+---@field y? number Determines the position of the window on the user's screen. Alternatively love.window.setPosition can be used to change the position on the fly. (defaults to `nil`).
 
 ---Options for `love.conf`.
 ---@class love.conf.t.modules
----@field audio boolean Enable the audio module. (defaults to `true`.)
----@field event? boolean Enable the event module. (defaults to `true`.)
----@field graphics? boolean Enable the graphics module. (defaults to `true`.)
----@field image? boolean Enable the image module. (defaults to `true`.)
----@field joystick? boolean Enable the joystick module. (defaults to `true`.)
----@field keyboard? boolean Enable the keyboard module. (defaults to `true`.)
----@field math? boolean Enable the math module. (defaults to `true`.)
----@field mouse? boolean Enable the mouse module. (defaults to `true`.)
----@field physics? boolean Enable the physics module. (defaults to `true`.)
----@field sound? boolean Enable the sound module. (defaults to `true`.)
----@field system? boolean Enable the system module. (defaults to `true`.)
----@field timer? boolean Enable the timer module. (defaults to `true`.)
----@field touch? boolean Enable the touch module. (defaults to `true`.)
----@field video? boolean Enable the video module. (defaults to `true`.)
----@field window? boolean Enable the window module. (defaults to `true`.)
----@field thread? boolean Enable the thread module. (defaults to `true`.)
+---@field audio boolean Enable the audio module. (defaults to `true`).
+---@field event? boolean Enable the event module. (defaults to `true`).
+---@field graphics? boolean Enable the graphics module. (defaults to `true`).
+---@field image? boolean Enable the image module. (defaults to `true`).
+---@field joystick? boolean Enable the joystick module. (defaults to `true`).
+---@field keyboard? boolean Enable the keyboard module. (defaults to `true`).
+---@field math? boolean Enable the math module. (defaults to `true`).
+---@field mouse? boolean Enable the mouse module. (defaults to `true`).
+---@field physics? boolean Enable the physics module. (defaults to `true`).
+---@field sound? boolean Enable the sound module. (defaults to `true`).
+---@field system? boolean Enable the system module. (defaults to `true`).
+---@field timer? boolean Enable the timer module. (defaults to `true`).
+---@field touch? boolean Enable the touch module. (defaults to `true`).
+---@field video? boolean Enable the video module. (defaults to `true`).
+---@field window? boolean Enable the window module. (defaults to `true`).
+---@field thread? boolean Enable the thread module. (defaults to `true`).
 
 ---If a file called conf.lua is present in your game folder (or .love file), it is run before the LÖVE modules are loaded. You can use this file to overwrite the love.conf function, which is later called by the LÖVE 'boot' script. Using the love.conf function, you can set some configuration options, and change things like the default size of the window, which modules are loaded, and other stuff.
 ---

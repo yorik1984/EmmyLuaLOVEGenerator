@@ -12,29 +12,29 @@ love.window = {}
 ---[Open in Browser](https://love2d.org/wiki/DisplayOrientation)
 ---
 ---@alias love.DisplayOrientation
----| "unknown" # Orientation cannot be determined.
----| "landscape" # Landscape orientation.
----| "landscapeflipped" # Landscape orientation (flipped).
----| "portrait" # Portrait orientation.
----| "portraitflipped" # Portrait orientation (flipped).
+---| '"unknown"' # Orientation cannot be determined.
+---| '"landscape"' # Landscape orientation.
+---| '"landscapeflipped"' # Landscape orientation (flipped).
+---| '"portrait"' # Portrait orientation.
+---| '"portraitflipped"' # Portrait orientation (flipped).
 
 ---Types of fullscreen modes.
 ---
 ---[Open in Browser](https://love2d.org/wiki/FullscreenType)
 ---
 ---@alias love.FullscreenType
----| "desktop" # Sometimes known as borderless fullscreen windowed mode. A borderless screen-sized window is created which sits on top of all desktop UI elements. The window is automatically resized to match the dimensions of the desktop, and its size cannot be changed.
----| "exclusive" # Standard exclusive-fullscreen mode. Changes the display mode (actual resolution) of the monitor.
----| "normal" # Standard exclusive-fullscreen mode. Changes the display mode (actual resolution) of the monitor.
+---| '"desktop"' # Sometimes known as borderless fullscreen windowed mode. A borderless screen-sized window is created which sits on top of all desktop UI elements. The window is automatically resized to match the dimensions of the desktop, and its size cannot be changed.
+---| '"exclusive"' # Standard exclusive-fullscreen mode. Changes the display mode (actual resolution) of the monitor.
+---| '"normal"' # Standard exclusive-fullscreen mode. Changes the display mode (actual resolution) of the monitor.
 
 ---Types of message box dialogs. Different types may have slightly different looks.
 ---
 ---[Open in Browser](https://love2d.org/wiki/MessageBoxType)
 ---
 ---@alias love.MessageBoxType
----| "info" # Informational dialog.
----| "warning" # Warning dialog.
----| "error" # Error dialog.
+---| '"info"' # Informational dialog.
+---| '"warning"' # Warning dialog.
+---| '"error"' # Error dialog.
 
 ---Closes the window. It can be reopened with love.window.setMode.
 ---
@@ -78,7 +78,7 @@ function love.window.getDPIScale() end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.window.getDesktopDimensions)
 ---
----@param displayindex number The index of the display, if multiple monitors are available. (defaults to `1`.)
+---@param displayindex number The index of the display, if multiple monitors are available. (defaults to `1`).
 ---@return number width The width of the desktop.
 ---@return number height The height of the desktop.
 function love.window.getDesktopDimensions(displayindex) end
@@ -94,7 +94,7 @@ function love.window.getDisplayCount() end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.window.getDisplayName)
 ---
----@param displayindex number The index of the display to get the name of. (defaults to `1`.)
+---@param displayindex number The index of the display to get the name of. (defaults to `1`).
 ---@return string name The name of the specified display.
 function love.window.getDisplayName(displayindex) end
 
@@ -102,7 +102,7 @@ function love.window.getDisplayName(displayindex) end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.window.getDisplayOrientation)
 ---
----@param displayindex number Display index to get its display orientation, or nil for default display index. (defaults to `nil`.)
+---@param displayindex number Display index to get its display orientation, or nil for default display index. (defaults to `nil`).
 ---@return love.DisplayOrientation orientation Current device display orientation.
 function love.window.getDisplayOrientation(displayindex) end
 
@@ -123,8 +123,8 @@ function love.window.getFullscreen() end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.window.getFullscreenModes)
 ---
----@param displayindex number The index of the display, if multiple monitors are available. (defaults to `1`.)
----@return { width: number, height: number } modes A table of width/height pairs. (Note that this may not be in order.) See class love.window.getFullscreenModes.result for field descriptions.
+---@param displayindex number The index of the display, if multiple monitors are available. (defaults to `1`).
+---@return { width: number, height: number } modes A table of width/height pairs. (Note that this may not be in order.) See class `love.window.getFullscreenModes.result` for field descriptions.
 function love.window.getFullscreenModes(displayindex) end
 
 ---Gets the window icon.
@@ -158,7 +158,7 @@ function love.window.getIcon() end
 ---
 ---@return number width Window width.
 ---@return number height Window height.
----@return { fullscreen: boolean, fullscreentype: love.FullscreenType, vsync: boolean, msaa: number, resizable: boolean, borderless: boolean, centered: boolean, display: number, minwidth: number, minheight: number, highdpi: boolean, refreshrate: number, x: number, y: number, srgb: boolean } flags Table with the window properties: See class love.window.getMode.result3 for field descriptions.
+---@return { fullscreen: boolean, fullscreentype: love.FullscreenType, vsync: boolean, msaa: number, resizable: boolean, borderless: boolean, centered: boolean, display: number, minwidth: number, minheight: number, highdpi: boolean, refreshrate: number, x: number, y: number, srgb: boolean } flags Table with the window properties: See class `love.window.getMode.result3` for field descriptions.
 function love.window.getMode() end
 
 ---Gets the position of the window on the screen.
@@ -273,7 +273,7 @@ function love.window.minimize() end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.window.requestAttention)
 ---
----@param continuous boolean Whether to continuously request attention until the window becomes active, or to do it only once. (defaults to `false`.)
+---@param continuous boolean Whether to continuously request attention until the window becomes active, or to do it only once. (defaults to `false`).
 function love.window.requestAttention(continuous) end
 
 ---Restores the size and position of the window if it was minimized or maximized.
@@ -312,23 +312,23 @@ function love.window.setIcon(imagedata) end
 
 ---Options for `love.window.setMode`.
 ---@class love.window.setMode.flags
----@field fullscreen boolean Fullscreen (true), or windowed (false). (defaults to `false`.)
----@field fullscreentype? love.FullscreenType The type of fullscreen to use. This defaults to 'normal' in 0.9.0 through 0.9.2 and to 'desktop' in 0.10.0 and older. (defaults to `'desktop'`.)
----@field vsync? boolean True if LÖVE should wait for vsync, false otherwise. (defaults to `true`.)
----@field msaa? number The number of antialiasing samples. (defaults to `0`.)
----@field stencil? boolean Whether a stencil buffer should be allocated. If true, the stencil buffer will have 8 bits. (defaults to `true`.)
----@field depth? number The number of bits in the depth buffer. (defaults to `0`.)
----@field resizable? boolean True if the window should be resizable in windowed mode, false otherwise. (defaults to `false`.)
----@field borderless? boolean True if the window should be borderless in windowed mode, false otherwise. (defaults to `false`.)
----@field centered? boolean True if the window should be centered in windowed mode, false otherwise. (defaults to `true`.)
----@field display? number The index of the display to show the window in, if multiple monitors are available. (defaults to `1`.)
----@field minwidth? number The minimum width of the window, if it's resizable. Cannot be less than 1. (defaults to `1`.)
----@field minheight? number The minimum height of the window, if it's resizable. Cannot be less than 1. (defaults to `1`.)
----@field highdpi? boolean True if high-dpi mode should be used on Retina displays in macOS and iOS. Does nothing on non-Retina displays. (defaults to `false`.)
----@field x? number The x-coordinate of the window's position in the specified display. (defaults to `nil`.)
----@field y? number The y-coordinate of the window's position in the specified display. (defaults to `nil`.)
----@field usedpiscale? boolean Disables automatic DPI scaling when false. (defaults to `true`.)
----@field srgb? boolean Removed in 0.10.0 (set t.gammacorrect in conf.lua instead). True if sRGB gamma correction should be applied when drawing to the screen. (defaults to `false`.)
+---@field fullscreen boolean Fullscreen (true), or windowed (false). (defaults to `false`).
+---@field fullscreentype? love.FullscreenType The type of fullscreen to use. This defaults to 'normal' in 0.9.0 through 0.9.2 and to 'desktop' in 0.10.0 and older. (defaults to `'desktop'`).
+---@field vsync? boolean True if LÖVE should wait for vsync, false otherwise. (defaults to `true`).
+---@field msaa? number The number of antialiasing samples. (defaults to `0`).
+---@field stencil? boolean Whether a stencil buffer should be allocated. If true, the stencil buffer will have 8 bits. (defaults to `true`).
+---@field depth? number The number of bits in the depth buffer. (defaults to `0`).
+---@field resizable? boolean True if the window should be resizable in windowed mode, false otherwise. (defaults to `false`).
+---@field borderless? boolean True if the window should be borderless in windowed mode, false otherwise. (defaults to `false`).
+---@field centered? boolean True if the window should be centered in windowed mode, false otherwise. (defaults to `true`).
+---@field display? number The index of the display to show the window in, if multiple monitors are available. (defaults to `1`).
+---@field minwidth? number The minimum width of the window, if it's resizable. Cannot be less than 1. (defaults to `1`).
+---@field minheight? number The minimum height of the window, if it's resizable. Cannot be less than 1. (defaults to `1`).
+---@field highdpi? boolean True if high-dpi mode should be used on Retina displays in macOS and iOS. Does nothing on non-Retina displays. (defaults to `false`).
+---@field x? number The x-coordinate of the window's position in the specified display. (defaults to `nil`).
+---@field y? number The y-coordinate of the window's position in the specified display. (defaults to `nil`).
+---@field usedpiscale? boolean Disables automatic DPI scaling when false. (defaults to `true`).
+---@field srgb? boolean Removed in 0.10.0 (set t.gammacorrect in conf.lua instead). True if sRGB gamma correction should be applied when drawing to the screen. (defaults to `false`).
 
 ---Sets the display mode and properties of the window.
 ---
@@ -359,7 +359,7 @@ function love.window.setMode(width, height, flags) end
 ---
 ---@param x number The x-coordinate of the window's position.
 ---@param y number The y-coordinate of the window's position.
----@param displayindex number? The index of the display that the new window position is relative to. (defaults to `1`.)
+---@param displayindex number? The index of the display that the new window position is relative to. (defaults to `1`).
 function love.window.setPosition(x, y, displayindex) end
 
 ---Sets the window title.
@@ -389,8 +389,8 @@ function love.window.setVSync(vsync) end
 ---@param title string The title of the message box.
 ---@param message string The text inside the message box.
 ---@param buttonlist table A table containing a list of button names to show. The table can also contain the fields enterbutton and escapebutton, which should be the index of the default button to use when the user presses 'enter' or 'escape', respectively.
----@param type love.MessageBoxType? The type of the message box. (defaults to `'info'`.)
----@param attachtowindow boolean? Whether the message box should be attached to the love window or free-floating. (defaults to `true`.)
+---@param type love.MessageBoxType? The type of the message box. (defaults to `'info'`).
+---@param attachtowindow boolean? Whether the message box should be attached to the love window or free-floating. (defaults to `true`).
 ---@return number pressedbutton The index of the button pressed by the user. May be 0 if the message box dialog was closed without pressing a button.
 ---Displays a simple message box with a single 'OK' button.
 ---@overload fun(title: string, message: string, type: love.MessageBoxType?, attachtowindow: boolean?): boolean

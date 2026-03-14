@@ -31,19 +31,19 @@ function Cursor:getType() end
 ---[Open in Browser](https://love2d.org/wiki/CursorType)
 ---
 ---@alias love.CursorType
----| "image" # The cursor is using a custom image.
----| "arrow" # An arrow pointer.
----| "ibeam" # An I-beam, normally used when mousing over editable or selectable text.
----| "wait" # Wait graphic.
----| "waitarrow" # Small wait cursor with an arrow pointer.
----| "crosshair" # Crosshair symbol.
----| "sizenwse" # Double arrow pointing to the top-left and bottom-right.
----| "sizenesw" # Double arrow pointing to the top-right and bottom-left.
----| "sizewe" # Double arrow pointing left and right.
----| "sizens" # Double arrow pointing up and down.
----| "sizeall" # Four-pointed arrow pointing up, down, left, and right.
----| "no" # Slashed circle or crossbones.
----| "hand" # Hand symbol.
+---| '"image"' # The cursor is using a custom image.
+---| '"arrow"' # An arrow pointer.
+---| '"ibeam"' # An I-beam, normally used when mousing over editable or selectable text.
+---| '"wait"' # Wait graphic.
+---| '"waitarrow"' # Small wait cursor with an arrow pointer.
+---| '"crosshair"' # Crosshair symbol.
+---| '"sizenwse"' # Double arrow pointing to the top-left and bottom-right.
+---| '"sizenesw"' # Double arrow pointing to the top-right and bottom-left.
+---| '"sizewe"' # Double arrow pointing left and right.
+---| '"sizens"' # Double arrow pointing up and down.
+---| '"sizeall"' # Four-pointed arrow pointing up, down, left, and right.
+---| '"no"' # Slashed circle or crossbones.
+---| '"hand"' # Hand symbol.
 
 ---Gets the current Cursor.
 ---
@@ -138,8 +138,8 @@ function love.mouse.isVisible() end
 ---[Open in Browser](https://love2d.org/wiki/love.mouse.newCursor)
 ---
 ---@param imageData love.ImageData The ImageData to use for the new Cursor.
----@param hotx number? The x-coordinate in the ImageData of the cursor's hot spot. (defaults to `0`.)
----@param hoty number? The y-coordinate in the ImageData of the cursor's hot spot. (defaults to `0`.)
+---@param hotx number? The x-coordinate in the ImageData of the cursor's hot spot. (defaults to `0`).
+---@param hoty number? The y-coordinate in the ImageData of the cursor's hot spot. (defaults to `0`).
 ---@return love.Cursor cursor The new Cursor object.
 ---@overload fun(filename: string, hotx: number?, hoty: number?): love.Cursor
 ---@overload fun(fileData: love.FileData, hotx: number?, hoty: number?): love.Cursor

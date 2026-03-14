@@ -121,7 +121,7 @@ function File:open(mode) end
 ---Reads the contents of a file into either a string or a FileData object.
 ---@param self love.File
 ---@param container love.ContainerType What type to return the file's contents as.
----@param bytes number? The number of bytes to read. (defaults to `all`.)
+---@param bytes number? The number of bytes to read. (defaults to `all`).
 ---@return love.FileData|string contents FileData or string containing the read bytes.
 ---@return number size How many bytes have been read.
 ---@overload fun(self: love.File, bytes: number): string, number
@@ -144,7 +144,7 @@ function File:seek(pos) end
 ---
 ---@param self love.File
 ---@param mode love.BufferMode The buffer mode to use.
----@param size number? The maximum size in bytes of the file's buffer. (defaults to `0`.)
+---@param size number? The maximum size in bytes of the file's buffer. (defaults to `0`).
 ---@return boolean success Whether the buffer mode was successfully set.
 ---@return string errorstr The error string, if the buffer mode could not be set and an error occurred.
 function File:setBuffer(mode, size) end
@@ -163,7 +163,7 @@ function File:tell() end
 ---
 ---@param self love.File
 ---@param data string The string data to write.
----@param size number? How many bytes to write. (defaults to `all`.)
+---@param size number? How many bytes to write. (defaults to `all`).
 ---@return boolean success Whether the operation was successful.
 ---@return string err The error string if an error occurred.
 ---'''Writing to multiple lines''': In Windows, some text editors (e.g. Notepad before Windows 10 1809) only treat CRLF ('\r\n') as a new line.
@@ -218,37 +218,37 @@ function FileData:getFilename() end
 ---[Open in Browser](https://love2d.org/wiki/BufferMode)
 ---
 ---@alias love.BufferMode
----| "none" # No buffering. The result of write and append operations appears immediately.
----| "line" # Line buffering. Write and append operations are buffered until a newline is output or the buffer size limit is reached.
----| "full" # Full buffering. Write and append operations are always buffered until the buffer size limit is reached.
+---| '"none"' # No buffering. The result of write and append operations appears immediately.
+---| '"line"' # Line buffering. Write and append operations are buffered until a newline is output or the buffer size limit is reached.
+---| '"full"' # Full buffering. Write and append operations are always buffered until the buffer size limit is reached.
 
 ---How to decode a given FileData.
 ---
 ---[Open in Browser](https://love2d.org/wiki/FileDecoder)
 ---
 ---@alias love.FileDecoder
----| "file" # The data is unencoded.
----| "base64" # The data is base64-encoded.
+---| '"file"' # The data is unencoded.
+---| '"base64"' # The data is base64-encoded.
 
 ---The different modes you can open a File in.
 ---
 ---[Open in Browser](https://love2d.org/wiki/FileMode)
 ---
 ---@alias love.FileMode
----| "r" # Open a file for read.
----| "w" # Open a file for write.
----| "a" # Open a file for append.
----| "c" # Do not open a file (represents a closed file.)
+---| '"r"' # Open a file for read.
+---| '"w"' # Open a file for write.
+---| '"a"' # Open a file for append.
+---| '"c"' # Do not open a file (represents a closed file.)
 
 ---The type of a file.
 ---
 ---[Open in Browser](https://love2d.org/wiki/FileType)
 ---
 ---@alias love.FileType
----| "file" # Regular file.
----| "directory" # Directory.
----| "symlink" # Symbolic link.
----| "other" # Something completely different like a device.
+---| '"file"' # Regular file.
+---| '"directory"' # Directory.
+---| '"symlink"' # Symbolic link.
+---| '"other"' # Something completely different like a device.
 
 ---Append data to an existing file.
 ---
@@ -256,7 +256,7 @@ function FileData:getFilename() end
 ---
 ---@param name string The name (and path) of the file.
 ---@param data string The string data to append to the file.
----@param size number? How many bytes to write. (defaults to `all`.)
+---@param size number? How many bytes to write. (defaults to `all`).
 ---@return boolean success True if the operation was successful, or nil if there was an error.
 ---@return string errormsg The error message on failure.
 ---@overload fun(name: string, data: love.Data, size: number?): boolean, string
@@ -338,8 +338,8 @@ function love.filesystem.getIdentity() end
 ---This variant only returns info if the item at the given path is the same file type as specified in the filtertype argument, and accepts an existing table to fill in, instead of creating a new one.
 ---@param path string The file or directory path to check.
 ---@param filtertype love.FileType Causes getInfo to only return the info table if the item at the given path matches the specified file type.
----@param info { type: love.FileType, size: number, modtime: number } A table which will be filled in with info about the specified path. See class love.filesystem.getInfo.result for field descriptions.
----@return { type: love.FileType, size: number, modtime: number } info The table given as an argument, or nil if nothing exists at the path. The table will be filled in with the following fields: See class love.filesystem.getInfo.result for field descriptions.
+---@param info { type: love.FileType, size: number, modtime: number } A table which will be filled in with info about the specified path. See class `love.filesystem.getInfo.result` for field descriptions.
+---@return { type: love.FileType, size: number, modtime: number } info The table given as an argument, or nil if nothing exists at the path. The table will be filled in with the following fields: See class `love.filesystem.getInfo.result` for field descriptions.
 ---This variant accepts an existing table to fill in, instead of creating a new one.
 ---@overload fun(path: string, info: table): { type: love.FileType, size: number, modtime: number }
 ---@overload fun(path: string, filtertype: love.FileType?): { type: love.FileType, size: number, modtime: number }
@@ -454,7 +454,7 @@ function love.filesystem.load(name) end
 ---@param data love.Data The Data object in memory to mount.
 ---@param archivename string The name to associate the mounted data with, for use with love.filesystem.unmount. Must be unique compared to other mounted data.
 ---@param mountpoint string The new path the archive will be mounted to.
----@param appendToPath boolean? Whether the archive will be searched when reading a filepath before or after already-mounted archives. This includes the game's source and save directories. (defaults to `false`.)
+---@param appendToPath boolean? Whether the archive will be searched when reading a filepath before or after already-mounted archives. This includes the game's source and save directories. (defaults to `false`).
 ---@return boolean success True if the archive was successfully mounted, false otherwise.
 ---Mounts the contents of the given FileData in memory. The FileData's data must contain a zipped directory structure.
 ---@overload fun(filedata: love.FileData, mountpoint: string, appendToPath: boolean?): boolean
@@ -497,7 +497,7 @@ function love.filesystem.newFileData(contents, name) end
 ---Reads the contents of a file into either a string or a FileData object.
 ---@param container love.ContainerType What type to return the file's contents as.
 ---@param name string The name (and path) of the file
----@param size number? How many bytes to read (defaults to `all`.)
+---@param size number? How many bytes to read (defaults to `all`).
 ---@return love.FileData|string contents FileData or string containing the file contents.
 ---@return number size How many bytes have been read.
 ---@return nil contents returns nil as content.
@@ -580,7 +580,7 @@ function love.filesystem.unmount(archive) end
 ---
 ---@param name string The name (and path) of the file.
 ---@param data string The string data to write to the file.
----@param size number? How many bytes to write. (defaults to `all`.)
+---@param size number? How many bytes to write. (defaults to `all`).
 ---@return boolean success If the operation was successful.
 ---@return string message Error message if operation was unsuccessful.
 ---If you are getting the error message 'Could not set write directory', try setting the save directory. This is done either with love.filesystem.setIdentity or by setting the identity field in love.conf.

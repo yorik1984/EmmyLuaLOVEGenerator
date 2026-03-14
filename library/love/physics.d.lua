@@ -263,7 +263,7 @@ function Body:getLocalPoint(worldX, worldY) end
 ---@return number y1 (Result) The transformed y position of the first point.
 ---@return number x2 (Result) The transformed x position of the second point.
 ---@return number y2 (Result) The transformed y position of the second point.
----@return number (Result) Additional transformed x and y position of the points.
+---@return number # (Result) Additional transformed x and y position of the points.
 function Body:getLocalPoints(x1, y1, x2, y2, ...) end
 
 ---Transform a vector from world coordinates to local coordinates.
@@ -1116,7 +1116,7 @@ function Fixture:getBody() end
 ---[Open in Browser](https://love2d.org/wiki/Fixture:getBoundingBox)
 ---
 ---@param self love.Fixture
----@param index number A bounding box of the fixture. (defaults to `1`.)
+---@param index number A bounding box of the fixture. (defaults to `1`).
 ---@return number topLeftX The x position of the top-left point.
 ---@return number topLeftY The y position of the top-left point.
 ---@return number bottomRightX The x position of the bottom-right point.
@@ -1128,7 +1128,7 @@ function Fixture:getBoundingBox(index) end
 ---[Open in Browser](https://love2d.org/wiki/Fixture:getCategory)
 ---
 ---@param self love.Fixture
----@return number The categories.
+---@return number # The categories.
 function Fixture:getCategory() end
 
 ---Returns the density of the fixture.
@@ -1174,7 +1174,7 @@ function Fixture:getGroupIndex() end
 ---[Open in Browser](https://love2d.org/wiki/Fixture:getMask)
 ---
 ---@param self love.Fixture
----@return number The masks.
+---@return number # The masks.
 function Fixture:getMask() end
 
 ---Returns the mass, its center and the rotational inertia.
@@ -1246,7 +1246,7 @@ function Fixture:isSensor() end
 ---@param x2 number The x position of the input line end point.
 ---@param y2 number The y position of the input line end point.
 ---@param maxFraction number Ray length parameter.
----@param childIndex number? The index of the child the ray gets cast against. (defaults to `1`.)
+---@param childIndex number? The index of the child the ray gets cast against. (defaults to `1`).
 ---@return number xn The x component of the normal vector of the edge where the ray hit the shape.
 ---@return number yn The y component of the normal vector of the edge where the ray hit the shape.
 ---@return number fraction The position on the input line where the intersection happened as a factor of the line length.
@@ -2158,7 +2158,7 @@ local Shape = {}
 ---@param tx number The translation of the shape on the x-axis.
 ---@param ty number The translation of the shape on the y-axis.
 ---@param tr number The shape rotation.
----@param childIndex number? The index of the child to compute the bounding box of. (defaults to `1`.)
+---@param childIndex number? The index of the child to compute the bounding box of. (defaults to `1`).
 ---@return number topLeftX The x position of the top-left point.
 ---@return number topLeftY The y position of the top-left point.
 ---@return number bottomRightX The x position of the bottom-right point.
@@ -2224,7 +2224,7 @@ function Shape:getType() end
 ---@param tx number The translation of the shape on the x-axis.
 ---@param ty number The translation of the shape on the y-axis.
 ---@param tr number The shape rotation.
----@param childIndex number? The index of the child the ray gets cast against. (defaults to `1`.)
+---@param childIndex number? The index of the child the ray gets cast against. (defaults to `1`).
 ---@return number xn The x component of the normal vector of the edge where the ray hit the shape.
 ---@return number yn The y component of the normal vector of the edge where the ray hit the shape.
 ---@return number fraction The position on the input line where the intersection happened as a factor of the line length.
@@ -2579,8 +2579,8 @@ function World:rayCast(x1, y1, x2, y2, callback) end
 ---@param self love.World
 ---@param beginContact fun(...) Gets called when two fixtures begin to overlap.
 ---@param endContact fun(...) Gets called when two fixtures cease to overlap. This will also be called outside of a world update, when colliding objects are destroyed.
----@param preSolve fun(...)? Gets called before a collision gets resolved. (defaults to `nil`.)
----@param postSolve fun(...)? Gets called after the collision has been resolved. (defaults to `nil`.)
+---@param preSolve fun(...)? Gets called before a collision gets resolved. (defaults to `nil`).
+---@param postSolve fun(...)? Gets called after the collision has been resolved. (defaults to `nil`).
 function World:setCallbacks(beginContact, endContact, preSolve, postSolve) end
 
 ---Sets a function for collision filtering.
@@ -2625,8 +2625,8 @@ function World:translateOrigin(x, y) end
 ---
 ---@param self love.World
 ---@param dt number The time (in seconds) to advance the physics simulation.
----@param velocityiterations number? The maximum number of steps used to determine the new velocities when resolving a collision. (defaults to `8`.)
----@param positioniterations number? The maximum number of steps used to determine the new positions when resolving a collision. (defaults to `3`.)
+---@param velocityiterations number? The maximum number of steps used to determine the new velocities when resolving a collision. (defaults to `8`).
+---@param positioniterations number? The maximum number of steps used to determine the new positions when resolving a collision. (defaults to `3`).
 function World:update(dt, velocityiterations, positioniterations) end
 
 --endregion love.World
@@ -2636,34 +2636,34 @@ function World:update(dt, velocityiterations, positioniterations) end
 ---[Open in Browser](https://love2d.org/wiki/BodyType)
 ---
 ---@alias love.BodyType
----| "static" # Static bodies do not move.
----| "dynamic" # Dynamic bodies collide with all bodies.
----| "kinematic" # Kinematic bodies only collide with dynamic bodies.
+---| '"static"' # Static bodies do not move.
+---| '"dynamic"' # Dynamic bodies collide with all bodies.
+---| '"kinematic"' # Kinematic bodies only collide with dynamic bodies.
 
 ---Different types of joints.
 ---
 ---[Open in Browser](https://love2d.org/wiki/JointType)
 ---
 ---@alias love.JointType
----| "distance" # A DistanceJoint.
----| "friction" # A FrictionJoint.
----| "gear" # A GearJoint.
----| "mouse" # A MouseJoint.
----| "prismatic" # A PrismaticJoint.
----| "pulley" # A PulleyJoint.
----| "revolute" # A RevoluteJoint.
----| "rope" # A RopeJoint.
----| "weld" # A WeldJoint.
+---| '"distance"' # A DistanceJoint.
+---| '"friction"' # A FrictionJoint.
+---| '"gear"' # A GearJoint.
+---| '"mouse"' # A MouseJoint.
+---| '"prismatic"' # A PrismaticJoint.
+---| '"pulley"' # A PulleyJoint.
+---| '"revolute"' # A RevoluteJoint.
+---| '"rope"' # A RopeJoint.
+---| '"weld"' # A WeldJoint.
 
 ---The different types of Shapes, as returned by Shape:getType.
 ---
 ---[Open in Browser](https://love2d.org/wiki/ShapeType)
 ---
 ---@alias love.ShapeType
----| "circle" # The Shape is a CircleShape.
----| "polygon" # The Shape is a PolygonShape.
----| "edge" # The Shape is a EdgeShape.
----| "chain" # The Shape is a ChainShape.
+---| '"circle"' # The Shape is a CircleShape.
+---| '"polygon"' # The Shape is a PolygonShape.
+---| '"edge"' # The Shape is a EdgeShape.
+---| '"chain"' # The Shape is a ChainShape.
 
 ---Returns the two closest points between two fixtures and their distance.
 ---
@@ -2704,9 +2704,9 @@ function love.physics.getMeter() end
 ---[Open in Browser](https://love2d.org/wiki/love.physics.newBody)
 ---
 ---@param world love.World The world to create the body in.
----@param x number? The x position of the body. (defaults to `0`.)
----@param y number? The y position of the body. (defaults to `0`.)
----@param type love.BodyType? The type of the body. (defaults to `'static'`.)
+---@param x number? The x position of the body. (defaults to `0`).
+---@param y number? The y position of the body. (defaults to `0`).
+---@param type love.BodyType? The type of the body. (defaults to `'static'`).
 ---@return love.Body body A new body.
 function love.physics.newBody(world, x, y, type) end
 
@@ -2746,7 +2746,7 @@ function love.physics.newCircleShape(x, y, radius) end
 ---@param y1 number The y position of the first anchor point (world space).
 ---@param x2 number The x position of the second anchor point (world space).
 ---@param y2 number The y position of the second anchor point (world space).
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
 ---@return love.DistanceJoint joint The new distance joint.
 function love.physics.newDistanceJoint(body1, body2, x1, y1, x2, y2, collideConnected) end
 
@@ -2769,7 +2769,7 @@ function love.physics.newEdgeShape(x1, y1, x2, y2) end
 ---
 ---@param body love.Body The body which gets the fixture attached.
 ---@param shape love.Shape The shape to be copied to the fixture.
----@param density number? The density of the fixture. (defaults to `1`.)
+---@param density number? The density of the fixture. (defaults to `1`).
 ---@return love.Fixture fixture The new fixture.
 function love.physics.newFixture(body, shape, density) end
 
@@ -2783,7 +2783,7 @@ function love.physics.newFixture(body, shape, density) end
 ---@param y1 number The y position of the first anchor point.
 ---@param x2 number The x position of the second anchor point.
 ---@param y2 number The y position of the second anchor point.
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
 ---@return love.FrictionJoint joint The new FrictionJoint.
 ---@overload fun(body1: love.Body, body2: love.Body, x: number, y: number, collideConnected: boolean?): love.FrictionJoint
 function love.physics.newFrictionJoint(body1, body2, x1, y1, x2, y2, collideConnected) end
@@ -2798,8 +2798,8 @@ function love.physics.newFrictionJoint(body1, body2, x1, y1, x2, y2, collideConn
 ---
 ---@param joint1 love.Joint The first joint to connect with a gear joint.
 ---@param joint2 love.Joint The second joint to connect with a gear joint.
----@param ratio number? The gear ratio. (defaults to `1`.)
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
+---@param ratio number? The gear ratio. (defaults to `1`).
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
 ---@return love.GearJoint joint The new gear joint.
 function love.physics.newGearJoint(joint1, joint2, ratio, collideConnected) end
 
@@ -2811,8 +2811,8 @@ function love.physics.newGearJoint(joint1, joint2, ratio, collideConnected) end
 ---
 ---@param body1 love.Body The first body to attach to the joint.
 ---@param body2 love.Body The second body to attach to the joint.
----@param correctionFactor number? The joint's initial position correction factor, in the range of 1. (defaults to `0.3`.)
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
+---@param correctionFactor number? The joint's initial position correction factor, in the range of 1. (defaults to `0.3`).
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
 ---@return love.MotorJoint joint The new MotorJoint.
 ---@overload fun(body1: love.Body, body2: love.Body, correctionFactor: number?): love.MotorJoint
 function love.physics.newMotorJoint(body1, body2, correctionFactor, collideConnected) end
@@ -2861,8 +2861,8 @@ function love.physics.newPolygonShape(x1, y1, x2, y2, x3, y3, ...) end
 ---@param y2 number The y coordinate of the second anchor point.
 ---@param ax number The x coordinate of the axis unit vector.
 ---@param ay number The y coordinate of the axis unit vector.
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
----@param referenceAngle number? The reference angle between body1 and body2, in radians. (defaults to `0`.)
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
+---@param referenceAngle number? The reference angle between body1 and body2, in radians. (defaults to `0`).
 ---@return love.PrismaticJoint joint The new prismatic joint.
 ---@overload fun(body1: love.Body, body2: love.Body, x1: number, y1: number, x2: number, y2: number, ax: number, ay: number, collideConnected: boolean?): love.PrismaticJoint
 ---@overload fun(body1: love.Body, body2: love.Body, x: number, y: number, ax: number, ay: number, collideConnected: boolean?): love.PrismaticJoint
@@ -2886,8 +2886,8 @@ function love.physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, co
 ---@param y1 number The y coordinate of the pulley joint anchor in the first body.
 ---@param x2 number The x coordinate of the pulley joint anchor in the second body.
 ---@param y2 number The y coordinate of the pulley joint anchor in the second body.
----@param ratio number? The joint ratio. (defaults to `1`.)
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `true`.)
+---@param ratio number? The joint ratio. (defaults to `1`).
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `true`).
 ---@return love.PulleyJoint joint The new pulley joint.
 function love.physics.newPulleyJoint(body1, body2, gx1, gy1, gx2, gy2, x1, y1, x2, y2, ratio, collideConnected) end
 
@@ -2901,7 +2901,7 @@ function love.physics.newPulleyJoint(body1, body2, gx1, gy1, gx2, gy2, x1, y1, x
 ---@param y number The offset along the y-axis.
 ---@param width number The width of the rectangle.
 ---@param height number The height of the rectangle.
----@param angle number? The initial angle of the rectangle. (defaults to `0`.)
+---@param angle number? The initial angle of the rectangle. (defaults to `0`).
 ---@return love.PolygonShape shape A new PolygonShape.
 ---@overload fun(width: number, height: number): love.PolygonShape
 function love.physics.newRectangleShape(x, y, width, height, angle) end
@@ -2918,8 +2918,8 @@ function love.physics.newRectangleShape(x, y, width, height, angle) end
 ---@param y1 number The y position of the first connecting point.
 ---@param x2 number The x position of the second connecting point.
 ---@param y2 number The y position of the second connecting point.
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
----@param referenceAngle number? The reference angle between body1 and body2, in radians. (defaults to `0`.)
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
+---@param referenceAngle number? The reference angle between body1 and body2, in radians. (defaults to `0`).
 ---@return love.RevoluteJoint joint The new revolute joint.
 ---@overload fun(body1: love.Body, body2: love.Body, x: number, y: number, collideConnected: boolean?): love.RevoluteJoint
 function love.physics.newRevoluteJoint(body1, body2, x1, y1, x2, y2, collideConnected, referenceAngle) end
@@ -2935,7 +2935,7 @@ function love.physics.newRevoluteJoint(body1, body2, x1, y1, x2, y2, collideConn
 ---@param x2 number The x position of the second anchor point.
 ---@param y2 number The y position of the second anchor point.
 ---@param maxLength number The maximum distance for the bodies.
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
 ---@return love.RopeJoint joint The new RopeJoint.
 function love.physics.newRopeJoint(body1, body2, x1, y1, x2, y2, maxLength, collideConnected) end
 
@@ -2949,8 +2949,8 @@ function love.physics.newRopeJoint(body1, body2, x1, y1, x2, y2, maxLength, coll
 ---@param y1 number The y position of the first anchor point  (world space).
 ---@param x2 number The x position of the second anchor point (world space).
 ---@param y2 number The y position of the second anchor point (world space).
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
----@param referenceAngle number? The reference angle between body1 and body2, in radians. (defaults to `0`.)
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
+---@param referenceAngle number? The reference angle between body1 and body2, in radians. (defaults to `0`).
 ---@return love.WeldJoint joint The new WeldJoint.
 ---@overload fun(body1: love.Body, body2: love.Body, x1: number, y1: number, x2: number, y2: number, collideConnected: boolean?): love.WeldJoint
 ---@overload fun(body1: love.Body, body2: love.Body, x: number, y: number, collideConnected: boolean?): love.WeldJoint
@@ -2968,7 +2968,7 @@ function love.physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnecte
 ---@param y2 number The y position of the second anchor point.
 ---@param ax number The x position of the axis unit vector.
 ---@param ay number The y position of the axis unit vector.
----@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`.)
+---@param collideConnected boolean? Specifies whether the two bodies should collide with each other. (defaults to `false`).
 ---@return love.WheelJoint joint The new WheelJoint.
 ---@overload fun(body1: love.Body, body2: love.Body, x: number, y: number, ax: number, ay: number, collideConnected: boolean?): love.WheelJoint
 function love.physics.newWheelJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected) end
@@ -2977,9 +2977,9 @@ function love.physics.newWheelJoint(body1, body2, x1, y1, x2, y2, ax, ay, collid
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.physics.newWorld)
 ---
----@param xg number The x component of gravity. (defaults to `0`.)
----@param yg number? The y component of gravity. (defaults to `0`.)
----@param sleep boolean? Whether the bodies in this world are allowed to sleep. (defaults to `true`.)
+---@param xg number The x component of gravity. (defaults to `0`).
+---@param yg number? The y component of gravity. (defaults to `0`).
+---@param sleep boolean? Whether the bodies in this world are allowed to sleep. (defaults to `true`).
 ---@return love.World world A brave new World.
 function love.physics.newWorld(xg, yg, sleep) end
 

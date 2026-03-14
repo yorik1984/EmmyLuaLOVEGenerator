@@ -81,9 +81,9 @@ function RecordingDevice:isRecording() end
 ---A ring buffer is used internally to store recorded data before RecordingDevice:getData or RecordingDevice:stop are called – the former clears the buffer. If the buffer completely fills up before getData or stop are called, the oldest data that doesn't fit into the buffer will be lost.
 ---@param self love.RecordingDevice
 ---@param samplecount number The maximum number of samples to store in an internal ring buffer when recording. RecordingDevice:getData clears the internal buffer when called.
----@param samplerate number? The number of samples per second to store when recording. (defaults to `8000`.)
----@param bitdepth number? The number of bits per sample. (defaults to `16`.)
----@param channels number? Whether to record in mono or stereo. Most microphones don't support more than 1 channel. (defaults to `1`.)
+---@param samplerate number? The number of samples per second to store when recording. (defaults to `8000`).
+---@param bitdepth number? The number of bits per sample. (defaults to `16`).
+---@param channels number? Whether to record in mono or stereo. Most microphones don't support more than 1 channel. (defaults to `1`).
 ---@return boolean success True if the device successfully began recording using the specified parameters, false if not.
 function RecordingDevice:start(samplecount, samplerate, bitdepth, channels) end
 
@@ -182,7 +182,7 @@ function Source:getDirection() end
 ---[Open in Browser](https://love2d.org/wiki/Source:getDuration)
 ---
 ---@param self love.Source
----@param unit love.TimeUnit The time unit for the return value. (defaults to `'seconds'`.)
+---@param unit love.TimeUnit The time unit for the return value. (defaults to `'seconds'`).
 ---@return number duration The duration of the Source, or -1 if it cannot be determined.
 function Source:getDuration(unit) end
 
@@ -206,8 +206,8 @@ function Source:getDuration(unit) end
 ---
 ---@param self love.Source
 ---@param name string The name of the effect.
----@param filtersettings { volume: number, highgain: number, lowgain: number }? An optional empty table that will be filled with the filter settings. (defaults to `{}`.) (defaults to `{}`.) See class Source.getEffect.result for field descriptions.
----@return { volume: number, highgain: number, lowgain: number } filtersettings The settings for the filter associated to this effect, or nil if the effect is not present in this Source or has no filter associated. The table has the following fields: See class Source:getEffect.result for field descriptions.
+---@param filtersettings { volume: number, highgain: number, lowgain: number }? An optional empty table that will be filled with the filter settings. See class `Source.getEffect.result` for field descriptions. (defaults to `{}`).
+---@return { volume: number, highgain: number, lowgain: number } filtersettings The settings for the filter associated to this effect, or nil if the effect is not present in this Source or has no filter associated. The table has the following fields: See class `Source:getEffect.result` for field descriptions.
 function Source:getEffect(name, filtersettings) end
 
 ---Options for `Source:getFilter`.
@@ -222,7 +222,7 @@ function Source:getEffect(name, filtersettings) end
 ---[Open in Browser](https://love2d.org/wiki/Source:getFilter)
 ---
 ---@param self love.Source
----@return { type: love.FilterType, volume: number, highgain: number, lowgain: number } settings The filter settings to use for this Source, or nil if the Source has no active filter. The table has the following fields: See class Source:getFilter.result for field descriptions.
+---@return { type: love.FilterType, volume: number, highgain: number, lowgain: number } settings The filter settings to use for this Source, or nil if the Source has no active filter. The table has the following fields: See class `Source:getFilter.result` for field descriptions.
 function Source:getFilter() end
 
 ---Gets the number of free buffer slots in a queueable Source. If the queueable Source is playing, this value will increase up to the amount the Source was created with. If the queueable Source is stopped, it will process all of its internal buffers first, in which case this function will always return the amount it was created with.
@@ -350,7 +350,7 @@ function Source:queue(sounddata) end
 ---
 ---@param self love.Source
 ---@param offset number The position to seek to.
----@param unit love.TimeUnit? The unit of the position value. (defaults to `'seconds'`.)
+---@param unit love.TimeUnit? The unit of the position value. (defaults to `'seconds'`).
 function Source:seek(offset, unit) end
 
 ---Sets the amount of air absorption applied to the Source.
@@ -384,7 +384,7 @@ function Source:setAttenuationDistances(ref, max) end
 ---@param self love.Source
 ---@param innerAngle number The inner angle from the Source's direction, in radians. The Source will play at normal volume if the listener is inside the cone defined by this angle.
 ---@param outerAngle number The outer angle from the Source's direction, in radians. The Source will play at a volume between the normal and outer volumes, if the listener is in between the cones defined by the inner and outer angles.
----@param outerVolume number? The Source's volume when the listener is outside both the inner and outer cone angles. (defaults to `0`.)
+---@param outerVolume number? The Source's volume when the listener is outside both the inner and outer cone angles. (defaults to `0`).
 function Source:setCone(innerAngle, outerAngle, outerVolume) end
 
 ---Sets the direction vector of the Source. A zero vector makes the source non-directional.
@@ -406,7 +406,7 @@ function Source:setDirection(x, y, z) end
 ---Applies the given previously defined effect to this Source.
 ---@param self love.Source
 ---@param name string The name of the effect previously set up with love.audio.setEffect.
----@param enable boolean? If false and the given effect name was previously enabled on this Source, disables the effect. (defaults to `true`.)
+---@param enable boolean? If false and the given effect name was previously enabled on this Source, disables the effect. (defaults to `true`).
 ---@return boolean success Whether the effect was successfully applied to this Source.
 ---Applies the given previously defined effect to this Source, and applies a filter to the Source which affects the sound fed into the effect.
 ---
@@ -467,7 +467,7 @@ function Source:setPosition(x, y, z) end
 ---[Open in Browser](https://love2d.org/wiki/Source:setRelative)
 ---
 ---@param self love.Source
----@param enable boolean True to make the position, velocity, direction and cone angles relative to the listener, false to make them absolute. (defaults to `false`.)
+---@param enable boolean True to make the position, velocity, direction and cone angles relative to the listener, false to make them absolute. (defaults to `false`).
 function Source:setRelative(enable) end
 
 ---Sets the rolloff factor which affects the strength of the used distance attenuation.
@@ -521,7 +521,7 @@ function Source:stop() end
 ---[Open in Browser](https://love2d.org/wiki/Source:tell)
 ---
 ---@param self love.Source
----@param unit love.TimeUnit The type of unit for the return value. (defaults to `'seconds'`.)
+---@param unit love.TimeUnit The type of unit for the return value. (defaults to `'seconds'`).
 ---@return number position The currently playing position of the Source.
 function Source:tell(unit) end
 
@@ -534,46 +534,46 @@ function Source:tell(unit) end
 ---[Open in Browser](https://love2d.org/wiki/DistanceModel)
 ---
 ---@alias love.DistanceModel
----| "none" # Sources do not get attenuated.
----| "inverse" # Inverse distance attenuation.
----| "inverseclamped" # Inverse distance attenuation. Gain is clamped. In version 0.9.2 and older this is named '''inverse clamped'''.
----| "linear" # Linear attenuation.
----| "linearclamped" # Linear attenuation. Gain is clamped. In version 0.9.2 and older this is named '''linear clamped'''.
----| "exponent" # Exponential attenuation.
----| "exponentclamped" # Exponential attenuation. Gain is clamped. In version 0.9.2 and older this is named '''exponent clamped'''.
+---| '"none"' # Sources do not get attenuated.
+---| '"inverse"' # Inverse distance attenuation.
+---| '"inverseclamped"' # Inverse distance attenuation. Gain is clamped. In version 0.9.2 and older this is named '''inverse clamped'''.
+---| '"linear"' # Linear attenuation.
+---| '"linearclamped"' # Linear attenuation. Gain is clamped. In version 0.9.2 and older this is named '''linear clamped'''.
+---| '"exponent"' # Exponential attenuation.
+---| '"exponentclamped"' # Exponential attenuation. Gain is clamped. In version 0.9.2 and older this is named '''exponent clamped'''.
 
 ---The different types of effects supported by love.audio.setEffect.
 ---
 ---[Open in Browser](https://love2d.org/wiki/EffectType)
 ---
 ---@alias love.EffectType
----| "chorus" # Plays multiple copies of the sound with slight pitch and time variation. Used to make sounds sound "fuller" or "thicker".
----| "compressor" # Decreases the dynamic range of the sound, making the loud and quiet parts closer in volume, producing a more uniform amplitude throughout time.
----| "distortion" # Alters the sound by amplifying it until it clips, shearing off parts of the signal, leading to a compressed and distorted sound.
----| "echo" # Decaying feedback based effect, on the order of seconds. Also known as delay; causes the sound to repeat at regular intervals at a decreasing volume.
----| "equalizer" # Adjust the frequency components of the sound using a 4-band (low-shelf, two band-pass and a high-shelf) equalizer.
----| "flanger" # Plays two copies of the sound; while varying the phase, or equivalently delaying one of them, by amounts on the order of milliseconds, resulting in phasing sounds.
----| "reverb" # Decaying feedback based effect, on the order of milliseconds. Used to simulate the reflection off of the surroundings.
----| "ringmodulator" # An implementation of amplitude modulation; multiplies the source signal with a simple waveform, to produce either volume changes, or inharmonic overtones.
+---| '"chorus"' # Plays multiple copies of the sound with slight pitch and time variation. Used to make sounds sound "fuller" or "thicker".
+---| '"compressor"' # Decreases the dynamic range of the sound, making the loud and quiet parts closer in volume, producing a more uniform amplitude throughout time.
+---| '"distortion"' # Alters the sound by amplifying it until it clips, shearing off parts of the signal, leading to a compressed and distorted sound.
+---| '"echo"' # Decaying feedback based effect, on the order of seconds. Also known as delay; causes the sound to repeat at regular intervals at a decreasing volume.
+---| '"equalizer"' # Adjust the frequency components of the sound using a 4-band (low-shelf, two band-pass and a high-shelf) equalizer.
+---| '"flanger"' # Plays two copies of the sound; while varying the phase, or equivalently delaying one of them, by amounts on the order of milliseconds, resulting in phasing sounds.
+---| '"reverb"' # Decaying feedback based effect, on the order of milliseconds. Used to simulate the reflection off of the surroundings.
+---| '"ringmodulator"' # An implementation of amplitude modulation; multiplies the source signal with a simple waveform, to produce either volume changes, or inharmonic overtones.
 
 ---The different types of waveforms that can be used with the '''ringmodulator''' EffectType.
 ---
 ---[Open in Browser](https://love2d.org/wiki/EffectWaveform)
 ---
 ---@alias love.EffectWaveform
----| "sawtooth" # A sawtooth wave, also known as a ramp wave. Named for its linear rise, and (near-)instantaneous fall along time.
----| "sine" # A sine wave. Follows a trigonometric sine function.
----| "square" # A square wave. Switches between high and low states (near-)instantaneously.
----| "triangle" # A triangle wave. Follows a linear rise and fall that repeats periodically.
+---| '"sawtooth"' # A sawtooth wave, also known as a ramp wave. Named for its linear rise, and (near-)instantaneous fall along time.
+---| '"sine"' # A sine wave. Follows a trigonometric sine function.
+---| '"square"' # A square wave. Switches between high and low states (near-)instantaneously.
+---| '"triangle"' # A triangle wave. Follows a linear rise and fall that repeats periodically.
 
 ---Types of filters for Sources.
 ---
 ---[Open in Browser](https://love2d.org/wiki/FilterType)
 ---
 ---@alias love.FilterType
----| "lowpass" # Low-pass filter. High frequency sounds are attenuated.
----| "highpass" # High-pass filter. Low frequency sounds are attenuated.
----| "bandpass" # Band-pass filter. Both high and low frequency sounds are attenuated based on the given parameters.
+---| '"lowpass"' # Low-pass filter. High frequency sounds are attenuated.
+---| '"highpass"' # High-pass filter. Low frequency sounds are attenuated.
+---| '"bandpass"' # Band-pass filter. Both high and low frequency sounds are attenuated based on the given parameters.
 
 ---Types of audio sources.
 ---
@@ -582,17 +582,17 @@ function Source:tell(unit) end
 ---[Open in Browser](https://love2d.org/wiki/SourceType)
 ---
 ---@alias love.SourceType
----| "static" # The whole audio is decoded.
----| "stream" # The audio is decoded in chunks when needed.
----| "queue" # The audio must be manually queued by the user.
+---| '"static"' # The whole audio is decoded.
+---| '"stream"' # The audio is decoded in chunks when needed.
+---| '"queue"' # The audio must be manually queued by the user.
 
 ---Units that represent time.
 ---
 ---[Open in Browser](https://love2d.org/wiki/TimeUnit)
 ---
 ---@alias love.TimeUnit
----| "seconds" # Regular seconds.
----| "samples" # Audio samples.
+---| '"seconds"' # Regular seconds.
+---| '"samples"' # Audio samples.
 
 ---Gets a list of the names of the currently enabled effects.
 ---
@@ -712,7 +712,7 @@ function love.audio.isEffectsSupported() end
 ---@param samplerate number Number of samples per second when playing.
 ---@param bitdepth number Bits per sample (8 or 16).
 ---@param channels number 1 for mono or 2 for stereo.
----@param buffercount number? The number of buffers that can be queued up at any given time with Source:queue. Cannot be greater than 64. A sensible default (~8) is chosen if no value is specified. (defaults to `0`.)
+---@param buffercount number? The number of buffers that can be queued up at any given time with Source:queue. Cannot be greater than 64. A sensible default (~8) is chosen if no value is specified. (defaults to `0`).
 ---@return love.Source source The new Source usable with Source:queue.
 function love.audio.newQueueableSource(samplerate, bitdepth, channels, buffercount) end
 

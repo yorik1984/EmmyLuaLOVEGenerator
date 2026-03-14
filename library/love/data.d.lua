@@ -46,38 +46,38 @@ function CompressedData:getFormat() end
 ---[Open in Browser](https://love2d.org/wiki/CompressedDataFormat)
 ---
 ---@alias love.CompressedDataFormat
----| "lz4" # The LZ4 compression format. Compresses and decompresses very quickly, but the compression ratio is not the best. LZ4-HC is used when compression level 9 is specified. Some benchmarks are available here.
----| "zlib" # The zlib format is DEFLATE-compressed data with a small bit of header data. Compresses relatively slowly and decompresses moderately quickly, and has a decent compression ratio.
----| "gzip" # The gzip format is DEFLATE-compressed data with a slightly larger header than zlib. Since it uses DEFLATE it has the same compression characteristics as the zlib format.
----| "deflate" # Raw DEFLATE-compressed data (no header).
+---| '"lz4"' # The LZ4 compression format. Compresses and decompresses very quickly, but the compression ratio is not the best. LZ4-HC is used when compression level 9 is specified. Some benchmarks are available here.
+---| '"zlib"' # The zlib format is DEFLATE-compressed data with a small bit of header data. Compresses relatively slowly and decompresses moderately quickly, and has a decent compression ratio.
+---| '"gzip"' # The gzip format is DEFLATE-compressed data with a slightly larger header than zlib. Since it uses DEFLATE it has the same compression characteristics as the zlib format.
+---| '"deflate"' # Raw DEFLATE-compressed data (no header).
 
 ---Return type of various data-returning functions.
 ---
 ---[Open in Browser](https://love2d.org/wiki/ContainerType)
 ---
 ---@alias love.ContainerType
----| "data" # Return type is ByteData.
----| "string" # Return type is string.
+---| '"data"' # Return type is ByteData.
+---| '"string"' # Return type is string.
 
 ---Encoding format used to encode or decode data.
 ---
 ---[Open in Browser](https://love2d.org/wiki/EncodeFormat)
 ---
 ---@alias love.EncodeFormat
----| "base64" # Encode/decode data as base64 binary-to-text encoding.
----| "hex" # Encode/decode data as hexadecimal string.
+---| '"base64"' # Encode/decode data as base64 binary-to-text encoding.
+---| '"hex"' # Encode/decode data as hexadecimal string.
 
 ---Hash algorithm of love.data.hash.
 ---
 ---[Open in Browser](https://love2d.org/wiki/HashFunction)
 ---
 ---@alias love.HashFunction
----| "md5" # MD5 hash algorithm (16 bytes).
----| "sha1" # SHA1 hash algorithm (20 bytes).
----| "sha224" # SHA2 hash algorithm with message digest size of 224 bits (28 bytes).
----| "sha256" # SHA2 hash algorithm with message digest size of 256 bits (32 bytes).
----| "sha384" # SHA2 hash algorithm with message digest size of 384 bits (48 bytes).
----| "sha512" # SHA2 hash algorithm with message digest size of 512 bits (64 bytes).
+---| '"md5"' # MD5 hash algorithm (16 bytes).
+---| '"sha1"' # SHA1 hash algorithm (20 bytes).
+---| '"sha224"' # SHA2 hash algorithm with message digest size of 224 bits (28 bytes).
+---| '"sha256"' # SHA2 hash algorithm with message digest size of 256 bits (32 bytes).
+---| '"sha384"' # SHA2 hash algorithm with message digest size of 384 bits (48 bytes).
+---| '"sha512"' # SHA2 hash algorithm with message digest size of 512 bits (64 bytes).
 
 ---Compresses a string or data using a specific compression algorithm.
 ---
@@ -86,7 +86,7 @@ function CompressedData:getFormat() end
 ---@param container love.ContainerType What type to return the compressed data as.
 ---@param format love.CompressedDataFormat The format to use when compressing the string.
 ---@param rawstring string The raw (un-compressed) string to compress.
----@param level number? The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used. (defaults to `-1`.)
+---@param level number? The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used. (defaults to `-1`).
 ---@return love.CompressedData|string compressedData CompressedData/string which contains the compressed version of rawstring.
 ---@overload fun(container: love.ContainerType, format: love.CompressedDataFormat, data: love.Data, level: number?): love.CompressedData|string
 function love.data.compress(container, format, rawstring, level) end
@@ -121,7 +121,7 @@ function love.data.decompress(container, format, data) end
 ---@param container love.ContainerType What type to return the encoded data as.
 ---@param format love.EncodeFormat The format of the output data.
 ---@param sourceString string The raw data to encode.
----@param linelength number? The maximum line length of the output. Only supported for base64, ignored if 0. (defaults to `0`.)
+---@param linelength number? The maximum line length of the output. Only supported for base64, ignored if 0. (defaults to `0`).
 ---@return love.ByteData|string encoded ByteData/string which contains the encoded version of source.
 ---@overload fun(container: love.ContainerType, format: love.EncodeFormat, sourceData: love.Data, linelength: number?): love.ByteData|string
 function love.data.encode(container, format, sourceString, linelength) end
@@ -158,8 +158,8 @@ function love.data.hash(hashFunction, string) end
 ---
 ---Creates a new ByteData by copying from an existing Data object.
 ---@param Data love.Data The existing Data object to copy.
----@param offset number? The offset of the subsection to copy, in bytes. (defaults to `0`.)
----@param size number? The size in bytes of the new Data object. (defaults to `data:getSize()`.)
+---@param offset number? The offset of the subsection to copy, in bytes. (defaults to `0`).
+---@param size number? The size in bytes of the new Data object. (defaults to `data:getSize()`).
 ---@return love.ByteData bytedata The new Data object.
 ---Creates a new ByteData by copying the contents of the specified string.
 ---@overload fun(datastring: string): love.ByteData
@@ -199,9 +199,9 @@ function love.data.pack(container, format, v1, ...) end
 ---
 ---@param format string A string determining how the values were packed. Follows the rules of Lua 5.3's string.pack format strings.
 ---@param datastring string A string containing the packed (serialized) data.
----@param pos number? Where to start reading in the string. Negative values can be used to read relative from the end of the string. (defaults to `1`.)
+---@param pos number? Where to start reading in the string. Negative values can be used to read relative from the end of the string. (defaults to `1`).
 ---@return number|boolean|string v1 The first value (number, boolean, or string) that was unpacked.
----@return number|boolean|string Additional unpacked values.
+---@return number|boolean|string # Additional unpacked values.
 ---@return number index The index of the first unread byte in the data string.
 ---Unpacking integers with values greater than 2^52 is not supported, as Lua 5.1 cannot represent those values in its number type. 
 ---@overload fun(format: string, data: love.Data, pos: number?): number|boolean|string, number|boolean|string, number

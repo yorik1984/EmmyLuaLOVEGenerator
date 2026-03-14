@@ -61,7 +61,7 @@ function Canvas:getMipmapMode() end
 ---
 ---@param self love.Canvas
 ---@param slice number The cubemap face index, array index, or depth layer for cubemap, array, or volume type Canvases, respectively. This argument is ignored for regular 2D canvases.
----@param mipmap number? The mipmap index to use, for Canvases with mipmaps. (defaults to `1`.)
+---@param mipmap number? The mipmap index to use, for Canvases with mipmaps. (defaults to `1`).
 ---@param x number The x-axis of the top-left corner (in pixels) of the area within the Canvas to capture.
 ---@param y number The y-axis of the top-left corner (in pixels) of the area within the Canvas to capture.
 ---@param width number The width in pixels of the area within the Canvas to capture.
@@ -250,7 +250,7 @@ function Font:setFallbacks(fallbackfont1, ...) end
 ---@param self love.Font
 ---@param min love.FilterMode How to scale a font down.
 ---@param mag love.FilterMode How to scale a font up.
----@param anisotropy number? Maximum amount of anisotropic filtering used. (defaults to `1`.)
+---@param anisotropy number? Maximum amount of anisotropic filtering used. (defaults to `1`).
 function Font:setFilter(min, mag, anisotropy) end
 
 ---Sets the line height.
@@ -300,11 +300,11 @@ function Image:isFormatLinear() end
 ---
 ---@param self love.Image
 ---@param data love.ImageData The new ImageData to replace the contents with.
----@param slice number? Which cubemap face, array index, or volume layer to replace, if applicable. (defaults to `1`.)
----@param mipmap number? The mimap level to replace, if the Image has mipmaps. (defaults to `1`.)
----@param x number? The x-offset in pixels from the top-left of the image to replace. The given ImageData's width plus this value must not be greater than the pixel width of the Image's specified mipmap level. (defaults to `0`.)
----@param y number? The y-offset in pixels from the top-left of the image to replace. The given ImageData's height plus this value must not be greater than the pixel height of the Image's specified mipmap level. (defaults to `0`.)
----@param reloadmipmaps boolean? Whether to generate new mipmaps after replacing the Image's pixels. True by default if the Image was created with automatically generated mipmaps, false by default otherwise. (defaults to `false`.)
+---@param slice number? Which cubemap face, array index, or volume layer to replace, if applicable. (defaults to `1`).
+---@param mipmap number? The mimap level to replace, if the Image has mipmaps. (defaults to `1`).
+---@param x number? The x-offset in pixels from the top-left of the image to replace. The given ImageData's width plus this value must not be greater than the pixel width of the Image's specified mipmap level. (defaults to `0`).
+---@param y number? The y-offset in pixels from the top-left of the image to replace. The given ImageData's height plus this value must not be greater than the pixel height of the Image's specified mipmap level. (defaults to `0`).
+---@param reloadmipmaps boolean? Whether to generate new mipmaps after replacing the Image's pixels. True by default if the Image was created with automatically generated mipmaps, false by default otherwise. (defaults to `false`).
 function Image:replacePixels(data, slice, mipmap, x, y, reloadmipmaps) end
 
 --endregion love.Image
@@ -328,8 +328,8 @@ local Mesh = {}
 ---@param self love.Mesh
 ---@param name string The name of the vertex attribute to attach.
 ---@param mesh love.Mesh The Mesh to get the vertex attribute from.
----@param step love.VertexAttributeStep? Whether the attribute will be per-vertex or per-instance when the mesh is drawn. (defaults to `'pervertex'`.)
----@param attachname string? The name of the attribute to use in shader code. Defaults to the name of the attribute in the given mesh. Can be used to use a different name for this attribute when rendering. (defaults to `name`.)
+---@param step love.VertexAttributeStep? Whether the attribute will be per-vertex or per-instance when the mesh is drawn. (defaults to `'pervertex'`).
+---@param attachname string? The name of the attribute to use in shader code. Defaults to the name of the attribute in the given mesh. Can be used to use a different name for this attribute when rendering. (defaults to `name`).
 ---@overload fun(self: love.Mesh, name: string, mesh: love.Mesh): nil
 function Mesh:attachAttribute(name, mesh, step, attachname) end
 
@@ -411,7 +411,7 @@ function Mesh:getVertex(index) end
 ---@param attributeindex number The index of the attribute within the vertex to be retrieved (one-based).
 ---@return number value1 The value of the first component of the attribute.
 ---@return number value2 The value of the second component of the attribute.
----@return number Any additional vertex attribute components.
+---@return number # Any additional vertex attribute components.
 function Mesh:getVertexAttribute(vertexindex, attributeindex) end
 
 ---Gets the total number of vertices in the Mesh.
@@ -442,7 +442,7 @@ function Mesh:getVertexCount() end
 ---
 ---}
 ---@param self love.Mesh
----@return { attribute: table } format The vertex format of the Mesh, which is a table containing tables for each vertex attribute the Mesh was created with, in the form of {attribute, ...}. See class Mesh:getVertexFormat.result for field descriptions.
+---@return { attribute: table } format The vertex format of the Mesh, which is a table containing tables for each vertex attribute the Mesh was created with, in the form of {attribute, ...}. See class `Mesh:getVertexFormat.result` for field descriptions.
 function Mesh:getVertexFormat() end
 
 ---Gets the vertex map for the Mesh. The vertex map describes the order in which the vertices are used when the Mesh is drawn. The vertices, vertex map, and mesh draw mode work together to determine what exactly is displayed on the screen.
@@ -521,10 +521,10 @@ function Mesh:setTexture(texture) end
 ---@param y number The position of the vertex on the y-axis.
 ---@param u number The horizontal component of the texture coordinate.
 ---@param v number The vertical component of the texture coordinate.
----@param r number? The red component of the vertex's color. (defaults to `1`.)
----@param g number? The green component of the vertex's color. (defaults to `1`.)
----@param b number? The blue component of the vertex's color. (defaults to `1`.)
----@param a number? The alpha component of the vertex's color. (defaults to `1`.)
+---@param r number? The red component of the vertex's color. (defaults to `1`).
+---@param g number? The green component of the vertex's color. (defaults to `1`).
+---@param b number? The blue component of the vertex's color. (defaults to `1`).
+---@param a number? The alpha component of the vertex's color. (defaults to `1`).
 ---The arguments are in the same order as the vertex attributes in the Mesh's vertex format. A standard Mesh that wasn't created with a custom vertex format will use two position numbers, two texture coordinate numbers, and four color components per vertex: x, y, u, v, r, g, b, a.
 ---
 ---If no value is supplied for a specific vertex attribute component, it will be set to a default value of 0 if its data type is 'float', or 1 if its data type is 'byte'.
@@ -578,8 +578,8 @@ function Mesh:setVertexMap(vi1, vi2, vi3) end
 ---If no value is supplied for a specific vertex attribute component, it will be set to a default value of 0 if its data type is 'float', or 255 if its data type is 'byte'.
 ---@param self love.Mesh
 ---@param vertices { attributecomponent: number } The table filled with vertex information tables for each vertex, in the form of {vertex, ...} where each vertex is a table in the form of {attributecomponent, ...}.
----@param startvertex number? The index of the first vertex to replace. (defaults to `1`.)
----@param count number? Amount of vertices to replace. (defaults to `all`.)
+---@param startvertex number? The index of the first vertex to replace. (defaults to `1`).
+---@param count number? Amount of vertices to replace. (defaults to `all`).
 ---Sets the vertex components of the Mesh by copying directly from the memory of a Data object.
 ---
 ---If LuaJIT's FFI is used to populate the Data object via Data:getPointer and ffi.cast, this variant can be drastically more efficient than other methods of setting Mesh vertex data.
@@ -921,7 +921,7 @@ function ParticleSystem:setBufferSize(size) end
 ---@param r1 number First color, red component (0-1).
 ---@param g1 number First color, green component (0-1).
 ---@param b1 number First color, blue component (0-1).
----@param a1 number? First color, alpha component (0-1). (defaults to `1`.)
+---@param a1 number? First color, alpha component (0-1). (defaults to `1`).
 ---@overload fun(self: love.ParticleSystem, rgba1: table): nil
 function ParticleSystem:setColors(r1, g1, b1, a1, ...) end
 
@@ -941,8 +941,8 @@ function ParticleSystem:setDirection(direction) end
 ---@param distribution love.AreaSpreadDistribution The type of distribution for new particles.
 ---@param dx number The maximum spawn distance from the emitter along the x-axis for uniform distribution, or the standard deviation along the x-axis for normal distribution.
 ---@param dy number The maximum spawn distance from the emitter along the y-axis for uniform distribution, or the standard deviation along the y-axis for normal distribution.
----@param angle number? The angle in radians of the emission area. (defaults to `0`.)
----@param directionRelativeToCenter boolean? True if newly spawned particles will be oriented relative to the center of the emission area, false otherwise. (defaults to `false`.)
+---@param angle number? The angle in radians of the emission area. (defaults to `0`).
+---@param directionRelativeToCenter boolean? True if newly spawned particles will be oriented relative to the center of the emission area, false otherwise. (defaults to `false`).
 function ParticleSystem:setEmissionArea(distribution, dx, dy, angle, directionRelativeToCenter) end
 
 ---Sets the amount of particles emitted per second.
@@ -978,8 +978,8 @@ function ParticleSystem:setInsertMode(mode) end
 ---@param self love.ParticleSystem
 ---@param xmin number The minimum acceleration along the x axis.
 ---@param ymin number The minimum acceleration along the y axis.
----@param xmax number? The maximum acceleration along the x axis. (defaults to `xmin`.)
----@param ymax number? The maximum acceleration along the y axis. (defaults to `ymin`.)
+---@param xmax number? The maximum acceleration along the x axis. (defaults to `xmin`).
+---@param ymax number? The maximum acceleration along the y axis. (defaults to `ymin`).
 function ParticleSystem:setLinearAcceleration(xmin, ymin, xmax, ymax) end
 
 ---Sets the amount of linear damping (constant deceleration) for particles.
@@ -988,7 +988,7 @@ function ParticleSystem:setLinearAcceleration(xmin, ymin, xmax, ymax) end
 ---
 ---@param self love.ParticleSystem
 ---@param min number The minimum amount of linear damping applied to particles.
----@param max number? The maximum amount of linear damping applied to particles. (defaults to `min`.)
+---@param max number? The maximum amount of linear damping applied to particles. (defaults to `min`).
 function ParticleSystem:setLinearDamping(min, max) end
 
 ---Set the offset position which the particle sprite is rotated around.
@@ -1008,7 +1008,7 @@ function ParticleSystem:setOffset(x, y) end
 ---
 ---@param self love.ParticleSystem
 ---@param min number The minimum life of the particles (in seconds).
----@param max number? The maximum life of the particles (in seconds). (defaults to `min`.)
+---@param max number? The maximum life of the particles (in seconds). (defaults to `min`).
 function ParticleSystem:setParticleLifetime(min, max) end
 
 ---Sets the position of the emitter.
@@ -1035,7 +1035,7 @@ function ParticleSystem:setQuads(quad1, ...) end
 ---
 ---@param self love.ParticleSystem
 ---@param min number The minimum acceleration.
----@param max number? The maximum acceleration. (defaults to `min`.)
+---@param max number? The maximum acceleration. (defaults to `min`).
 function ParticleSystem:setRadialAcceleration(min, max) end
 
 ---Sets whether particle angles and rotations are relative to their velocities. If enabled, particles are aligned to the angle of their velocities and rotate relative to that angle.
@@ -1052,7 +1052,7 @@ function ParticleSystem:setRelativeRotation(enable) end
 ---
 ---@param self love.ParticleSystem
 ---@param min number The minimum initial angle (radians).
----@param max number? The maximum initial angle (radians). (defaults to `min`.)
+---@param max number? The maximum initial angle (radians). (defaults to `min`).
 function ParticleSystem:setRotation(min, max) end
 
 ---Sets the amount of size variation (0 meaning no variation and 1 meaning full variation between start and end).
@@ -1071,8 +1071,8 @@ function ParticleSystem:setSizeVariation(variation) end
 ---
 ---@param self love.ParticleSystem
 ---@param size1 number The first size.
----@param size2 number? The second size. (defaults to `nil`.)
----@param size8 number? The eighth size. (defaults to `nil`.)
+---@param size2 number? The second size. (defaults to `nil`).
+---@param size8 number? The eighth size. (defaults to `nil`).
 function ParticleSystem:setSizes(size1, size2, size8) end
 
 ---Sets the speed of the particles.
@@ -1081,7 +1081,7 @@ function ParticleSystem:setSizes(size1, size2, size8) end
 ---
 ---@param self love.ParticleSystem
 ---@param min number The minimum linear speed of the particles.
----@param max number? The maximum linear speed of the particles. (defaults to `min`.)
+---@param max number? The maximum linear speed of the particles. (defaults to `min`).
 function ParticleSystem:setSpeed(min, max) end
 
 ---Sets the spin of the sprite.
@@ -1090,7 +1090,7 @@ function ParticleSystem:setSpeed(min, max) end
 ---
 ---@param self love.ParticleSystem
 ---@param min number The minimum spin (radians per second).
----@param max number? The maximum spin (radians per second). (defaults to `min`.)
+---@param max number? The maximum spin (radians per second). (defaults to `min`).
 function ParticleSystem:setSpin(min, max) end
 
 ---Sets the amount of spin variation (0 meaning no variation and 1 meaning full variation between start and end).
@@ -1115,7 +1115,7 @@ function ParticleSystem:setSpread(spread) end
 ---
 ---@param self love.ParticleSystem
 ---@param min number The minimum acceleration.
----@param max number? The maximum acceleration. (defaults to `min`.)
+---@param max number? The maximum acceleration. (defaults to `min`).
 function ParticleSystem:setTangentialAcceleration(min, max) end
 
 ---Sets the texture (Image or Canvas) to be used for the particles.
@@ -1190,8 +1190,8 @@ function Quad:getViewport() end
 ---@param y number The top-left corner along the y-axis.
 ---@param w number The width of the viewport.
 ---@param h number The height of the viewport.
----@param sw number? Optional new reference width, the width of the Texture. Must be greater than 0 if set. (defaults to `nil`.)
----@param sh number? Optional new reference height, the height of the Texture. Must be greater than 0 if set. (defaults to `nil`.)
+---@param sw number? Optional new reference width, the width of the Texture. Must be greater than 0 if set. (defaults to `nil`).
+---@param sh number? Optional new reference height, the height of the Texture. Must be greater than 0 if set. (defaults to `nil`).
 function Quad:setViewport(x, y, w, h, sw, sh) end
 
 --endregion love.Quad
@@ -1253,8 +1253,8 @@ function Shader:hasUniform(name) end
 ---@param name string Name of the uniform matrix to send to the shader.
 ---@param matrixlayout love.MatrixLayout The layout (row- or column-major) of the matrix in memory.
 ---@param data love.Data Data object containing the values to send.
----@param offset number? Offset in bytes from the start of the Data object. (defaults to `0`.)
----@param size number? Size in bytes of the data to send. If nil, as many bytes as the specified uniform uses will be copied. (defaults to `all`.)
+---@param offset number? Offset in bytes from the start of the Data object. (defaults to `0`).
+---@param size number? Size in bytes of the data to send. If nil, as many bytes as the specified uniform uses will be copied. (defaults to `all`).
 ---Sends uniform matrices to the Shader sourced from the contents of a Data object. This directly copies the bytes of the data.
 ---@overload fun(self: love.Shader, name: string, data: love.Data, matrixlayout: love.MatrixLayout, offset: number?, size: number?): nil
 ---@overload fun(self: love.Shader, name: string, matrixlayout: love.MatrixLayout, matrix: table): nil
@@ -1311,13 +1311,13 @@ local SpriteBatch = {}
 ---@param quad love.Quad The Quad to add.
 ---@param x number The position to draw the object (x-axis).
 ---@param y number The position to draw the object (y-axis).
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shear factor (x-axis). (defaults to `0`.)
----@param ky number? Shear factor (y-axis). (defaults to `0`.)
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shear factor (x-axis). (defaults to `0`).
+---@param ky number? Shear factor (y-axis). (defaults to `0`).
 ---@return number id An identifier for the added sprite.
 ---@overload fun(self: love.SpriteBatch, x: number, y: number, r: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): number
 function SpriteBatch:add(quad, x, y, r, sx, sy, ox, oy, kx, ky) end
@@ -1332,15 +1332,15 @@ function SpriteBatch:add(quad, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---@param self love.SpriteBatch
 ---@param layerindex number The index of the layer to use for this sprite.
 ---@param quad love.Quad The subsection of the texture's layer to use when drawing the sprite.
----@param x number? The position to draw the sprite (x-axis). (defaults to `0`.)
----@param y number? The position to draw the sprite (y-axis). (defaults to `0`.)
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing factor (y-axis). (defaults to `0`.)
+---@param x number? The position to draw the sprite (x-axis). (defaults to `0`).
+---@param y number? The position to draw the sprite (y-axis). (defaults to `0`).
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing factor (y-axis). (defaults to `0`).
 ---@return number spriteindex The index of the added sprite, for use with SpriteBatch:set or SpriteBatch:setLayer.
 ---Adds a layer of the SpriteBatch's Array Texture.
 ---@overload fun(self: love.SpriteBatch, layerindex: number, x: number?, y: number?, r: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): number
@@ -1441,13 +1441,13 @@ function SpriteBatch:getTexture() end
 ---@param quad love.Quad The Quad used on the image of the batch.
 ---@param x number The position to draw the object (x-axis).
 ---@param y number The position to draw the object (y-axis).
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shear factor (x-axis). (defaults to `0`.)
----@param ky number? Shear factor (y-axis). (defaults to `0`.)
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shear factor (x-axis). (defaults to `0`).
+---@param ky number? Shear factor (y-axis). (defaults to `0`).
 ---@overload fun(self: love.SpriteBatch, spriteindex: number, x: number, y: number, r: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): nil
 function SpriteBatch:set(spriteindex, quad, x, y, r, sx, sy, ox, oy, kx, ky) end
 
@@ -1463,7 +1463,7 @@ function SpriteBatch:set(spriteindex, quad, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---@param r number The amount of red.
 ---@param g number The amount of green.
 ---@param b number The amount of blue.
----@param a number? The amount of alpha. (defaults to `1`.)
+---@param a number? The amount of alpha. (defaults to `1`).
 ---Disables all per-sprite colors for this SpriteBatch.
 ---@overload fun(self: love.SpriteBatch): nil
 function SpriteBatch:setColor(r, g, b, a) end
@@ -1490,15 +1490,15 @@ function SpriteBatch:setDrawRange(start, count) end
 ---@param spriteindex number The index of the existing sprite to replace.
 ---@param layerindex number The index of the layer to use for this sprite.
 ---@param quad love.Quad The subsection of the texture's layer to use when drawing the sprite.
----@param x number? The position to draw the sprite (x-axis). (defaults to `0`.)
----@param y number? The position to draw the sprite (y-axis). (defaults to `0`.)
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing factor (y-axis). (defaults to `0`.)
+---@param x number? The position to draw the sprite (x-axis). (defaults to `0`).
+---@param y number? The position to draw the sprite (y-axis). (defaults to `0`).
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing factor (y-axis). (defaults to `0`).
 ---Changes the sprite in the SpriteBatch.
 ---@overload fun(self: love.SpriteBatch, spriteindex: number, layerindex: number, x: number?, y: number?, r: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): nil
 ---Adds a layer of the SpriteBatch's Array Texture using the specified Quad and Transform.
@@ -1534,15 +1534,15 @@ local Text = {}
 ---
 ---@param self love.Text
 ---@param textstring string The text to add to the object.
----@param x number? The position of the new text on the x-axis. (defaults to `0`.)
----@param y number? The position of the new text on the y-axis. (defaults to `0`.)
----@param angle number? The orientation of the new text in radians. (defaults to `0`.)
----@param sx number? Scale factor on the x-axis. (defaults to `1`.)
----@param sy number? Scale factor on the y-axis. (defaults to `sx`.)
----@param ox number? Origin offset on the x-axis. (defaults to `0`.)
----@param oy number? Origin offset on the y-axis. (defaults to `0`.)
----@param kx number? Shearing / skew factor on the x-axis. (defaults to `0`.)
----@param ky number? Shearing / skew factor on the y-axis. (defaults to `0`.)
+---@param x number? The position of the new text on the x-axis. (defaults to `0`).
+---@param y number? The position of the new text on the y-axis. (defaults to `0`).
+---@param angle number? The orientation of the new text in radians. (defaults to `0`).
+---@param sx number? Scale factor on the x-axis. (defaults to `1`).
+---@param sy number? Scale factor on the y-axis. (defaults to `sx`).
+---@param ox number? Origin offset on the x-axis. (defaults to `0`).
+---@param oy number? Origin offset on the y-axis. (defaults to `0`).
+---@param kx number? Shearing / skew factor on the x-axis. (defaults to `0`).
+---@param ky number? Shearing / skew factor on the y-axis. (defaults to `0`).
 ---@return number index An index number that can be used with Text:getWidth or Text:getHeight.
 ---The color set by love.graphics.setColor will be combined (multiplied) with the colors of the text, when drawing the Text object.
 ---@overload fun(self: love.Text, coloredtext: { color1: table, string1: string, color2: table, string2: string }, x: number?, y: number?, angle: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): number
@@ -1560,13 +1560,13 @@ function Text:add(textstring, x, y, angle, sx, sy, ox, oy, kx, ky) end
 ---@param align love.AlignMode The alignment of the text.
 ---@param x number The position of the new text (x-axis).
 ---@param y number The position of the new text (y-axis).
----@param angle number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing / skew factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing / skew factor (y-axis). (defaults to `0`.)
+---@param angle number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing / skew factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing / skew factor (y-axis). (defaults to `0`).
 ---@return number index An index number that can be used with Text:getWidth or Text:getHeight.
 ---The color set by love.graphics.setColor will be combined (multiplied) with the colors of the text, when drawing the Text object.
 ---@overload fun(self: love.Text, coloredtext: { color1: table, string1: string, color2: table, string2: string }, wraplimit: number, align: love.AlignMode, x: number, y: number, angle: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): number
@@ -1841,8 +1841,8 @@ function Texture:setDepthSampleMode(compare) end
 ---
 ---@param self love.Texture
 ---@param min love.FilterMode Filter mode to use when minifying the texture (rendering it at a smaller size on-screen than its size in pixels).
----@param mag love.FilterMode? Filter mode to use when magnifying the texture (rendering it at a larger size on-screen than its size in pixels). (defaults to `min`.)
----@param anisotropy number? Maximum amount of anisotropic filtering to use. (defaults to `1`.)
+---@param mag love.FilterMode? Filter mode to use when magnifying the texture (rendering it at a larger size on-screen than its size in pixels). (defaults to `min`).
+---@param anisotropy number? Maximum amount of anisotropic filtering to use. (defaults to `1`).
 function Texture:setFilter(min, mag, anisotropy) end
 
 ---Sets the mipmap filter mode for a Texture. Prior to 11.0 this method only worked on Images.
@@ -1858,7 +1858,7 @@ function Texture:setFilter(min, mag, anisotropy) end
 ---On mobile devices (Android and iOS), the sharpness parameter is not supported and will do nothing. You can use a custom compressed and its CompressedData has mipmap data included, it will use that.
 ---@param self love.Texture
 ---@param filtermode love.FilterMode The filter mode to use in between mipmap levels. 'nearest' will often give better performance.
----@param sharpness number? A positive sharpness value makes the texture use a more detailed mipmap level when drawing, at the expense of performance. A negative value does the reverse. (defaults to `0`.)
+---@param sharpness number? A positive sharpness value makes the texture use a more detailed mipmap level when drawing, at the expense of performance. A negative value does the reverse. (defaults to `0`).
 ---Disables mipmap filtering.
 ---@overload fun(self: love.Texture): nil
 function Texture:setMipmapFilter(filtermode, sharpness) end
@@ -1873,8 +1873,8 @@ function Texture:setMipmapFilter(filtermode, sharpness) end
 ---
 ---@param self love.Texture
 ---@param horiz love.WrapMode Horizontal wrapping mode of the texture.
----@param vert love.WrapMode? Vertical wrapping mode of the texture. (defaults to `horiz`.)
----@param depth love.WrapMode? Wrapping mode for the z-axis of a Volume texture. (defaults to `horiz`.)
+---@param vert love.WrapMode? Vertical wrapping mode of the texture. (defaults to `horiz`).
+---@param depth love.WrapMode? Wrapping mode for the z-axis of a Volume texture. (defaults to `horiz`).
 function Texture:setWrap(horiz, vert, depth) end
 
 --endregion love.Texture
@@ -1983,7 +1983,7 @@ function Video:seek(offset) end
 ---@param self love.Video
 ---@param min love.FilterMode The filter mode used when scaling the Video down.
 ---@param mag love.FilterMode The filter mode used when scaling the Video up.
----@param anisotropy number? Maximum amount of anisotropic filtering used. (defaults to `1`.)
+---@param anisotropy number? Maximum amount of anisotropic filtering used. (defaults to `1`).
 function Video:setFilter(min, mag, anisotropy) end
 
 ---Sets the audio Source used for playing back the video's audio. The audio Source also controls playback speed and synchronization.
@@ -1991,7 +1991,7 @@ function Video:setFilter(min, mag, anisotropy) end
 ---[Open in Browser](https://love2d.org/wiki/Video:setSource)
 ---
 ---@param self love.Video
----@param source love.Source The audio Source used for audio playback, or nil to disable audio synchronization. (defaults to `nil`.)
+---@param source love.Source The audio Source used for audio playback, or nil to disable audio synchronization. (defaults to `nil`).
 function Video:setSource(source) end
 
 ---Gets the current playback position of the Video.
@@ -2009,216 +2009,216 @@ function Video:tell() end
 ---[Open in Browser](https://love2d.org/wiki/AlignMode)
 ---
 ---@alias love.AlignMode
----| "center" # Align text center.
----| "left" # Align text left.
----| "right" # Align text right.
----| "justify" # Align text both left and right.
+---| '"center"' # Align text center.
+---| '"left"' # Align text left.
+---| '"right"' # Align text right.
+---| '"justify"' # Align text both left and right.
 
 ---Different types of arcs that can be drawn.
 ---
 ---[Open in Browser](https://love2d.org/wiki/ArcType)
 ---
 ---@alias love.ArcType
----| "pie" # The arc is drawn like a slice of pie, with the arc circle connected to the center at its end-points.
----| "open" # The arc circle's two end-points are unconnected when the arc is drawn as a line. Behaves like the "closed" arc type when the arc is drawn in filled mode.
----| "closed" # The arc circle's two end-points are connected to each other.
+---| '"pie"' # The arc is drawn like a slice of pie, with the arc circle connected to the center at its end-points.
+---| '"open"' # The arc circle's two end-points are unconnected when the arc is drawn as a line. Behaves like the "closed" arc type when the arc is drawn in filled mode.
+---| '"closed"' # The arc circle's two end-points are connected to each other.
 
 ---Types of particle area spread distribution.
 ---
 ---[Open in Browser](https://love2d.org/wiki/AreaSpreadDistribution)
 ---
 ---@alias love.AreaSpreadDistribution
----| "uniform" # Uniform distribution.
----| "normal" # Normal (gaussian) distribution.
----| "ellipse" # Uniform distribution in an ellipse.
----| "borderellipse" # Distribution in an ellipse with particles spawning at the edges of the ellipse.
----| "borderrectangle" # Distribution in a rectangle with particles spawning at the edges of the rectangle.
----| "none" # No distribution - area spread is disabled.
+---| '"uniform"' # Uniform distribution.
+---| '"normal"' # Normal (gaussian) distribution.
+---| '"ellipse"' # Uniform distribution in an ellipse.
+---| '"borderellipse"' # Distribution in an ellipse with particles spawning at the edges of the ellipse.
+---| '"borderrectangle"' # Distribution in a rectangle with particles spawning at the edges of the rectangle.
+---| '"none"' # No distribution - area spread is disabled.
 
 ---Different ways alpha affects color blending. See BlendMode and the BlendMode Formulas for additional notes.
 ---
 ---[Open in Browser](https://love2d.org/wiki/BlendAlphaMode)
 ---
 ---@alias love.BlendAlphaMode
----| "alphamultiply" # The RGB values of what's drawn are multiplied by the alpha values of those colors during blending. This is the default alpha mode.
----| "premultiplied" # The RGB values of what's drawn are '''not''' multiplied by the alpha values of those colors during blending. For most blend modes to work correctly with this alpha mode, the colors of a drawn object need to have had their RGB values multiplied by their alpha values at some point previously ("premultiplied alpha").
+---| '"alphamultiply"' # The RGB values of what's drawn are multiplied by the alpha values of those colors during blending. This is the default alpha mode.
+---| '"premultiplied"' # The RGB values of what's drawn are '''not''' multiplied by the alpha values of those colors during blending. For most blend modes to work correctly with this alpha mode, the colors of a drawn object need to have had their RGB values multiplied by their alpha values at some point previously ("premultiplied alpha").
 
 ---Different ways to do color blending. See BlendAlphaMode and the BlendMode Formulas for additional notes.
 ---
 ---[Open in Browser](https://love2d.org/wiki/BlendMode)
 ---
 ---@alias love.BlendMode
----| "alpha" # Alpha blending (normal). The alpha of what's drawn determines its opacity.
----| "replace" # The colors of what's drawn completely replace what was on the screen, with no additional blending. The BlendAlphaMode specified in love.graphics.setBlendMode still affects what happens.
----| "screen" # 'Screen' blending.
----| "add" # The pixel colors of what's drawn are added to the pixel colors already on the screen. The alpha of the screen is not modified.
----| "subtract" # The pixel colors of what's drawn are subtracted from the pixel colors already on the screen. The alpha of the screen is not modified.
----| "multiply" # The pixel colors of what's drawn are multiplied with the pixel colors already on the screen (darkening them). The alpha of drawn objects is multiplied with the alpha of the screen rather than determining how much the colors on the screen are affected, even when the "alphamultiply" BlendAlphaMode is used.
----| "lighten" # The pixel colors of what's drawn are compared to the existing pixel colors, and the larger of the two values for each color component is used. Only works when the "premultiplied" BlendAlphaMode is used in love.graphics.setBlendMode.
----| "darken" # The pixel colors of what's drawn are compared to the existing pixel colors, and the smaller of the two values for each color component is used. Only works when the "premultiplied" BlendAlphaMode is used in love.graphics.setBlendMode.
----| "additive" # Additive blend mode.
----| "subtractive" # Subtractive blend mode.
----| "multiplicative" # Multiply blend mode.
----| "premultiplied" # Premultiplied alpha blend mode.
+---| '"alpha"' # Alpha blending (normal). The alpha of what's drawn determines its opacity.
+---| '"replace"' # The colors of what's drawn completely replace what was on the screen, with no additional blending. The BlendAlphaMode specified in love.graphics.setBlendMode still affects what happens.
+---| '"screen"' # 'Screen' blending.
+---| '"add"' # The pixel colors of what's drawn are added to the pixel colors already on the screen. The alpha of the screen is not modified.
+---| '"subtract"' # The pixel colors of what's drawn are subtracted from the pixel colors already on the screen. The alpha of the screen is not modified.
+---| '"multiply"' # The pixel colors of what's drawn are multiplied with the pixel colors already on the screen (darkening them). The alpha of drawn objects is multiplied with the alpha of the screen rather than determining how much the colors on the screen are affected, even when the "alphamultiply" BlendAlphaMode is used.
+---| '"lighten"' # The pixel colors of what's drawn are compared to the existing pixel colors, and the larger of the two values for each color component is used. Only works when the "premultiplied" BlendAlphaMode is used in love.graphics.setBlendMode.
+---| '"darken"' # The pixel colors of what's drawn are compared to the existing pixel colors, and the smaller of the two values for each color component is used. Only works when the "premultiplied" BlendAlphaMode is used in love.graphics.setBlendMode.
+---| '"additive"' # Additive blend mode.
+---| '"subtractive"' # Subtractive blend mode.
+---| '"multiplicative"' # Multiply blend mode.
+---| '"premultiplied"' # Premultiplied alpha blend mode.
 
 ---Different types of per-pixel stencil test and depth test comparisons. The pixels of an object will be drawn if the comparison succeeds, for each pixel that the object touches.
 ---
 ---[Open in Browser](https://love2d.org/wiki/CompareMode)
 ---
 ---@alias love.CompareMode
----| "equal" # * stencil tests: the stencil value of the pixel must be equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must be equal to the existing depth value of that pixel.
----| "notequal" # * stencil tests: the stencil value of the pixel must not be equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must not be equal to the existing depth value of that pixel.
----| "less" # * stencil tests: the stencil value of the pixel must be less than the supplied value. * depth tests: the depth value of the drawn object at that pixel must be less than the existing depth value of that pixel.
----| "lequal" # * stencil tests: the stencil value of the pixel must be less than or equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must be less than or equal to the existing depth value of that pixel.
----| "gequal" # * stencil tests: the stencil value of the pixel must be greater than or equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must be greater than or equal to the existing depth value of that pixel.
----| "greater" # * stencil tests: the stencil value of the pixel must be greater than the supplied value. * depth tests: the depth value of the drawn object at that pixel must be greater than the existing depth value of that pixel.
----| "never" # Objects will never be drawn.
----| "always" # Objects will always be drawn. Effectively disables the depth or stencil test.
+---| '"equal"' # * stencil tests: the stencil value of the pixel must be equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must be equal to the existing depth value of that pixel.
+---| '"notequal"' # * stencil tests: the stencil value of the pixel must not be equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must not be equal to the existing depth value of that pixel.
+---| '"less"' # * stencil tests: the stencil value of the pixel must be less than the supplied value. * depth tests: the depth value of the drawn object at that pixel must be less than the existing depth value of that pixel.
+---| '"lequal"' # * stencil tests: the stencil value of the pixel must be less than or equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must be less than or equal to the existing depth value of that pixel.
+---| '"gequal"' # * stencil tests: the stencil value of the pixel must be greater than or equal to the supplied value. * depth tests: the depth value of the drawn object at that pixel must be greater than or equal to the existing depth value of that pixel.
+---| '"greater"' # * stencil tests: the stencil value of the pixel must be greater than the supplied value. * depth tests: the depth value of the drawn object at that pixel must be greater than the existing depth value of that pixel.
+---| '"never"' # Objects will never be drawn.
+---| '"always"' # Objects will always be drawn. Effectively disables the depth or stencil test.
 
 ---How Mesh geometry is culled when rendering.
 ---
 ---[Open in Browser](https://love2d.org/wiki/CullMode)
 ---
 ---@alias love.CullMode
----| "back" # Back-facing triangles in Meshes are culled (not rendered). The vertex order of a triangle determines whether it is back- or front-facing.
----| "front" # Front-facing triangles in Meshes are culled.
----| "none" # Both back- and front-facing triangles in Meshes are rendered.
+---| '"back"' # Back-facing triangles in Meshes are culled (not rendered). The vertex order of a triangle determines whether it is back- or front-facing.
+---| '"front"' # Front-facing triangles in Meshes are culled.
+---| '"none"' # Both back- and front-facing triangles in Meshes are rendered.
 
 ---Controls whether shapes are drawn as an outline, or filled.
 ---
 ---[Open in Browser](https://love2d.org/wiki/DrawMode)
 ---
 ---@alias love.DrawMode
----| "fill" # Draw filled shape.
----| "line" # Draw outlined shape.
+---| '"fill"' # Draw filled shape.
+---| '"line"' # Draw outlined shape.
 
 ---How the image is filtered when scaling.
 ---
 ---[Open in Browser](https://love2d.org/wiki/FilterMode)
 ---
 ---@alias love.FilterMode
----| "linear" # Scale image with linear interpolation.
----| "nearest" # Scale image with nearest neighbor interpolation.
+---| '"linear"' # Scale image with linear interpolation.
+---| '"nearest"' # Scale image with nearest neighbor interpolation.
 
 ---Graphics features that can be checked for with love.graphics.getSupported.
 ---
 ---[Open in Browser](https://love2d.org/wiki/GraphicsFeature)
 ---
 ---@alias love.GraphicsFeature
----| "clampzero" # Whether the "clampzero" WrapMode is supported.
----| "lighten" # Whether the "lighten" and "darken" BlendModes are supported.
----| "multicanvasformats" # Whether multiple formats can be used in the same love.graphics.setCanvas call.
----| "glsl3" # Whether GLSL 3 Shaders can be used.
----| "instancing" # Whether mesh instancing is supported.
----| "fullnpot" # Whether textures with non-power-of-two dimensions can use mipmapping and the 'repeat' WrapMode.
----| "pixelshaderhighp" # Whether pixel shaders can use "highp" 32 bit floating point numbers (as opposed to just 16 bit or lower precision).
----| "shaderderivatives" # Whether shaders can use the dFdx, dFdy, and fwidth functions for computing derivatives.
+---| '"clampzero"' # Whether the "clampzero" WrapMode is supported.
+---| '"lighten"' # Whether the "lighten" and "darken" BlendModes are supported.
+---| '"multicanvasformats"' # Whether multiple formats can be used in the same love.graphics.setCanvas call.
+---| '"glsl3"' # Whether GLSL 3 Shaders can be used.
+---| '"instancing"' # Whether mesh instancing is supported.
+---| '"fullnpot"' # Whether textures with non-power-of-two dimensions can use mipmapping and the 'repeat' WrapMode.
+---| '"pixelshaderhighp"' # Whether pixel shaders can use "highp" 32 bit floating point numbers (as opposed to just 16 bit or lower precision).
+---| '"shaderderivatives"' # Whether shaders can use the dFdx, dFdy, and fwidth functions for computing derivatives.
 
 ---Types of system-dependent graphics limits checked for using love.graphics.getSystemLimits.
 ---
 ---[Open in Browser](https://love2d.org/wiki/GraphicsLimit)
 ---
 ---@alias love.GraphicsLimit
----| "pointsize" # The maximum size of points.
----| "texturesize" # The maximum width or height of Images and Canvases.
----| "multicanvas" # The maximum number of simultaneously active canvases (via love.graphics.setCanvas.)
----| "canvasmsaa" # The maximum number of antialiasing samples for a Canvas.
----| "texturelayers" # The maximum number of layers in an Array texture.
----| "volumetexturesize" # The maximum width, height, or depth of a Volume texture.
----| "cubetexturesize" # The maximum width or height of a Cubemap texture.
----| "anisotropy" # The maximum amount of anisotropic filtering. Texture:setMipmapFilter internally clamps the given anisotropy value to the system's limit.
+---| '"pointsize"' # The maximum size of points.
+---| '"texturesize"' # The maximum width or height of Images and Canvases.
+---| '"multicanvas"' # The maximum number of simultaneously active canvases (via love.graphics.setCanvas.)
+---| '"canvasmsaa"' # The maximum number of antialiasing samples for a Canvas.
+---| '"texturelayers"' # The maximum number of layers in an Array texture.
+---| '"volumetexturesize"' # The maximum width, height, or depth of a Volume texture.
+---| '"cubetexturesize"' # The maximum width or height of a Cubemap texture.
+---| '"anisotropy"' # The maximum amount of anisotropic filtering. Texture:setMipmapFilter internally clamps the given anisotropy value to the system's limit.
 
 ---Vertex map datatype for Data variant of Mesh:setVertexMap.
 ---
 ---[Open in Browser](https://love2d.org/wiki/IndexDataType)
 ---
 ---@alias love.IndexDataType
----| "uint16" # The vertex map is array of unsigned word (16-bit).
----| "uint32" # The vertex map is array of unsigned dword (32-bit).
+---| '"uint16"' # The vertex map is array of unsigned word (16-bit).
+---| '"uint32"' # The vertex map is array of unsigned dword (32-bit).
 
 ---Line join style.
 ---
 ---[Open in Browser](https://love2d.org/wiki/LineJoin)
 ---
 ---@alias love.LineJoin
----| "miter" # The ends of the line segments beveled in an angle so that they join seamlessly.
----| "none" # No cap applied to the ends of the line segments.
----| "bevel" # Flattens the point where line segments join together.
+---| '"miter"' # The ends of the line segments beveled in an angle so that they join seamlessly.
+---| '"none"' # No cap applied to the ends of the line segments.
+---| '"bevel"' # Flattens the point where line segments join together.
 
 ---The styles in which lines are drawn.
 ---
 ---[Open in Browser](https://love2d.org/wiki/LineStyle)
 ---
 ---@alias love.LineStyle
----| "rough" # Draw rough lines.
----| "smooth" # Draw smooth lines.
+---| '"rough"' # Draw rough lines.
+---| '"smooth"' # Draw smooth lines.
 
 ---How a Mesh's vertices are used when drawing.
 ---
 ---[Open in Browser](https://love2d.org/wiki/MeshDrawMode)
 ---
 ---@alias love.MeshDrawMode
----| "fan" # The vertices create a "fan" shape with the first vertex acting as the hub point. Can be easily used to draw simple convex polygons.
----| "strip" # The vertices create a series of connected triangles using vertices 1, 2, 3, then 3, 2, 4 (note the order), then 3, 4, 5, and so on.
----| "triangles" # The vertices create unconnected triangles.
----| "points" # The vertices are drawn as unconnected points (see love.graphics.setPointSize.)
+---| '"fan"' # The vertices create a "fan" shape with the first vertex acting as the hub point. Can be easily used to draw simple convex polygons.
+---| '"strip"' # The vertices create a series of connected triangles using vertices 1, 2, 3, then 3, 2, 4 (note the order), then 3, 4, 5, and so on.
+---| '"triangles"' # The vertices create unconnected triangles.
+---| '"points"' # The vertices are drawn as unconnected points (see love.graphics.setPointSize.)
 
 ---Controls whether a Canvas has mipmaps, and its behaviour when it does.
 ---
 ---[Open in Browser](https://love2d.org/wiki/MipmapMode)
 ---
 ---@alias love.MipmapMode
----| "none" # The Canvas has no mipmaps.
----| "auto" # The Canvas has mipmaps. love.graphics.setCanvas can be used to render to a specific mipmap level, or Canvas:generateMipmaps can (re-)compute all mipmap levels based on the base level.
----| "manual" # The Canvas has mipmaps, and all mipmap levels will automatically be recomputed when switching away from the Canvas with love.graphics.setCanvas.
+---| '"none"' # The Canvas has no mipmaps.
+---| '"auto"' # The Canvas has mipmaps. love.graphics.setCanvas can be used to render to a specific mipmap level, or Canvas:generateMipmaps can (re-)compute all mipmap levels based on the base level.
+---| '"manual"' # The Canvas has mipmaps, and all mipmap levels will automatically be recomputed when switching away from the Canvas with love.graphics.setCanvas.
 
 ---How newly created particles are added to the ParticleSystem.
 ---
 ---[Open in Browser](https://love2d.org/wiki/ParticleInsertMode)
 ---
 ---@alias love.ParticleInsertMode
----| "top" # Particles are inserted at the top of the ParticleSystem's list of particles.
----| "bottom" # Particles are inserted at the bottom of the ParticleSystem's list of particles.
----| "random" # Particles are inserted at random positions in the ParticleSystem's list of particles.
+---| '"top"' # Particles are inserted at the top of the ParticleSystem's list of particles.
+---| '"bottom"' # Particles are inserted at the bottom of the ParticleSystem's list of particles.
+---| '"random"' # Particles are inserted at random positions in the ParticleSystem's list of particles.
 
 ---Usage hints for SpriteBatches and Meshes to optimize data storage and access.
 ---
 ---[Open in Browser](https://love2d.org/wiki/SpriteBatchUsage)
 ---
 ---@alias love.SpriteBatchUsage
----| "dynamic" # The object's data will change occasionally during its lifetime. 
----| "static" # The object will not be modified after initial sprites or vertices are added.
----| "stream" # The object data will always change between draws.
+---| '"dynamic"' # The object's data will change occasionally during its lifetime. 
+---| '"static"' # The object will not be modified after initial sprites or vertices are added.
+---| '"stream"' # The object data will always change between draws.
 
 ---Graphics state stack types used with love.graphics.push.
 ---
 ---[Open in Browser](https://love2d.org/wiki/StackType)
 ---
 ---@alias love.StackType
----| "transform" # The transformation stack (love.graphics.translate, love.graphics.rotate, etc.)
----| "all" # All love.graphics state, including transform state.
+---| '"transform"' # The transformation stack (love.graphics.translate, love.graphics.rotate, etc.)
+---| '"all"' # All love.graphics state, including transform state.
 
 ---How a stencil function modifies the stencil values of pixels it touches.
 ---
 ---[Open in Browser](https://love2d.org/wiki/StencilAction)
 ---
 ---@alias love.StencilAction
----| "replace" # The stencil value of a pixel will be replaced by the value specified in love.graphics.stencil, if any object touches the pixel.
----| "increment" # The stencil value of a pixel will be incremented by 1 for each object that touches the pixel. If the stencil value reaches 255 it will stay at 255.
----| "decrement" # The stencil value of a pixel will be decremented by 1 for each object that touches the pixel. If the stencil value reaches 0 it will stay at 0.
----| "incrementwrap" # The stencil value of a pixel will be incremented by 1 for each object that touches the pixel. If a stencil value of 255 is incremented it will be set to 0.
----| "decrementwrap" # The stencil value of a pixel will be decremented by 1 for each object that touches the pixel. If the stencil value of 0 is decremented it will be set to 255.
----| "invert" # The stencil value of a pixel will be bitwise-inverted for each object that touches the pixel. If a stencil value of 0 is inverted it will become 255.
+---| '"replace"' # The stencil value of a pixel will be replaced by the value specified in love.graphics.stencil, if any object touches the pixel.
+---| '"increment"' # The stencil value of a pixel will be incremented by 1 for each object that touches the pixel. If the stencil value reaches 255 it will stay at 255.
+---| '"decrement"' # The stencil value of a pixel will be decremented by 1 for each object that touches the pixel. If the stencil value reaches 0 it will stay at 0.
+---| '"incrementwrap"' # The stencil value of a pixel will be incremented by 1 for each object that touches the pixel. If a stencil value of 255 is incremented it will be set to 0.
+---| '"decrementwrap"' # The stencil value of a pixel will be decremented by 1 for each object that touches the pixel. If the stencil value of 0 is decremented it will be set to 255.
+---| '"invert"' # The stencil value of a pixel will be bitwise-inverted for each object that touches the pixel. If a stencil value of 0 is inverted it will become 255.
 
 ---Types of textures (2D, cubemap, etc.)
 ---
 ---[Open in Browser](https://love2d.org/wiki/TextureType)
 ---
 ---@alias love.TextureType
----| "2d" # Regular 2D texture with width and height.
----| "array" # Several same-size 2D textures organized into a single object. Similar to a texture atlas / sprite sheet, but avoids sprite bleeding and other issues.
----| "cube" # Cubemap texture with 6 faces. Requires a custom shader (and Shader:send) to use. Sampling from a cube texture in a shader takes a 3D direction vector instead of a texture coordinate.
----| "volume" # 3D texture with width, height, and depth. Requires a custom shader to use. Volume textures can have texture filtering applied along the 3rd axis.
+---| '"2d"' # Regular 2D texture with width and height.
+---| '"array"' # Several same-size 2D textures organized into a single object. Similar to a texture atlas / sprite sheet, but avoids sprite bleeding and other issues.
+---| '"cube"' # Cubemap texture with 6 faces. Requires a custom shader (and Shader:send) to use. Sampling from a cube texture in a shader takes a 3D direction vector instead of a texture coordinate.
+---| '"volume"' # 3D texture with width, height, and depth. Requires a custom shader to use. Volume textures can have texture filtering applied along the 3rd axis.
 
 ---The frequency at which a vertex shader fetches the vertex attribute's data from the Mesh when it's drawn.
 ---
@@ -2227,26 +2227,26 @@ function Video:tell() end
 ---[Open in Browser](https://love2d.org/wiki/VertexAttributeStep)
 ---
 ---@alias love.VertexAttributeStep
----| "pervertex" # The vertex attribute will have a unique value for each vertex in the Mesh.
----| "perinstance" # The vertex attribute will have a unique value for each instance of the Mesh.
+---| '"pervertex"' # The vertex attribute will have a unique value for each vertex in the Mesh.
+---| '"perinstance"' # The vertex attribute will have a unique value for each instance of the Mesh.
 
 ---How Mesh geometry vertices are ordered.
 ---
 ---[Open in Browser](https://love2d.org/wiki/VertexWinding)
 ---
 ---@alias love.VertexWinding
----| "cw" # Clockwise.
----| "ccw" # Counter-clockwise.
+---| '"cw"' # Clockwise.
+---| '"ccw"' # Counter-clockwise.
 
 ---How the image wraps inside a Quad with a larger quad size than image size. This also affects how Meshes with texture coordinates which are outside the range of 1 are drawn, and the color returned by the Texel Shader function when using it to sample from texture coordinates outside of the range of 1.
 ---
 ---[Open in Browser](https://love2d.org/wiki/WrapMode)
 ---
 ---@alias love.WrapMode
----| "clamp" # Clamp the texture. Appears only once. The area outside the texture's normal range is colored based on the edge pixels of the texture.
----| "repeat" # Repeat the texture. Fills the whole available extent.
----| "mirroredrepeat" # Repeat the texture, flipping it each time it repeats. May produce better visual results than the repeat mode when the texture doesn't seamlessly tile.
----| "clampzero" # Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
+---| '"clamp"' # Clamp the texture. Appears only once. The area outside the texture's normal range is colored based on the edge pixels of the texture.
+---| '"repeat"' # Repeat the texture. Fills the whole available extent.
+---| '"mirroredrepeat"' # Repeat the texture, flipping it each time it repeats. May produce better visual results than the repeat mode when the texture doesn't seamlessly tile.
+---| '"clampzero"' # Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
 
 ---Applies the given Transform object to the current coordinate transformation.
 ---
@@ -2268,7 +2268,7 @@ function love.graphics.applyTransform(transform) end
 ---@param radius number Radius of the arc.
 ---@param angle1 number The angle at which the arc begins.
 ---@param angle2 number The angle at which the arc terminates.
----@param segments number? The number of segments used for drawing the arc. (defaults to `10`.)
+---@param segments number? The number of segments used for drawing the arc. (defaults to `10`).
 ---Draws an arc using the 'pie' ArcType.
 ---@overload fun(drawmode: love.DrawMode, x: number, y: number, radius: number, angle1: number, angle2: number, segments: number?): nil
 function love.graphics.arc(drawmode, arctype, x, y, radius, angle1, angle2, segments) end
@@ -2315,9 +2315,9 @@ function love.graphics.circle(mode, x, y, radius, segments) end
 ---@param r number The red channel of the color to clear the screen to.
 ---@param g number The green channel of the color to clear the screen to.
 ---@param b number The blue channel of the color to clear the screen to.
----@param a number? The alpha channel of the color to clear the screen to. (defaults to `1`.)
----@param clearstencil boolean? Whether to clear the active stencil buffer, if present. It can also be an integer between 0 and 255 to clear the stencil buffer to a specific value. (defaults to `true`.)
----@param cleardepth boolean? Whether to clear the active depth buffer, if present. It can also be a number between 0 and 1 to clear the depth buffer to a specific value. (defaults to `true`.)
+---@param a number? The alpha channel of the color to clear the screen to. (defaults to `1`).
+---@param clearstencil boolean? Whether to clear the active stencil buffer, if present. It can also be an integer between 0 and 255 to clear the stencil buffer to a specific value. (defaults to `true`).
+---@param cleardepth boolean? Whether to clear the active depth buffer, if present. It can also be a number between 0 and 1 to clear the depth buffer to a specific value. (defaults to `true`).
 ---Clears multiple active Canvases to different colors, if multiple Canvases are active at once via love.graphics.setCanvas.
 ---
 ---A color must be specified for each active Canvas, when this function variant is used.
@@ -2336,8 +2336,8 @@ function love.graphics.clear(r, g, b, a, clearstencil, cleardepth) end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.discard)
 ---
----@param discardcolor boolean Whether to discard the texture(s) of the active Canvas(es) (the contents of the screen if no Canvas is active.) (defaults to `true`.)
----@param discardstencil boolean? Whether to discard the contents of the stencil buffer of the screen / active Canvas. (defaults to `true`.)
+---@param discardcolor boolean Whether to discard the texture(s) of the active Canvas(es) (the contents of the screen if no Canvas is active.) (defaults to `true`).
+---@param discardstencil boolean? Whether to discard the contents of the stencil buffer of the screen / active Canvas. (defaults to `true`).
 ---@overload fun(discardcolors: table, discardstencil: boolean?): nil
 function love.graphics.discard(discardcolor, discardstencil) end
 
@@ -2359,13 +2359,13 @@ function love.graphics.discard(discardcolor, discardstencil) end
 ---@param quad love.Quad The Quad to draw on screen.
 ---@param x number The position to draw the object (x-axis).
 ---@param y number The position to draw the object (y-axis).
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing factor (y-axis). (defaults to `0`.)
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing factor (y-axis). (defaults to `0`).
 ---@overload fun(drawable: love.Drawable, x: number?, y: number?, r: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): nil
 ---@overload fun(texture: love.Texture, quad: love.Quad, transform: love.Transform): nil
 ---@overload fun(drawable: love.Drawable, transform: love.Transform): nil
@@ -2381,15 +2381,15 @@ function love.graphics.draw(texture, quad, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---
 ---@param mesh love.Mesh The mesh to render.
 ---@param instancecount number The number of instances to render.
----@param x number? The position to draw the instances (x-axis). (defaults to `0`.)
----@param y number? The position to draw the instances (y-axis). (defaults to `0`.)
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing factor (y-axis). (defaults to `0`.)
+---@param x number? The position to draw the instances (x-axis). (defaults to `0`).
+---@param y number? The position to draw the instances (y-axis). (defaults to `0`).
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing factor (y-axis). (defaults to `0`).
 ---@overload fun(mesh: love.Mesh, instancecount: number, transform: love.Transform): nil
 function love.graphics.drawInstanced(mesh, instancecount, x, y, r, sx, sy, ox, oy, kx, ky) end
 
@@ -2403,15 +2403,15 @@ function love.graphics.drawInstanced(mesh, instancecount, x, y, r, sx, sy, ox, o
 ---@param texture love.Texture The Array Texture to draw.
 ---@param layerindex number The index of the layer to use when drawing.
 ---@param quad love.Quad The subsection of the texture's layer to use when drawing.
----@param x number? The position to draw the texture (x-axis). (defaults to `0`.)
----@param y number? The position to draw the texture (y-axis). (defaults to `0`.)
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing factor (y-axis). (defaults to `0`.)
+---@param x number? The position to draw the texture (x-axis). (defaults to `0`).
+---@param y number? The position to draw the texture (y-axis). (defaults to `0`).
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing factor (y-axis). (defaults to `0`).
 ---Draws a layer of an Array Texture.
 ---@overload fun(texture: love.Texture, layerindex: number, x: number?, y: number?, r: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): nil
 ---Draws a layer of an Array Texture using the specified Quad and Transform.
@@ -2713,8 +2713,8 @@ function love.graphics.getStackDepth() end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.getStats)
 ---
 ---This variant accepts an existing table to fill in, instead of creating a new one.
----@param stats { drawcalls: number, canvasswitches: number, texturememory: number, images: number, canvases: number, fonts: number, shaderswitches: number, drawcallsbatched: number } A table which will be filled in with the stat fields below. See class love.graphics.getStats.result for field descriptions.
----@return { drawcalls: number, canvasswitches: number, texturememory: number, images: number, canvases: number, fonts: number, shaderswitches: number, drawcallsbatched: number } stats The table that was passed in above, now containing the following fields: See class love.graphics.getStats.result for field descriptions.
+---@param stats { drawcalls: number, canvasswitches: number, texturememory: number, images: number, canvases: number, fonts: number, shaderswitches: number, drawcallsbatched: number } A table which will be filled in with the stat fields below. See class `love.graphics.getStats.result` for field descriptions.
+---@return { drawcalls: number, canvasswitches: number, texturememory: number, images: number, canvases: number, fonts: number, shaderswitches: number, drawcallsbatched: number } stats The table that was passed in above, now containing the following fields: See class `love.graphics.getStats.result` for field descriptions.
 ---@overload fun(): { drawcalls: number, canvasswitches: number, texturememory: number, images: number, canvases: number, fonts: number, shaderswitches: number, drawcallsbatched: number }
 function love.graphics.getStats(stats) end
 
@@ -2844,9 +2844,9 @@ function love.graphics.line(x1, y1, x2, y2, ...) end
 
 ---Options for `love.graphics.newArrayImage`.
 ---@class love.graphics.newArrayImage.settings
----@field mipmaps boolean True to make the image use mipmaps, false to disable them. Mipmaps will be automatically generated if the image isn't a compressed texture format. (defaults to `false`.)
----@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`.)
----@field dpiscale? number The DPI scale to use when drawing the array image and calling getWidth/getHeight. (defaults to `1`.)
+---@field mipmaps boolean True to make the image use mipmaps, false to disable them. Mipmaps will be automatically generated if the image isn't a compressed texture format. (defaults to `false`).
+---@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`).
+---@field dpiscale? number The DPI scale to use when drawing the array image and calling getWidth/getHeight. (defaults to `1`).
 
 ---Creates a new array Image.
 ---
@@ -2866,18 +2866,18 @@ function love.graphics.line(x1, y1, x2, y2, ...) end
 ---
 ---In order to use an Array Texture or other non-2D texture types as the main texture in a custom void effect() variant must be used in the pixel shader, and MainTex must be declared as an ArrayImage or sampler2DArray like so: uniform ArrayImage MainTex;.
 ---@param slices table A table containing filepaths to images (or File, FileData, ImageData, or CompressedImageData objects), in an array. Each sub-image must have the same dimensions. A table of tables can also be given, where each sub-table contains all mipmap levels for the slice index of that sub-table.
----@param settings { mipmaps: boolean, linear: boolean, dpiscale: number }? Optional table of settings to configure the array image, containing the following fields: (defaults to `nil`.) (defaults to `nil`.)
+---@param settings { mipmaps: boolean, linear: boolean, dpiscale: number }? Optional table of settings to configure the array image, containing the following fields: (defaults to `nil`).
 ---@return love.Image image An Array Image object.
 function love.graphics.newArrayImage(slices, settings) end
 
 ---Options for `love.graphics.newCanvas`.
 ---@class love.graphics.newCanvas.settings
----@field type love.TextureType The type of Canvas to create. (defaults to `'array'`.)
----@field format? love.PixelFormat The format of the Canvas. (defaults to `'normal'`.)
----@field readable? boolean Whether the Canvas is readable (drawable and accessible in a Shader). True by default for regular formats, false by default for depth/stencil formats. (defaults to `nil`.)
----@field msaa? number The desired number of multisample antialiasing (MSAA) samples used when drawing to the Canvas. (defaults to `0`.)
----@field dpiscale? number The DPI scale factor of the Canvas, used when drawing to the Canvas as well as when drawing the Canvas to the screen. (defaults to `love.graphics.getDPIScale()`.)
----@field mipmaps? love.MipmapMode Whether the Canvas has mipmaps, and whether to automatically regenerate them if so. (defaults to `'none'`.)
+---@field type love.TextureType The type of Canvas to create. (defaults to `'array'`).
+---@field format? love.PixelFormat The format of the Canvas. (defaults to `'normal'`).
+---@field readable? boolean Whether the Canvas is readable (drawable and accessible in a Shader). True by default for regular formats, false by default for depth/stencil formats. (defaults to `nil`).
+---@field msaa? number The desired number of multisample antialiasing (MSAA) samples used when drawing to the Canvas. (defaults to `0`).
+---@field dpiscale? number The DPI scale factor of the Canvas, used when drawing to the Canvas as well as when drawing the Canvas to the screen. (defaults to `love.graphics.getDPIScale()`).
+---@field mipmaps? love.MipmapMode Whether the Canvas has mipmaps, and whether to automatically regenerate them if so. (defaults to `'none'`).
 
 ---Creates a new Canvas object for offscreen rendering.
 ---
@@ -2887,7 +2887,7 @@ function love.graphics.newArrayImage(slices, settings) end
 ---@param width number The desired width of the Canvas.
 ---@param height number The desired height of the Canvas.
 ---@param layers number The number of array layers (if the Canvas is an Array Texture), or the volume depth (if the Canvas is a Volume Texture).
----@param settings { type: love.TextureType, format: love.PixelFormat, readable: boolean, msaa: number, dpiscale: number, mipmaps: love.MipmapMode }? A table containing the given fields: (defaults to `nil`.) (defaults to `nil`.)
+---@param settings { type: love.TextureType, format: love.PixelFormat, readable: boolean, msaa: number, dpiscale: number, mipmaps: love.MipmapMode }? A table containing the given fields: (defaults to `nil`).
 ---@return love.Canvas canvas A new Canvas with specified width and height.
 ---Creates a 2D or cubemap Canvas using the given settings.
 ---
@@ -2899,8 +2899,8 @@ function love.graphics.newCanvas(width, height, layers, settings) end
 
 ---Options for `love.graphics.newCubeImage`.
 ---@class love.graphics.newCubeImage.settings
----@field mipmaps boolean True to make the image use mipmaps, false to disable them. Mipmaps will be automatically generated if the image isn't a compressed texture format. (defaults to `false`.)
----@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`.)
+---@field mipmaps boolean True to make the image use mipmaps, false to disable them. Mipmaps will be automatically generated if the image isn't a compressed texture format. (defaults to `false`).
+---@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`).
 
 ---Creates a new cubemap Image.
 ---
@@ -2950,7 +2950,7 @@ function love.graphics.newCanvas(width, height, layers, settings) end
 ---
 ---Creates a cubemap Image given a single image file containing multiple cube faces.
 ---@param filename string The filepath to a cubemap image file (or a File, FileData, or ImageData).
----@param settings { mipmaps: boolean, linear: boolean }? Optional table of settings to configure the cubemap image, containing the following fields: (defaults to `nil`.) (defaults to `nil`.)
+---@param settings { mipmaps: boolean, linear: boolean }? Optional table of settings to configure the cubemap image, containing the following fields: (defaults to `nil`).
 ---@return love.Image image An cubemap Image object.
 ---Creates a cubemap Image given a different image file for each cube face.
 ---@overload fun(faces: table, settings: { mipmaps: boolean, linear: boolean }?): love.Image
@@ -2965,8 +2965,8 @@ function love.graphics.newCubeImage(filename, settings) end
 ---Create a new TrueType font.
 ---@param filename string The filepath to the TrueType font file.
 ---@param size number The size of the font in pixels.
----@param hinting love.HintingMode? True Type hinting mode. (defaults to `'normal'`.)
----@param dpiscale number? The DPI scale factor of the font. (defaults to `love.graphics.getDPIScale()`.)
+---@param hinting love.HintingMode? True Type hinting mode. (defaults to `'normal'`).
+---@param dpiscale number? The DPI scale factor of the font. (defaults to `love.graphics.getDPIScale()`).
 ---@return love.Font font A Font object which can be used to draw text on screen.
 ---Create a new instance of the default font (Vera Sans) with a custom size.
 ---@overload fun(size: number, hinting: love.HintingMode?, dpiscale: number?): love.Font
@@ -2980,16 +2980,16 @@ function love.graphics.newFont(filename, size, hinting, dpiscale) end
 
 ---Options for `love.graphics.newImage`.
 ---@class love.graphics.newImage.settings
----@field dpiscale number The DPI scale to use when drawing the image and calling getWidth/getHeight. (defaults to `1`.)
----@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`.)
----@field mipmaps? boolean If true, mipmaps for the image will be automatically generated (or taken from the images's file if possible, if the image originated from a CompressedImageData). (defaults to `false`.)
+---@field dpiscale number The DPI scale to use when drawing the image and calling getWidth/getHeight. (defaults to `1`).
+---@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`).
+---@field mipmaps? boolean If true, mipmaps for the image will be automatically generated (or taken from the images's file if possible, if the image originated from a CompressedImageData). (defaults to `false`).
 
 ---Creates a new Image from a filepath, FileData, an ImageData, or a CompressedImageData, and optionally generates or specifies mipmaps for the image.
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.newImage)
 ---
 ---@param filename string The filepath to the image file.
----@param settings { dpiscale: number, linear: boolean, mipmaps: boolean }? A table containing the following fields: (defaults to `nil`.) (defaults to `nil`.)
+---@param settings { dpiscale: number, linear: boolean, mipmaps: boolean }? A table containing the following fields: (defaults to `nil`).
 ---@return love.Image image A new Image object which can be drawn on screen.
 ---@overload fun(imageData: love.ImageData, settings: { dpiscale: number, linear: boolean, mipmaps: boolean }?): love.Image
 ---@overload fun(fileData: love.FileData, settings: { dpiscale: number, linear: boolean, mipmaps: boolean }?): love.Image
@@ -3070,8 +3070,8 @@ function love.graphics.newImageFont(filename, glyphs, extraspacing) end
 ---}
 ---@param vertexformat { attribute: table } A table in the form of {attribute, ...}. Each attribute is a table which specifies a custom vertex attribute used for each vertex.
 ---@param vertices { attributecomponent: number } The table filled with vertex information tables for each vertex, in the form of {vertex, ...} where each vertex is a table in the form of {attributecomponent, ...}.
----@param mode love.MeshDrawMode? How the vertices are used when drawing. The default mode 'fan' is sufficient for simple convex polygons. (defaults to `'fan'`.)
----@param usage love.SpriteBatchUsage? The expected usage of the Mesh. The specified usage mode affects the Mesh's memory usage and performance. (defaults to `'dynamic'`.)
+---@param mode love.MeshDrawMode? How the vertices are used when drawing. The default mode 'fan' is sufficient for simple convex polygons. (defaults to `'fan'`).
+---@param usage love.SpriteBatchUsage? The expected usage of the Mesh. The specified usage mode affects the Mesh's memory usage and performance. (defaults to `'dynamic'`).
 ---@return love.Mesh mesh The new mesh.
 ---Creates a Mesh with custom vertex attributes and the specified number of vertices.
 ---
@@ -3094,7 +3094,7 @@ function love.graphics.newMesh(vertexformat, vertices, mode, usage) end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.newParticleSystem)
 ---
 ---@param image love.Image The image to use.
----@param buffer number? The max number of particles at the same time. (defaults to `1000`.)
+---@param buffer number? The max number of particles at the same time. (defaults to `1000`).
 ---@return love.ParticleSystem system A new ParticleSystem.
 ---@overload fun(texture: love.Texture, buffer: number?): love.ParticleSystem
 function love.graphics.newParticleSystem(image, buffer) end
@@ -3132,8 +3132,8 @@ function love.graphics.newShader(pixelcode, vertexcode) end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.newSpriteBatch)
 ---
 ---@param texture love.Texture The Image or Canvas to use for the sprites.
----@param maxsprites number? The maximum number of sprites that the SpriteBatch can contain at any given time. Since version 11.0, additional sprites added past this number will automatically grow the spritebatch. (defaults to `1000`.)
----@param usage love.SpriteBatchUsage? The expected usage of the SpriteBatch. The specified usage mode affects the SpriteBatch's memory usage and performance. (defaults to `'dynamic'`.)
+---@param maxsprites number? The maximum number of sprites that the SpriteBatch can contain at any given time. Since version 11.0, additional sprites added past this number will automatically grow the spritebatch. (defaults to `1000`).
+---@param usage love.SpriteBatchUsage? The expected usage of the SpriteBatch. The specified usage mode affects the SpriteBatch's memory usage and performance. (defaults to `'dynamic'`).
 ---@return love.SpriteBatch spriteBatch The new SpriteBatch.
 ---@overload fun(image: love.Image, maxsprites: number?, usage: love.SpriteBatchUsage?): love.SpriteBatch
 ---@overload fun(image: love.Image, maxsprites: number?): love.SpriteBatch
@@ -3144,7 +3144,7 @@ function love.graphics.newSpriteBatch(texture, maxsprites, usage) end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.newText)
 ---
 ---@param font love.Font The font to use for the text.
----@param textstring string? The initial string of text that the new Text object will contain. May be nil. (defaults to `nil`.)
+---@param textstring string? The initial string of text that the new Text object will contain. May be nil. (defaults to `nil`).
 ---@return love.Text text The new drawable Text object.
 ---@overload fun(font: love.Font, coloredtext: { color1: table, string1: string, color2: table, string2: string }): love.Text
 function love.graphics.newText(font, textstring) end
@@ -3154,7 +3154,7 @@ function love.graphics.newText(font, textstring) end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.newVideo)
 ---
 ---@param videostream love.VideoStream A video stream object.
----@param loadaudio boolean? Whether to try to load the video's audio into an audio Source. If not explicitly set to true or false, it will try without causing an error if the video has no audio. (defaults to `nil`.)
+---@param loadaudio boolean? Whether to try to load the video's audio into an audio Source. If not explicitly set to true or false, it will try without causing an error if the video has no audio. (defaults to `nil`).
 ---@return love.Video video A new Video.
 ---@overload fun(filename: string, loadaudio: boolean?): love.Video
 ---@overload fun(filename: string, settings: { audio: boolean, dpiscale: number }?): love.Video
@@ -3164,8 +3164,8 @@ function love.graphics.newVideo(videostream, loadaudio) end
 
 ---Options for `love.graphics.newVolumeImage`.
 ---@class love.graphics.newVolumeImage.settings
----@field mipmaps boolean True to make the image use mipmaps, false to disable them. Mipmaps will be automatically generated if the image isn't a compressed texture format. (defaults to `false`.)
----@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`.)
+---@field mipmaps boolean True to make the image use mipmaps, false to disable them. Mipmaps will be automatically generated if the image isn't a compressed texture format. (defaults to `false`).
+---@field linear? boolean True to treat the image's pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB. (defaults to `false`).
 
 ---Creates a new volume (3D) Image.
 ---
@@ -3183,7 +3183,7 @@ function love.graphics.newVideo(videostream, loadaudio) end
 ---
 ---Volume images are not supported on some older mobile devices. Use love.graphics.getTextureTypes to check at runtime.
 ---@param layers table A table containing filepaths to images (or File, FileData, ImageData, or CompressedImageData objects), in an array. A table of tables can also be given, where each sub-table represents a single mipmap level and contains all layers for that mipmap.
----@param settings { mipmaps: boolean, linear: boolean }? Optional table of settings to configure the volume image, containing the following fields: (defaults to `nil`.) (defaults to `nil`.)
+---@param settings { mipmaps: boolean, linear: boolean }? Optional table of settings to configure the volume image, containing the following fields: (defaults to `nil`).
 ---@return love.Image image A volume Image object.
 function love.graphics.newVolumeImage(layers, settings) end
 
@@ -3250,15 +3250,15 @@ function love.graphics.present() end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.print)
 ---
 ---@param text string The text to draw.
----@param x number? The position to draw the object (x-axis). (defaults to `0`.)
----@param y number? The position to draw the object (y-axis). (defaults to `0`.)
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing factor (y-axis). (defaults to `0`.)
+---@param x number? The position to draw the object (x-axis). (defaults to `0`).
+---@param y number? The position to draw the object (y-axis). (defaults to `0`).
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing factor (y-axis). (defaults to `0`).
 ---The color set by love.graphics.setColor will be combined (multiplied) with the colors of the text.
 ---@overload fun(coloredtext: { color1: table, string1: string, color2: table, string2: string }, x: number?, y: number?, angle: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): nil
 ---@overload fun(text: string, font: love.Font, transform: love.Transform): nil
@@ -3285,14 +3285,14 @@ function love.graphics.print(text, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---@param x number The position on the x-axis.
 ---@param y number The position on the y-axis.
 ---@param limit number Wrap the line after this many horizontal pixels.
----@param align love.AlignMode? The alignment. (defaults to `'left'`.)
----@param r number? Orientation (radians). (defaults to `0`.)
----@param sx number? Scale factor (x-axis). (defaults to `1`.)
----@param sy number? Scale factor (y-axis). (defaults to `sx`.)
----@param ox number? Origin offset (x-axis). (defaults to `0`.)
----@param oy number? Origin offset (y-axis). (defaults to `0`.)
----@param kx number? Shearing factor (x-axis). (defaults to `0`.)
----@param ky number? Shearing factor (y-axis). (defaults to `0`.)
+---@param align love.AlignMode? The alignment. (defaults to `'left'`).
+---@param r number? Orientation (radians). (defaults to `0`).
+---@param sx number? Scale factor (x-axis). (defaults to `1`).
+---@param sy number? Scale factor (y-axis). (defaults to `sx`).
+---@param ox number? Origin offset (x-axis). (defaults to `0`).
+---@param oy number? Origin offset (y-axis). (defaults to `0`).
+---@param kx number? Shearing factor (x-axis). (defaults to `0`).
+---@param ky number? Shearing factor (y-axis). (defaults to `0`).
 ---The color set by love.graphics.setColor will be combined (multiplied) with the colors of the text.
 ---@overload fun(coloredtext: { color1: table, string1: string, color2: table, string2: string }, font: love.Font, x: number, y: number, limit: number, align: love.AlignMode?, angle: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): nil
 ---@overload fun(text: string, x: number, y: number, limit: number, align: love.AlignMode?, r: number?, sx: number?, sy: number?, ox: number?, oy: number?, kx: number?, ky: number?): nil
@@ -3328,8 +3328,8 @@ function love.graphics.push(stack) end
 ---@param width number Width of the rectangle.
 ---@param height number Height of the rectangle.
 ---@param rx number The x-axis radius of each round corner. Cannot be greater than half the rectangle's width.
----@param ry number? The y-axis radius of each round corner. Cannot be greater than half the rectangle's height. (defaults to `rx`.)
----@param segments number? The number of segments used for drawing the round corners. A default amount will be chosen if no number is given. (defaults to `nil`.)
+---@param ry number? The y-axis radius of each round corner. Cannot be greater than half the rectangle's height. (defaults to `rx`).
+---@param segments number? The number of segments used for drawing the round corners. A default amount will be chosen if no number is given. (defaults to `nil`).
 ---@overload fun(mode: love.DrawMode, x: number, y: number, width: number, height: number): nil
 function love.graphics.rectangle(mode, x, y, width, height, rx, ry, segments) end
 
@@ -3370,7 +3370,7 @@ function love.graphics.rotate(angle) end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.scale)
 ---
 ---@param sx number The scaling in the direction of the x-axis.
----@param sy number? The scaling in the direction of the y-axis. If omitted, it defaults to same as parameter sx. (defaults to `sx`.)
+---@param sy number? The scaling in the direction of the y-axis. If omitted, it defaults to same as parameter sx. (defaults to `sx`).
 function love.graphics.scale(sx, sy) end
 
 ---Sets the background color.
@@ -3380,7 +3380,7 @@ function love.graphics.scale(sx, sy) end
 ---@param red number The red component (0-1).
 ---@param green number The green component (0-1).
 ---@param blue number The blue component (0-1).
----@param alpha number? The alpha component (0-1). (defaults to `1`.)
+---@param alpha number? The alpha component (0-1). (defaults to `1`).
 ---@overload fun(rgba: table): nil
 function love.graphics.setBackgroundColor(red, green, blue, alpha) end
 
@@ -3390,7 +3390,7 @@ function love.graphics.setBackgroundColor(red, green, blue, alpha) end
 ---
 ---The default 'alphamultiply' alpha mode should normally be preferred except when drawing content with pre-multiplied alpha. If content is drawn to a Canvas using the 'alphamultiply' mode, the Canvas texture will have pre-multiplied alpha afterwards, so the 'premultiplied' alpha mode should generally be used when drawing a Canvas to the screen.
 ---@param mode love.BlendMode The blend mode to use.
----@param alphamode love.BlendAlphaMode? What to do with the alpha of drawn objects when blending. (defaults to `'alphamultiply'`.)
+---@param alphamode love.BlendAlphaMode? What to do with the alpha of drawn objects when blending. (defaults to `'alphamultiply'`).
 ---@overload fun(mode: love.BlendMode): nil
 function love.graphics.setBlendMode(mode, alphamode) end
 
@@ -3434,7 +3434,7 @@ function love.graphics.setCanvas(canvas1, canvas2, ...) end
 ---@param red number The amount of red.
 ---@param green number The amount of green.
 ---@param blue number The amount of blue.
----@param alpha number? The amount of alpha.  The alpha value will be applied to all subsequent draw operations, even the drawing of an image. (defaults to `1`.)
+---@param alpha number? The amount of alpha.  The alpha value will be applied to all subsequent draw operations, even the drawing of an image. (defaults to `1`).
 ---@overload fun(rgba: table): nil
 function love.graphics.setColor(red, green, blue, alpha) end
 
@@ -3457,8 +3457,8 @@ function love.graphics.setColorMask(red, green, blue, alpha) end
 ---
 ---This function does not apply retroactively to loaded images.
 ---@param min love.FilterMode Filter mode used when scaling the image down.
----@param mag love.FilterMode? Filter mode used when scaling the image up. (defaults to `min`.)
----@param anisotropy number? Maximum amount of Anisotropic Filtering used. (defaults to `1`.)
+---@param mag love.FilterMode? Filter mode used when scaling the image up. (defaults to `min`).
+---@param anisotropy number? Maximum amount of Anisotropic Filtering used. (defaults to `1`).
 function love.graphics.setDefaultFilter(min, mag, anisotropy) end
 
 ---Configures depth testing and writing to the depth buffer.
@@ -3528,7 +3528,7 @@ function love.graphics.setMeshCullMode(mode) end
 ---[Open in Browser](https://love2d.org/wiki/love.graphics.setNewFont)
 ---
 ---@param file love.File A File with the font.
----@param size number? The size of the font. (defaults to `12`.)
+---@param size number? The size of the font. (defaults to `12`).
 ---@return love.Font font The new font.
 ---@overload fun(filename: string, size: number?): love.Font
 ---@overload fun(data: love.Data, size: number?): love.Font
@@ -3607,9 +3607,9 @@ function love.graphics.shear(kx, ky) end
 ---
 ---It is possible to draw to the screen and to the stencil values of pixels at the same time, by using love.graphics.setColorMask inside the stencil function to enable drawing to all color components.
 ---@param stencilfunction fun(...) Function which draws geometry. The stencil values of pixels, rather than the color of each pixel, will be affected by the geometry.
----@param action love.StencilAction? How to modify any stencil values of pixels that are touched by what's drawn in the stencil function. (defaults to `'replace'`.)
----@param value number? The new stencil value to use for pixels if the 'replace' stencil action is used. Has no effect with other stencil actions. Must be between 0 and 255. (defaults to `1`.)
----@param keepvalues boolean? True to preserve old stencil values of pixels, false to re-set every pixel's stencil value to 0 before executing the stencil function. love.graphics.clear will also re-set all stencil values. (defaults to `false`.)
+---@param action love.StencilAction? How to modify any stencil values of pixels that are touched by what's drawn in the stencil function. (defaults to `'replace'`).
+---@param value number? The new stencil value to use for pixels if the 'replace' stencil action is used. Has no effect with other stencil actions. Must be between 0 and 255. (defaults to `1`).
+---@param keepvalues boolean? True to preserve old stencil values of pixels, false to re-set every pixel's stencil value to 0 before executing the stencil function. love.graphics.clear will also re-set all stencil values. (defaults to `false`).
 function love.graphics.stencil(stencilfunction, action, value, keepvalues) end
 
 ---Converts the given 2D position from global coordinates into screen-space.
