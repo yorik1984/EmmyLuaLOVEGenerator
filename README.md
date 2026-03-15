@@ -1,11 +1,11 @@
-<h1 align="center">&nbsp;&nbsp; LuaCATS ♡ LÖVE ♡ Definitions&nbsp;&nbsp;</h1>
+<h1 align="center">&nbsp;&nbsp; <a href="https://luals.github.io/wiki/annotations/">LuaCATS</a> ♡ <a href="https://love2d.org">LÖVE</a> ♡ Definitions&nbsp;&nbsp;</h1>
 
 [![Generate LÖVE LuaCATS API](https://github.com/yorik1984/love2d-definitions/actions/workflows/generate_love_api.yml/badge.svg)](https://github.com/yorik1984/love2d-definitions/actions/workflows/generate_love_api.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yorik1984/love2d-definitions/blob/main/LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1-blue.svg)](https://www.lua.org/)
 [![LÖVE API](https://img.shields.io/badge/L%C3%96VE_API-11.5-EA316E.svg)](https://github.com/love2d-community/love-api)
 
-Automatic [LuaCATS](https://luals.github.io/wiki/annotations/) type annotation generator for [LÖVE 2D](https://love2d.org/) framework.
+[LuaCATS](https://luals.github.io/wiki/annotations/) definitions for [LÖVE](https://love2d.org/) framework.
 
 <!-- TOC -->
 
@@ -198,18 +198,24 @@ lua genLOVE2dAPI.lua HELP
 
 ## 📚 References & Related Projects
 
-### [love2d-docs.nvim](https://github.com/yorik1984/love2d-docs.nvim)
-A comprehensive (Neo)Vim plugin that brings the entire LÖVE framework documentation into your editor with beautiful syntax highlighting.
-Provides complete LÖVE API documentation via `:help`, syntax highlighting for LÖVE functions, modules, types, and callbacks, with full **Treesitter support**.
++ **[love2d-tresitter.nvim](https://github.com/yorik1984/love2d-treesitter.nvim)**<br>
+Is a comprehensive plugin for [Neovim](https://neovim.io/) that highlight [LÖVE](http://love2d.org) syntax in your editor.
+Provides complete LÖVE API syntax highlighting for LÖVE functions, modules, types, and callbacks, with full **[Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)** support.
+    * **🤖 Automated Updates:** Uses GitHub Actions to stay in sync with the official love-api, just like this definitions.
+    * **⚙️ Fully Customizable:** Offers flexible styling options for colors and font styles (bold, italic, etc.).
+    * **📌 Version Branches:** Maintains version-specific branches (e.g., `11.5`) to match different LÖVE releases.
 
-✨ Key Features:
-  * **🎨 Dual Editor Support:** Works flawlessly in both **Neovim** (with Treesitter) and **Vim**.
-  * **🤖 Automated Updates:** Uses GitHub Actions to stay in sync with the official love-api, just like this generator.
-  * **📖 Built-in Help:** Access documentation for any function (e.g., `:help love2d-docs-love.graphics.rectangle`).
-  * **⚙️ Fully Customizable:** Offers flexible styling options for colors and font styles (bold, italic, etc.) for both Neovim and Vim.
-  * **📌 Version Branches:** Maintains version-specific branches (e.g., `11.5`) to match different LÖVE releases.
+> [!TIP]
+> Use **love2d-treesitter** alongside this definitions for the ultimate LÖVE development setup — get beautiful syntax highlighting in [Neovim](https://neovim.io/) and intelligent IDE autocompletion from these LuaCATS annotations.
 
->[!TIP] Use **love2d-docs.nvim** alongside this definitions for the ultimate LÖVE development setup — get beautiful inline syntax highlighting in your editor and intelligent IDE autocompletion from these LuaCATS annotations.
++ **[love2d-docs.nvim](https://github.com/yorik1984/love2d-docs.nvim)**<br>
+Is a comprehensive plugin for [Neovim](https://neovim.io/) and [Vim](https://www.vim.org/) that brings the entire [LÖVE](http://love2d.org) game framework documentation right into your editor.
+    - 📖 **Built-in Help** — Complete LÖVE API documentation accessible via `:help love2d-docs-*`
+
++ **[love2d-vim-syntax](https://github.com/yorik1984/love2d-vim-syntax)**<br>
+Plugin for [Vim](https://www.vim.org/) that highlight [LÖVE](http://love2d.org) syntax in your editor.
+    - 🎨 **Syntax Highlighting** — Colors LÖVE functions, modules, types, and callbacks
+    - 🔧 **Customizable** — Flexible styling options for Vim
 
 ## 🙏 Credits
 
@@ -220,5 +226,14 @@ Provides complete LÖVE API documentation via `:help`, syntax highlighting for L
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
-
 Based on [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api) which has no explicit license.
+
+<div align="center">
+  <sub>
+    Built with ♡ for the LÖVE community
+    <br>
+    <a href="https://github.com/yorik1984/love2d-definitions/issues">Report Issue</a> ·
+    <a href="https://github.com/yorik1984/love2d-definitions/discussions">Discussion</a> ·
+    <a href="https://love2d.org/">LÖVE</a>
+  </sub>
+</div>
