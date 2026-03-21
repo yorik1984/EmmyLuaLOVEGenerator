@@ -471,7 +471,7 @@ local time = os.clock()
 --------------------------------------------------------------------------------
 -- Type discovery
 --------------------------------------------------------------------------------
-local API  = {
+local API = {
     NAME           = "love",
     ENGINE         = "love2d",
     FILE           = "love_api",
@@ -487,25 +487,25 @@ setmetatable(API, {
     __index = API,
     __newindex = function()
         error("Attempt to modify a constant", 2)
-    end
+    end,
 })
 
 local builtinTypes = {
-    ['any']               = true,
-    ['boolean']           = true,
-    ['function']          = true,
-    ['integer']           = true,
-    ['lightuserdata']     = true,
-    ['nil']               = true,
-    ['number']            = true,
-    ['string']            = true,
-    ['table']             = true,
-    ['thread']            = true,
-    ['userdata']          = true,
+    ["any"]               = true,
+    ["boolean"]           = true,
+    ["function"]          = true,
+    ["integer"]           = true,
+    ["lightuserdata"]     = true,
+    ["nil"]               = true,
+    ["number"]            = true,
+    ["string"]            = true,
+    ["table"]             = true,
+    ["thread"]            = true,
+    ["userdata"]          = true,
     -- alias type like defined types
-    ['Variant']           = true,
-    ['cdata']             = true,
-    ['RenderTargetSetup'] = true,
+    ["Variant"]           = true,
+    ["cdata"]             = true,
+    ["RenderTargetSetup"] = true,
 }
 
 local knownTypes   = {}
@@ -515,9 +515,9 @@ local pluralTypes  = {
     ["tables"]  = "table",
 }
 local aliasType    = {
-    ['Variant']           = 'any',
-    ['cdata']             = 'any',
-    ['RenderTargetSetup'] = 'any',
+    ["Variant"]           = "any",
+    ["cdata"]             = "any",
+    ["RenderTargetSetup"] = "any",
 }
 
 --------------------------------------------------------------------------------
@@ -579,7 +579,9 @@ end
 -- love.window.setMode -> delimiter(true) == "."
 -- RecordingDevice:getBitDepth -> delimiter(false) == ":"
 local function delimiter(static)
-    if static == false then return ":" end
+    if static == false then
+        return ":"
+    end
     return "."
 end
 
@@ -606,19 +608,23 @@ local function isIdentifier(s)
         ["then"]     = true,
         ["true"]     = true,
         ["until"]    = true,
-        ["while"]    = true
+        ["while"]    = true,
     }
-    return type(s) == "string"
-        and s:match("^[_%a][_%w]*$")
-        and not local_keywords[s]
+    return type(s) == "string" and s:match("^[_%a][_%w]*$") and not local_keywords[s]
 end
 
 local function convertStringToParam(s)
-    if type(s) ~= "string" then return s end
+    if type(s) ~= "string" then
+        return s
+    end
     local singleQuoted = s:match("^'(.*)'$")
-    if singleQuoted then return singleQuoted end
+    if singleQuoted then
+        return singleQuoted
+    end
     local doubleQuoted = s:match('^"(.*)"$')
-    if doubleQuoted then return doubleQuoted end
+    if doubleQuoted then
+        return doubleQuoted
+    end
     return s
 end
 
@@ -649,7 +655,7 @@ end
 -- CLI
 --------------------------------------------------------------------------------
 local function createDirectory(path)
-    local isWindows = package.config:sub(1, 1) == '\\'
+    local isWindows = package.config:sub(1, 1) == "\\"
     if isWindows then
         path = path:gsub("/", "\\")
         os.execute("mkdir " .. path .. " 2>nul")
@@ -684,12 +690,12 @@ end)
 if not ok then
     io.stderr:write(
         "Error: could not require '"
-        .. API.FILE
-        .. "'. Make sure "
-        .. API.FILE
-        .. "."
-        .. API.FILE_EXT
-        .. " is present in package.path\n"
+            .. API.FILE
+            .. "'. Make sure "
+            .. API.FILE
+            .. "."
+            .. API.FILE_EXT
+            .. " is present in package.path\n"
     )
     os.exit(1)
 end
@@ -1166,7 +1172,9 @@ local function genClassForTable(module, func, param, fields, desc, static)
             local d = node.depth or 0
             nodes_by_depth[d] = nodes_by_depth[d] or {}
             table.insert(nodes_by_depth[d], node)
-            if d > maxDepth then maxDepth = d end
+            if d > maxDepth then
+                maxDepth = d
+            end
 
             local nodeFields = node.fields
             if nodeFields and type(nodeFields) == "table" then
@@ -1256,7 +1264,9 @@ end
 -- Returns helpers: build inline type AND optionally className+classCode if fieldsRequireClass
 --------------------------------------------------------------------------------
 local function buildInlineFromFields(fields)
-    if not fields then return "{}" end
+    if not fields then
+        return "{}"
+    end
 
     local parts = {}
     for _, f in ipairs(fields) do
@@ -1447,8 +1457,17 @@ local function genFunction(moduleName, fun, static)
 
     code = code .. (funcDesc ~= "" and safeDesc(funcDesc) or "") .. "\n"
     code = code .. "---\n"
-    code = code ..
-        ("---[" .. API.WIKI_LINK_NAME .. "](" .. API.WIKI_LINK_URL .. moduleName .. delimiter(static) .. fun.name .. ")\n")
+    code = code
+        .. (
+            "---["
+            .. API.WIKI_LINK_NAME
+            .. "]("
+            .. API.WIKI_LINK_URL
+            .. moduleName
+            .. delimiter(static)
+            .. fun.name
+            .. ")\n"
+        )
     code = code .. "---\n"
 
     local argList = ""
@@ -1674,7 +1693,7 @@ local function genEnum(enum)
     code = code .. "---\n"
     code = code .. "---@alias " .. API.NAME .. "." .. enum.name .. "\n"
     for _, const in ipairs(enum.constants) do
-        code = code .. '---| \'"' .. const.name .. '"\' # ' .. stripNewlines(const.description) .. "\n"
+        code = code .. "---| '\"" .. const.name .. "\"' # " .. stripNewlines(const.description) .. "\n"
     end
     code = code .. "\n"
     return code
