@@ -576,8 +576,8 @@ local function countTable(t)
 end
 
 -- Return the separator used between module/type and function name.
--- love.window.setMode -> delimiter(true) == "."
--- RecordingDevice:getBitDepth -> delimiter(false) == ":"
+-- api.module.func -> delimiter(true)  == "."
+-- Type:method     -> delimiter(false) == ":"
 local function delimiter(static)
     if static == false then
         return ":"
@@ -651,6 +651,7 @@ local function aliasTypeToDef(mapping)
     end
     return code
 end
+
 --------------------------------------------------------------------------------
 -- CLI
 --------------------------------------------------------------------------------
@@ -678,27 +679,28 @@ for i = 1, #arg do
         outputDir = a
     end
 end
-createDirectory(outputDir)
-createDirectory(outputDir .. "/" .. API.NAME)
 
---------------------------------------------------------------------------------
--- Load love_api
---------------------------------------------------------------------------------
+-- Load API
 local ok, apiRequire = pcall(function()
     return require(API.FILE)
 end)
 if not ok then
     io.stderr:write(
-        "Error: could not require '"
+        " ❌ Error: could not require '"
             .. API.FILE
             .. "'. Make sure "
             .. API.FILE
             .. "."
             .. API.FILE_EXT
-            .. " is present in package.path\n"
+            .. " is present in the current directory\n"
     )
     os.exit(1)
+elseif debugMode then
+    print(" ✅ Successfully loaded " .. API.FILE .. API.FILE_EXT .. "\n")
 end
+
+createDirectory(outputDir)
+createDirectory(outputDir .. "/" .. API.NAME)
 
 --------------------------------------------------------------------------------
 -- Tokenizer & type helpers
