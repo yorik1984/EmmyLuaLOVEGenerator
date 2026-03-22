@@ -649,7 +649,11 @@ local function aliasTypeToDef(mapping)
     for alias, value in pairs(mapping) do
         code = code .. "---@alias " .. tostring(alias) .. " " .. tostring(value) .. "\n"
     end
-    return code
+    return code .. "\n"
+end
+
+local function returnAdd(name)
+    return "return " .. name .. "\n"
 end
 
 --------------------------------------------------------------------------------
@@ -1762,6 +1766,8 @@ local function genModule(name, api, outDir)
     if name == API.NAME and api then
         -- add alias for `any` types only to toplevel namespaces
         f:write(aliasTypeToDef(aliasType))
+        -- add `return` only top level
+        f:write(returnAdd(API.NAME))
     end
 
     f:close()
