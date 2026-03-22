@@ -552,3 +552,5 @@ function love.wheelmoved(x, y) end
 ---@alias cdata any
 ---@alias RenderTargetSetup any
 ---@alias Variant any
+
+return love
