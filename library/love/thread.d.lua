@@ -20,7 +20,7 @@ love.thread = {}
 ---[Open in Browser](https://love2d.org/wiki/Channel)
 ---
 ---@class love.Channel : love.Object
-local Channel = {}
+Channel = {}
 
 ---Clears all the messages in the Channel queue.
 ---
@@ -125,7 +125,7 @@ function Channel:supply(value, timeout) end
 ---[Open in Browser](https://love2d.org/wiki/Thread)
 ---
 ---@class love.Thread : love.Object
-local Thread = {}
+Thread = {}
 
 ---Retrieves the error string from the thread if it produced an error.
 ---

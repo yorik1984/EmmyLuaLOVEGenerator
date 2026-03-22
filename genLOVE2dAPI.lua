@@ -1680,7 +1680,8 @@ local function genType(type)
     if type.supertypes then
         code = code .. " : " .. API.NAME .. "." .. table.concat(type.supertypes, ", " .. API.NAME .. ".")
     end
-    code = code .. "\nlocal " .. type.name .. " = {}\n\n"
+    -- types as global
+    code = code .. "\n" .. type.name .. " = {}\n\n"
     if type.functions then
         for _, fun in ipairs(type.functions) do
             code = code .. genFunction(type.name, fun, false)

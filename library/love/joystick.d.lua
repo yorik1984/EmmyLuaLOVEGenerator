@@ -14,7 +14,7 @@ love.joystick = {}
 ---[Open in Browser](https://love2d.org/wiki/Joystick)
 ---
 ---@class love.Joystick : love.Object
-local Joystick = {}
+Joystick = {}
 
 ---Gets the direction of each axis.
 ---

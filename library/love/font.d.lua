@@ -14,7 +14,7 @@ love.font = {}
 ---[Open in Browser](https://love2d.org/wiki/GlyphData)
 ---
 ---@class love.GlyphData : love.Data, love.Object
-local GlyphData = {}
+GlyphData = {}
 
 ---Gets glyph advance.
 ---
@@ -102,7 +102,7 @@ function GlyphData:getWidth() end
 ---[Open in Browser](https://love2d.org/wiki/Rasterizer)
 ---
 ---@class love.Rasterizer : love.Object
-local Rasterizer = {}
+Rasterizer = {}
 
 ---Gets font advance.
 ---

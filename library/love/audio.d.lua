@@ -14,7 +14,7 @@ love.audio = {}
 ---[Open in Browser](https://love2d.org/wiki/RecordingDevice)
 ---
 ---@class love.RecordingDevice : love.Object
-local RecordingDevice = {}
+RecordingDevice = {}
 
 ---Gets the number of bits per sample in the data currently being recorded.
 ---
@@ -108,7 +108,7 @@ function RecordingDevice:stop() end
 ---[Open in Browser](https://love2d.org/wiki/Source)
 ---
 ---@class love.Source : love.Object
-local Source = {}
+Source = {}
 
 ---Creates an identical copy of the Source in the stopped state.
 ---

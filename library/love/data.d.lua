@@ -16,7 +16,7 @@ love.data = {}
 ---[Open in Browser](https://love2d.org/wiki/ByteData)
 ---
 ---@class love.ByteData : love.Object, love.Data
-local ByteData = {}
+ByteData = {}
 
 --endregion love.ByteData
 
@@ -29,7 +29,7 @@ local ByteData = {}
 ---[Open in Browser](https://love2d.org/wiki/CompressedData)
 ---
 ---@class love.CompressedData : love.Data, love.Object
-local CompressedData = {}
+CompressedData = {}
 
 ---Gets the compression format of the CompressedData.
 ---

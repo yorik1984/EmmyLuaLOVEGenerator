@@ -14,7 +14,7 @@ love.mouse = {}
 ---[Open in Browser](https://love2d.org/wiki/Cursor)
 ---
 ---@class love.Cursor : love.Object
-local Cursor = {}
+Cursor = {}
 
 ---Gets the type of the Cursor.
 ---
