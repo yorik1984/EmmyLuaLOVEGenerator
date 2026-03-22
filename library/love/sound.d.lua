@@ -14,7 +14,7 @@ love.sound = {}
 ---[Open in Browser](https://love2d.org/wiki/Decoder)
 ---
 ---@class love.Decoder : love.Object
-local Decoder = {}
+Decoder = {}
 
 ---Creates a new copy of current decoder.
 ---
@@ -85,7 +85,7 @@ function Decoder:seek(offset) end
 ---[Open in Browser](https://love2d.org/wiki/SoundData)
 ---
 ---@class love.SoundData : love.Data, love.Object
-local SoundData = {}
+SoundData = {}
 
 ---Returns the number of bits per sample.
 ---

@@ -16,7 +16,7 @@ love.math = {}
 ---[Open in Browser](https://love2d.org/wiki/BezierCurve)
 ---
 ---@class love.BezierCurve : love.Object
-local BezierCurve = {}
+BezierCurve = {}
 
 ---Evaluate Bézier curve at parameter t. The parameter must be between 0 and 1 (inclusive).
 ---
@@ -170,7 +170,7 @@ function BezierCurve:translate(dx, dy) end
 ---[Open in Browser](https://love2d.org/wiki/RandomGenerator)
 ---
 ---@class love.RandomGenerator : love.Object
-local RandomGenerator = {}
+RandomGenerator = {}
 
 ---Gets the seed of the random number generator object.
 ---
@@ -253,7 +253,7 @@ function RandomGenerator:setState(state) end
 ---[Open in Browser](https://love2d.org/wiki/Transform)
 ---
 ---@class love.Transform : love.Object
-local Transform = {}
+Transform = {}
 
 ---Applies the given other Transform object to this one.
 ---

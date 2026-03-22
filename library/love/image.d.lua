@@ -18,7 +18,7 @@ love.image = {}
 ---[Open in Browser](https://love2d.org/wiki/CompressedImageData)
 ---
 ---@class love.CompressedImageData : love.Data, love.Object
-local CompressedImageData = {}
+CompressedImageData = {}
 
 ---Gets the width and height of the CompressedImageData.
 ---
@@ -79,7 +79,7 @@ function CompressedImageData:getWidth(level) end
 ---[Open in Browser](https://love2d.org/wiki/ImageData)
 ---
 ---@class love.ImageData : love.Data, love.Object
-local ImageData = {}
+ImageData = {}
 
 ---Encodes the ImageData and optionally writes it to the save directory.
 ---

@@ -16,7 +16,7 @@ love.filesystem = {}
 ---[Open in Browser](https://love2d.org/wiki/DroppedFile)
 ---
 ---@class love.DroppedFile : love.File, love.Object
-local DroppedFile = {}
+DroppedFile = {}
 
 --endregion love.DroppedFile
 
@@ -27,7 +27,7 @@ local DroppedFile = {}
 ---[Open in Browser](https://love2d.org/wiki/File)
 ---
 ---@class love.File : love.Object
-local File = {}
+File = {}
 
 ---Closes a File.
 ---
@@ -193,7 +193,7 @@ function File:write(data, size) end
 ---[Open in Browser](https://love2d.org/wiki/FileData)
 ---
 ---@class love.FileData : love.Data, love.Object
-local FileData = {}
+FileData = {}
 
 ---Gets the extension of the FileData.
 ---

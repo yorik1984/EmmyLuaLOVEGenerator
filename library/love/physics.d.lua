@@ -14,7 +14,7 @@ love.physics = {}
 ---[Open in Browser](https://love2d.org/wiki/Body)
 ---
 ---@class love.Body : love.Object
-local Body = {}
+Body = {}
 
 ---Applies an angular impulse to a body. This makes a single, instantaneous addition to the body momentum.
 ---
@@ -709,7 +709,7 @@ function Body:setY(y) end
 ---[Open in Browser](https://love2d.org/wiki/ChainShape)
 ---
 ---@class love.ChainShape : love.Shape, love.Object
-local ChainShape = {}
+ChainShape = {}
 
 ---Returns a child of the shape as an EdgeShape.
 ---
@@ -802,7 +802,7 @@ function ChainShape:setPreviousVertex(x, y) end
 ---[Open in Browser](https://love2d.org/wiki/CircleShape)
 ---
 ---@class love.CircleShape : love.Shape, love.Object
-local CircleShape = {}
+CircleShape = {}
 
 ---Gets the center point of the circle shape.
 ---
@@ -847,7 +847,7 @@ function CircleShape:setRadius(radius) end
 ---[Open in Browser](https://love2d.org/wiki/Contact)
 ---
 ---@class love.Contact : love.Object
-local Contact = {}
+Contact = {}
 
 ---Gets the child indices of the shapes of the two colliding fixtures. For ChainShapes, an index of 1 is the first edge in the chain.
 ---Used together with Fixture:rayCast or ChainShape:getChildEdge.
@@ -969,7 +969,7 @@ function Contact:setRestitution(restitution) end
 ---[Open in Browser](https://love2d.org/wiki/DistanceJoint)
 ---
 ---@class love.DistanceJoint : love.Joint, love.Object
-local DistanceJoint = {}
+DistanceJoint = {}
 
 ---Gets the damping ratio.
 ---
@@ -1028,7 +1028,7 @@ function DistanceJoint:setLength(l) end
 ---[Open in Browser](https://love2d.org/wiki/EdgeShape)
 ---
 ---@class love.EdgeShape : love.Shape, love.Object
-local EdgeShape = {}
+EdgeShape = {}
 
 ---Gets the vertex that establishes a connection to the next shape.
 ---
@@ -1094,7 +1094,7 @@ function EdgeShape:setPreviousVertex(x, y) end
 ---[Open in Browser](https://love2d.org/wiki/Fixture)
 ---
 ---@class love.Fixture : love.Object
-local Fixture = {}
+Fixture = {}
 
 ---Destroys the fixture.
 ---
@@ -1365,7 +1365,7 @@ function Fixture:testPoint(x, y) end
 ---[Open in Browser](https://love2d.org/wiki/FrictionJoint)
 ---
 ---@class love.FrictionJoint : love.Joint, love.Object
-local FrictionJoint = {}
+FrictionJoint = {}
 
 ---Gets the maximum friction force in Newtons.
 ---
@@ -1408,7 +1408,7 @@ function FrictionJoint:setMaxTorque(torque) end
 ---[Open in Browser](https://love2d.org/wiki/GearJoint)
 ---
 ---@class love.GearJoint : love.Joint, love.Object
-local GearJoint = {}
+GearJoint = {}
 
 ---Get the Joints connected by this GearJoint.
 ---
@@ -1444,7 +1444,7 @@ function GearJoint:setRatio(ratio) end
 ---[Open in Browser](https://love2d.org/wiki/Joint)
 ---
 ---@class love.Joint : love.Object
-local Joint = {}
+Joint = {}
 
 ---Explicitly destroys the Joint. An error will occur if you attempt to use the object after calling this function.
 ---
@@ -1547,7 +1547,7 @@ function Joint:setUserData(value) end
 ---[Open in Browser](https://love2d.org/wiki/MotorJoint)
 ---
 ---@class love.MotorJoint : love.Joint, love.Object
-local MotorJoint = {}
+MotorJoint = {}
 
 ---Gets the target angular offset between the two Bodies the Joint is attached to.
 ---
@@ -1592,7 +1592,7 @@ function MotorJoint:setLinearOffset(x, y) end
 ---[Open in Browser](https://love2d.org/wiki/MouseJoint)
 ---
 ---@class love.MouseJoint : love.Joint, love.Object
-local MouseJoint = {}
+MouseJoint = {}
 
 ---Returns the damping ratio.
 ---
@@ -1669,7 +1669,7 @@ function MouseJoint:setTarget(x, y) end
 ---[Open in Browser](https://love2d.org/wiki/PolygonShape)
 ---
 ---@class love.PolygonShape : love.Shape, love.Object
-local PolygonShape = {}
+PolygonShape = {}
 
 ---Get the local coordinates of the polygon's vertices.
 ---
@@ -1693,7 +1693,7 @@ function PolygonShape:getPoints() end
 ---[Open in Browser](https://love2d.org/wiki/PrismaticJoint)
 ---
 ---@class love.PrismaticJoint : love.Joint, love.Object
-local PrismaticJoint = {}
+PrismaticJoint = {}
 
 ---Checks whether the limits are enabled.
 ---
@@ -1860,7 +1860,7 @@ function PrismaticJoint:setUpperLimit(upper) end
 ---[Open in Browser](https://love2d.org/wiki/PulleyJoint)
 ---
 ---@class love.PulleyJoint : love.Joint, love.Object
-local PulleyJoint = {}
+PulleyJoint = {}
 
 ---Get the total length of the rope.
 ---
@@ -1952,7 +1952,7 @@ function PulleyJoint:setRatio(ratio) end
 ---[Open in Browser](https://love2d.org/wiki/RevoluteJoint)
 ---
 ---@class love.RevoluteJoint : love.Joint, love.Object
-local RevoluteJoint = {}
+RevoluteJoint = {}
 
 ---Checks whether limits are enabled.
 ---
@@ -2117,7 +2117,7 @@ function RevoluteJoint:setUpperLimit(upper) end
 ---[Open in Browser](https://love2d.org/wiki/RopeJoint)
 ---
 ---@class love.RopeJoint : love.Joint, love.Object
-local RopeJoint = {}
+RopeJoint = {}
 
 ---Gets the maximum length of a RopeJoint.
 ---
@@ -2148,7 +2148,7 @@ function RopeJoint:setMaxLength(maxLength) end
 ---[Open in Browser](https://love2d.org/wiki/Shape)
 ---
 ---@class love.Shape : love.Object
-local Shape = {}
+Shape = {}
 
 ---Returns the points of the bounding box for the transformed shape.
 ---
@@ -2252,7 +2252,7 @@ function Shape:testPoint(tx, ty, tr, x, y) end
 ---[Open in Browser](https://love2d.org/wiki/WeldJoint)
 ---
 ---@class love.WeldJoint : love.Joint, love.Object
-local WeldJoint = {}
+WeldJoint = {}
 
 ---Returns the damping ratio of the joint.
 ---
@@ -2303,7 +2303,7 @@ function WeldJoint:setFrequency(freq) end
 ---[Open in Browser](https://love2d.org/wiki/WheelJoint)
 ---
 ---@class love.WheelJoint : love.Joint, love.Object
-local WheelJoint = {}
+WheelJoint = {}
 
 ---Gets the world-space axis vector of the Wheel Joint.
 ---
@@ -2428,7 +2428,7 @@ function WheelJoint:setSpringFrequency(freq) end
 ---[Open in Browser](https://love2d.org/wiki/World)
 ---
 ---@class love.World : love.Object
-local World = {}
+World = {}
 
 ---Destroys the world, taking all bodies, joints, fixtures and their shapes with it. 
 ---

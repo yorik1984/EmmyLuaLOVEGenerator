@@ -14,7 +14,7 @@ love = {}
 ---[Open in Browser](https://love2d.org/wiki/Data)
 ---
 ---@class love.Data : love.Object
-local Data = {}
+Data = {}
 
 ---Creates a new copy of the Data object.
 ---
@@ -67,7 +67,7 @@ function Data:getString() end
 ---[Open in Browser](https://love2d.org/wiki/Object)
 ---
 ---@class love.Object
-local Object = {}
+Object = {}
 
 ---Destroys the object's Lua reference. The object will be completely deleted if it's not referenced by any other LÖVE object or thread.
 ---

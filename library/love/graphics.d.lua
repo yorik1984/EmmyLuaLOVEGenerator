@@ -24,7 +24,7 @@ love.graphics = {}
 ---[Open in Browser](https://love2d.org/wiki/Canvas)
 ---
 ---@class love.Canvas : love.Texture, love.Drawable, love.Object
-local Canvas = {}
+Canvas = {}
 
 ---Generates mipmaps for the Canvas, based on the contents of the highest-resolution mipmap level.
 ---
@@ -99,7 +99,7 @@ function Canvas:renderTo(func, ...) end
 ---[Open in Browser](https://love2d.org/wiki/Drawable)
 ---
 ---@class love.Drawable : love.Object
-local Drawable = {}
+Drawable = {}
 
 --endregion love.Drawable
 
@@ -110,7 +110,7 @@ local Drawable = {}
 ---[Open in Browser](https://love2d.org/wiki/Font)
 ---
 ---@class love.Font : love.Object
-local Font = {}
+Font = {}
 
 ---Gets the ascent of the Font.
 ---
@@ -272,7 +272,7 @@ function Font:setLineHeight(height) end
 ---[Open in Browser](https://love2d.org/wiki/Image)
 ---
 ---@class love.Image : love.Texture, love.Drawable, love.Object
-local Image = {}
+Image = {}
 
 ---Gets whether the Image was created from CompressedData.
 ---
@@ -316,7 +316,7 @@ function Image:replacePixels(data, slice, mipmap, x, y, reloadmipmaps) end
 ---[Open in Browser](https://love2d.org/wiki/Mesh)
 ---
 ---@class love.Mesh : love.Drawable, love.Object
-local Mesh = {}
+Mesh = {}
 
 ---Attaches a vertex attribute from a different Mesh onto this Mesh, for use when drawing. This can be used to share vertex attribute data between several different Meshes.
 ---
@@ -601,7 +601,7 @@ function Mesh:setVertices(vertices, startvertex, count) end
 ---[Open in Browser](https://love2d.org/wiki/ParticleSystem)
 ---
 ---@class love.ParticleSystem : love.Drawable, love.Object
-local ParticleSystem = {}
+ParticleSystem = {}
 
 ---Creates an identical copy of the ParticleSystem in the stopped state.
 ---
@@ -1159,7 +1159,7 @@ function ParticleSystem:update(dt) end
 ---[Open in Browser](https://love2d.org/wiki/Quad)
 ---
 ---@class love.Quad : love.Object
-local Quad = {}
+Quad = {}
 
 ---Gets reference texture dimensions initially specified in love.graphics.newQuad.
 ---
@@ -1205,7 +1205,7 @@ function Quad:setViewport(x, y, w, h, sw, sh) end
 ---[Open in Browser](https://love2d.org/wiki/Shader)
 ---
 ---@class love.Shader : love.Object
-local Shader = {}
+Shader = {}
 
 ---Returns any warning and error messages from compiling the shader code. This can be used for debugging your shaders if there's anything the graphics hardware doesn't like.
 ---
@@ -1300,7 +1300,7 @@ function Shader:sendColor(name, color, ...) end
 ---[Open in Browser](https://love2d.org/wiki/SpriteBatch)
 ---
 ---@class love.SpriteBatch : love.Drawable, love.Object
-local SpriteBatch = {}
+SpriteBatch = {}
 
 ---Adds a sprite to the batch. Sprites are drawn in the order they are added.
 ---
@@ -1526,7 +1526,7 @@ function SpriteBatch:setTexture(texture) end
 ---[Open in Browser](https://love2d.org/wiki/Text)
 ---
 ---@class love.Text : love.Drawable, love.Object
-local Text = {}
+Text = {}
 
 ---Adds additional colored text to the Text object at the specified position.
 ---
@@ -1660,7 +1660,7 @@ function Text:setf(textstring, wraplimit, align) end
 ---[Open in Browser](https://love2d.org/wiki/Texture)
 ---
 ---@class love.Texture : love.Drawable, love.Object
-local Texture = {}
+Texture = {}
 
 ---Gets the DPI scale factor of the Texture.
 ---
@@ -1886,7 +1886,7 @@ function Texture:setWrap(horiz, vert, depth) end
 ---[Open in Browser](https://love2d.org/wiki/Video)
 ---
 ---@class love.Video : love.Drawable, love.Object
-local Video = {}
+Video = {}
 
 ---Gets the width and height of the Video in pixels.
 ---

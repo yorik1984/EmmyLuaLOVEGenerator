@@ -16,7 +16,7 @@ love.video = {}
 ---[Open in Browser](https://love2d.org/wiki/VideoStream)
 ---
 ---@class love.VideoStream : love.Object
-local VideoStream = {}
+VideoStream = {}
 
 ---Gets the filename of the VideoStream.
 ---
