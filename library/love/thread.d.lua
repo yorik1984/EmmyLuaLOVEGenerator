@@ -79,7 +79,7 @@ function Channel:peek() end
 ---@param self love.Channel
 ---@param func fun(...) The function to call, the form of function(channel, arg1, arg2, ...) end. The Channel is passed as the first argument to the function when it is called.
 ---@return any ret1 The first return value of the given function (if any.)
----@return any Any other return values.
+---@return any # Any other return values.
 function Channel:performAtomic(func, ...) end
 
 ---Retrieves the value of a Channel message and removes it from the message queue.

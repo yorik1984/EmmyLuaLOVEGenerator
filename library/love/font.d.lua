@@ -178,10 +178,10 @@ function Rasterizer:hasGlyphs(glyph1, ...) end
 ---[Open in Browser](https://love2d.org/wiki/HintingMode)
 ---
 ---@alias love.HintingMode
----| "normal" # Default hinting. Should be preferred for typical antialiased fonts.
----| "light" # Results in fuzzier text but can sometimes preserve the original glyph shapes of the text better than normal hinting.
----| "mono" # Results in aliased / unsmoothed text with either full opacity or completely transparent pixels. Should be used when antialiasing is not desired for the font.
----| "none" # Disables hinting for the font. Results in fuzzier text.
+---| '"normal"' # Default hinting. Should be preferred for typical antialiased fonts.
+---| '"light"' # Results in fuzzier text but can sometimes preserve the original glyph shapes of the text better than normal hinting.
+---| '"mono"' # Results in aliased / unsmoothed text with either full opacity or completely transparent pixels. Should be used when antialiasing is not desired for the font.
+---| '"none"' # Disables hinting for the font. Results in fuzzier text.
 
 ---Creates a new BMFont Rasterizer.
 ---
@@ -189,7 +189,7 @@ function Rasterizer:hasGlyphs(glyph1, ...) end
 ---
 ---@param imageData love.ImageData The image data containing the drawable pictures of font glyphs.
 ---@param glyphs string The sequence of glyphs in the ImageData.
----@param dpiscale number? DPI scale. (defaults to `1`.)
+---@param dpiscale number? DPI scale. (defaults to `1`).
 ---@return love.Rasterizer rasterizer The rasterizer.
 ---@overload fun(fileName: string, glyphs: string, dpiscale: number?): love.Rasterizer
 function love.font.newBMFontRasterizer(imageData, glyphs, dpiscale) end
@@ -209,8 +209,8 @@ function love.font.newGlyphData(rasterizer, glyph) end
 ---Create an ImageRasterizer from the image data.
 ---@param imageData love.ImageData Font image data.
 ---@param glyphs string String containing font glyphs.
----@param extraSpacing number? Font extra spacing. (defaults to `0`.)
----@param dpiscale number? Font DPI scale. (defaults to `1`.)
+---@param extraSpacing number? Font extra spacing. (defaults to `0`).
+---@param dpiscale number? Font DPI scale. (defaults to `1`).
 ---@return love.Rasterizer rasterizer The rasterizer.
 function love.font.newImageRasterizer(imageData, glyphs, extraSpacing, dpiscale) end
 
@@ -220,9 +220,9 @@ function love.font.newImageRasterizer(imageData, glyphs, extraSpacing, dpiscale)
 ---
 ---Create a TrueTypeRasterizer with custom font.
 ---@param fileName string Path to font file.
----@param size number? The font size. (defaults to `12`.)
----@param hinting love.HintingMode? True Type hinting mode. (defaults to `'normal'`.)
----@param dpiscale number? The font DPI scale. (defaults to `love.window.getDPIScale()`.)
+---@param size number? The font size. (defaults to `12`).
+---@param hinting love.HintingMode? True Type hinting mode. (defaults to `'normal'`).
+---@param dpiscale number? The font DPI scale. (defaults to `love.window.getDPIScale()`).
 ---@return love.Rasterizer rasterizer The rasterizer.
 ---Create a TrueTypeRasterizer with custom font.
 ---@overload fun(fileData: love.FileData, size: number?, hinting: love.HintingMode?, dpiscale: number?): love.Rasterizer
@@ -242,9 +242,9 @@ function love.font.newRasterizer(fileName, size, hinting, dpiscale) end
 ---
 ---Create a TrueTypeRasterizer with custom font.
 ---@param fileData love.FileData File data containing font.
----@param size number? The font size. (defaults to `12`.)
----@param hinting love.HintingMode? True Type hinting mode. (defaults to `'normal'`.)
----@param dpiscale number? The font DPI scale. (defaults to `love.window.getDPIScale()`.)
+---@param size number? The font size. (defaults to `12`).
+---@param hinting love.HintingMode? True Type hinting mode. (defaults to `'normal'`).
+---@param dpiscale number? The font DPI scale. (defaults to `love.window.getDPIScale()`).
 ---@return love.Rasterizer rasterizer The rasterizer.
 ---Create a TrueTypeRasterizer with custom font.
 ---@overload fun(fileName: string, size: number?, hinting: love.HintingMode?, dpiscale: number?): love.Rasterizer

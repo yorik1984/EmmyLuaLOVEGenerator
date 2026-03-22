@@ -158,7 +158,7 @@ function SoundData:setSample(i, channel, sample) end
 ---[Open in Browser](https://love2d.org/wiki/love.sound.newDecoder)
 ---
 ---@param file love.File The file with encoded sound data.
----@param buffer number? The size of each decoded chunk, in bytes. (defaults to `2048`.)
+---@param buffer number? The size of each decoded chunk, in bytes. (defaults to `2048`).
 ---@return love.Decoder decoder A new Decoder object.
 ---@overload fun(filename: string, buffer: number?): love.Decoder
 function love.sound.newDecoder(file, buffer) end
@@ -170,9 +170,9 @@ function love.sound.newDecoder(file, buffer) end
 ---[Open in Browser](https://love2d.org/wiki/love.sound.newSoundData)
 ---
 ---@param samples number Total number of samples.
----@param rate number? Number of samples per second (defaults to `44100`.)
----@param bits number? Bits per sample (8 or 16). (defaults to `16`.)
----@param channels number? Either 1 for mono or 2 for stereo. (defaults to `2`.)
+---@param rate number? Number of samples per second (defaults to `44100`).
+---@param bits number? Bits per sample (8 or 16). (defaults to `16`).
+---@param channels number? Either 1 for mono or 2 for stereo. (defaults to `2`).
 ---@return love.SoundData soundData A new SoundData object.
 ---@overload fun(decoder: love.Decoder): love.SoundData
 ---@overload fun(file: love.File): love.SoundData

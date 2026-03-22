@@ -1,11 +1,11 @@
-# EmmyLua ♡ LÖVE ♡ Generator
+<h1 align="center">&nbsp;&nbsp; <a href="https://luals.github.io/wiki/annotations/">LuaCATS</a> ♡ <a href="https://love2d.org">LÖVE</a> ♡ Definitions&nbsp;&nbsp;</h1>
 
-[![Generate LÖVE EmmyLua API](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml/badge.svg)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/actions/workflows/generate_love_api.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yorik1984/EmmyLuaLOVEGenerator/blob/main/LICENSE)
+[![Generate LÖVE LuaCATS API](https://github.com/yorik1984/love2d-definitions/actions/workflows/generate_love_api.yml/badge.svg)](https://github.com/yorik1984/love2d-definitions/actions/workflows/generate_love_api.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/yorik1984/love2d-definitions/blob/main/LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1-blue.svg)](https://www.lua.org/)
 [![LÖVE API](https://img.shields.io/badge/L%C3%96VE_API-11.5-EA316E.svg)](https://github.com/love2d-community/love-api)
 
-Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) framework.
+[LuaCATS](https://luals.github.io/wiki/annotations/) definitions for [LÖVE](https://love2d.org/) framework.
 
 <!-- TOC -->
 
@@ -36,7 +36,7 @@ Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) 
 ### Automatic API Generation
 
 - **GitHub Actions Automation** - API automatically updates when changes occur in the official [love-api](https://github.com/love2d-community/love-api)
-- **Ready-to-use Annotation Files** - `api/` folder contains ready-to-use files for all LÖVE modules
+- **Ready-to-use Annotation Files** - `library/` folder contains ready-to-use files for all LÖVE modules
 - **Full API Coverage**: Generates complete LÖVE API with all modules
 
 ### Enhanced Type System
@@ -52,7 +52,7 @@ Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) 
 ### Improved Generation
 
 - **Best Practice Classes**
-  - Generates `@class` definitions following Emmylua conventions
+  - Generates `@class` definitions following LuaCATS conventions
   - Class names use the form: `love.module.functionName.paramName` (the generator constructs names from the API data)
   - Field formatting: ```---@field name? type Description (defaults to `value`)```
   - First field always required
@@ -70,15 +70,15 @@ Automatic EmmyLua type annotation generator for [LÖVE 2D](https://love2d.org/) 
 
 ### Using Pre-generated Files from Repository
 
-* Download the `api/` folder from the repository:
-   - For the **latest version**: use the [`main`](https://github.com/yorik1984/EmmyLuaLOVEGenerator/tree/main) branch
-   - For a **specific version**: use the branch named with that version (e.g., [`11.5`](https://github.com/yorik1984/EmmyLuaLOVEGenerator/tree/11.5) for LÖVE 11.5)
+* Download the `library/` folder from the repository:
+   - For the **latest version**: use the [`main`](https://github.com/yorik1984/love2d-definitions/tree/main) branch
+   - For a **specific version**: use the branch named with that version (e.g., [`11.5`](https://github.com/yorik1984/love2d-definitions/tree/11.5) for LÖVE 11.5)
 
 * Configure your LSP server similarly, as shown below:
 ```json
 {
     "workspace": {
-        "library": ["<full path to api directory>"]
+        "library": ["<full path to library directory>"]
     }
 }
 ```
@@ -97,7 +97,7 @@ The repository is configured for automatic updates via GitHub Actions:
 The workflow automatically:
 
 1. Clones the official love-api
-2. Generates EmmyLua annotations
+2. Generates LuaCATS annotations
 3. Commits updates to the repository
 
 ### 📋 What Gets Generated
@@ -105,13 +105,28 @@ The workflow automatically:
 The generator creates files for all LÖVE modules:
 
 ```
-api/
-├── love.lua           # Core module
-├── love.audio.lua     # Audio
-├── love.graphics.lua  # Graphics
-├── love.physics.lua   # Physics
-├── love.filesystem.lua # File system
-└── ... (all other modules)
+library/
+├── love.d.lua              # Core module with global definitions and root namespace
+└── love/                   # Directory containing all LÖVE submodules
+    ├── audio.d.lua         # Audio module - sound playback, recording, and effects
+    ├── data.d.lua          # Data module - compression, encoding, and data containers
+    ├── event.d.lua         # Event module - input events and system messages
+    ├── filesystem.d.lua    # Filesystem module - file I/O and directory operations
+    ├── font.d.lua          # Font module - text rendering and font management
+    ├── graphics.d.lua      # Graphics module - drawing, shaders, and rendering
+    ├── image.d.lua         # Image module - image loading and pixel manipulation
+    ├── joystick.d.lua      # Joystick module - game controller input handling
+    ├── keyboard.d.lua      # Keyboard module - keyboard input and key states
+    ├── math.d.lua          # Math module - vectors, matrices, and geometric operations
+    ├── mouse.d.lua         # Mouse module - mouse input and cursor handling
+    ├── physics.d.lua       # Physics module - Box2D physics simulation
+    ├── sound.d.lua         # Sound module - audio sources and decoding
+    ├── system.d.lua        # System module - OS interaction and system info
+    ├── thread.d.lua        # Thread module - multithreading support
+    ├── timer.d.lua         # Timer module - time measurement and delays
+    ├── touch.d.lua         # Touch module - touchscreen input
+    ├── video.d.lua         # Video module - video playback
+    └── window.d.lua        # Window module - window management and display modes
 ```
 
 Each file contains:
@@ -141,20 +156,20 @@ If you still want to generate files manually:
 3. Run the generator:
 
 ```bash
-# Basic generation (outputs to api/)
-lua genEmmyAPI.lua
+# Generate full API to default directory
+lua genLOVE2dAPI.lua
 
-# Generate to custom folder
-lua genEmmyAPI.lua "my_love_api"
+# Generate full API to custom directory
+lua genLOVE2dAPI.lua "my_luacats_api"
 
-# With debug information
-lua genEmmyAPI.lua DEBUG
+# Show debug info and generate to default directory
+lua genLOVE2dAPI.lua DEBUG
 
-# With debug and custom folder
-lua genEmmyAPI.lua DEBUG "my_api"
+# Show debug info and generate to custom directory
+lua genLOVE2dAPI.lua DEBUG "my_luacats_api"
 
-# Help
-lua genEmmyAPI.lua HELP
+# Show help
+lua genLOVE2dAPI.lua HELP
 ```
 
 ## 🆚 Improvements
@@ -162,16 +177,16 @@ lua genEmmyAPI.lua HELP
 ### Architectural
 
 - ✅ Nothing included by default - avoiding outdated API versions
-- ✅ Ready files in `api/` - can be used immediately
+- ✅ Ready files in `library/` - can be used immediately
 - ✅ Automatic updates via GitHub Actions
-- ✅ Works with modern EmmyLua (uses `---@meta`)
+- ✅ Works with modern LuaCATS (uses `---@meta`)
 - ✅ Namespace definitions - `love.Object` doesn't conflict with your types
 
 ### Generation
 
 - ✅ Optional parameters properly marked (`type?`)
 - ✅ Default values in descriptions ```(defaults to `...`)```
-- - ✅ Correct overload annotations
+- ✅ Correct overload annotations
 - ✅ Function variant sorting
 - ✅ Type inheritance support (supertypes)
 - ✅ Enums as `---@alias` instead of tables
@@ -183,32 +198,42 @@ lua genEmmyAPI.lua HELP
 
 ## 📚 References & Related Projects
 
-Expand your LÖVE development toolkit with these complementary resources:
++ **[love2d-tresitter.nvim](https://github.com/yorik1984/love2d-treesitter.nvim)**<br>
+Is a comprehensive plugin for [Neovim](https://neovim.io/) that highlight [LÖVE](http://love2d.org) syntax in your editor.
+Provides complete LÖVE API syntax highlighting for LÖVE functions, modules, types, and callbacks, with full **[Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)** support.
+    * **🤖 Automated Updates:** Uses GitHub Actions to stay in sync with the official love-api, just like this definitions.
+    * **⚙️ Fully Customizable:** Offers flexible styling options for colors and font styles (bold, italic, etc.).
+    * **📌 Version Branches:** Maintains version-specific branches (e.g., `11.5`) to match different LÖVE releases.
 
-#### [love2d-docs.nvim](https://github.com/yorik1984/love2d-docs.nvim) 📘
-A comprehensive (Neo)Vim plugin that brings the entire LÖVE framework documentation into your editor with beautiful syntax highlighting.
+> [!TIP]
+> Use **love2d-treesitter** alongside this definitions for the ultimate LÖVE development setup — get beautiful syntax highlighting in [Neovim](https://neovim.io/) and intelligent IDE autocompletion from these LuaCATS annotations.
 
-*   **What it does:** Provides complete LÖVE API documentation via `:help`, syntax highlighting for LÖVE functions, modules, types, and callbacks, with full **Treesitter support**.
-*   **✨ Key Features:**
-    *   **🎨 Dual Editor Support:** Works flawlessly in both **Neovim** (with Treesitter) and **classic Vim**.
-    *   **🤖 Automated Updates:** Uses GitHub Actions to stay in sync with the official love-api, just like this generator.
-    *   **📖 Built-in Help:** Access documentation for any function (e.g., `:help love2d-docs-love.graphics.rectangle`) or type directly from your editor.
-    *   **⚙️ Fully Customizable:** Offers flexible styling options for colors and font styles (bold, italic, etc.) for both Neovim and Vim.
-    *   **📌 Version Branches:** Maintains version-specific branches (e.g., `11.5`) to match different LÖVE releases.
++ **[love2d-docs.nvim](https://github.com/yorik1984/love2d-docs.nvim)**<br>
+Is a comprehensive plugin for [Neovim](https://neovim.io/) and [Vim](https://www.vim.org/) that brings the entire [LÖVE](http://love2d.org) game framework documentation right into your editor.
+    - 📖 **Built-in Help** — Complete LÖVE API documentation accessible via `:help LOVE-*`
 
-> **💡 Pro Tip:** Use **love2d-docs.nvim** alongside this generator for the ultimate LÖVE development setup—get beautiful inline syntax highlighting in your editor *and* intelligent IDE autocompletion from these EmmyLua annotations.
++ **[love2d-vim-syntax](https://github.com/yorik1984/love2d-vim-syntax)**<br>
+Plugin for [Vim](https://www.vim.org/) that highlight [LÖVE](http://love2d.org) syntax in your editor.
+    - 🎨 **Syntax Highlighting** — Colors LÖVE functions, modules, types, and callbacks
+    - 🔧 **Customizable** — Flexible styling options for Vim
 
 ## 🙏 Credits
 
-Based on [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api).
-
-- **[@tangzx](https://github.com/tangzx)** - original script
-- **[@kindfulkirby](https://github.com/kindfulkirby)** - modifications and initial README
-- **[@NyakoFox](https://github.com/NyakoFox)** - update for modern EmmyLua
-- **[@yorik1984](https://github.com/yorik1984)** - enhanced type system, GitHub Actions
+- Based on [@NyakoFox](https://github.com/NyakoFox)'s [EmmyLuaLOVEGenerator](https://github.com/NyakoFox/EmmyLuaLOVEGenerator).
+- [@tangzx](https://github.com/tangzx) - original script
+- [@kindfulkirby](https://github.com/kindfulkirby) - modifications and initial README
 
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
-
 Based on [Emmy-love-api](https://github.com/EmmyLua/Emmy-love-api) which has no explicit license.
+
+<div align="center">
+  <sub>
+    Built with ♡ for the LÖVE community
+    <br>
+    <a href="https://github.com/yorik1984/love2d-definitions/issues">Report Issue</a> ·
+    <a href="https://github.com/yorik1984/love2d-definitions/discussions">Discussion</a> ·
+    <a href="https://love2d.org/">LÖVE</a>
+  </sub>
+</div>

@@ -83,7 +83,7 @@ function BezierCurve:getSegment(startpoint, endpoint) end
 ---@param self love.BezierCurve
 ---@param x number Position of the control point along the x axis.
 ---@param y number Position of the control point along the y axis.
----@param i number? Index of the control point. (defaults to `-1`.)
+---@param i number? Index of the control point. (defaults to `-1`).
 function BezierCurve:insertControlPoint(x, y, i) end
 
 ---Removes the specified control point.
@@ -103,7 +103,7 @@ function BezierCurve:removeControlPoint(index) end
 ---[Open in Browser](https://love2d.org/wiki/BezierCurve:render)
 ---
 ---@param self love.BezierCurve
----@param depth number Number of recursive subdivision steps. (defaults to `5`.)
+---@param depth number Number of recursive subdivision steps. (defaults to `5`).
 ---@return number[] coordinates List of x,y-coordinate pairs of points on the curve.
 function BezierCurve:render(depth) end
 
@@ -118,7 +118,7 @@ function BezierCurve:render(depth) end
 ---@param self love.BezierCurve
 ---@param startpoint number The starting point along the curve. Must be between 0 and 1.
 ---@param endpoint number The end of the segment to render. Must be between 0 and 1.
----@param depth number? Number of recursive subdivision steps. (defaults to `5`.)
+---@param depth number? Number of recursive subdivision steps. (defaults to `5`).
 ---@return number[] coordinates List of x,y-coordinate pairs of points on the specified part of the curve.
 function BezierCurve:renderSegment(startpoint, endpoint, depth) end
 
@@ -128,8 +128,8 @@ function BezierCurve:renderSegment(startpoint, endpoint, depth) end
 ---
 ---@param self love.BezierCurve
 ---@param angle number Rotation angle in radians.
----@param ox number? X coordinate of the rotation center. (defaults to `0`.)
----@param oy number? Y coordinate of the rotation center. (defaults to `0`.)
+---@param ox number? X coordinate of the rotation center. (defaults to `0`).
+---@param oy number? Y coordinate of the rotation center. (defaults to `0`).
 function BezierCurve:rotate(angle, ox, oy) end
 
 ---Scale the Bézier curve by a factor.
@@ -138,8 +138,8 @@ function BezierCurve:rotate(angle, ox, oy) end
 ---
 ---@param self love.BezierCurve
 ---@param s number Scale factor.
----@param ox number? X coordinate of the scaling center. (defaults to `0`.)
----@param oy number? Y coordinate of the scaling center. (defaults to `0`.)
+---@param ox number? X coordinate of the scaling center. (defaults to `0`).
+---@param oy number? Y coordinate of the scaling center. (defaults to `0`).
 function BezierCurve:scale(s, ox, oy) end
 
 ---Set coordinates of the i-th control point. Indices start with 1.
@@ -214,8 +214,8 @@ function RandomGenerator:random(min, max) end
 ---[Open in Browser](https://love2d.org/wiki/RandomGenerator:randomNormal)
 ---
 ---@param self love.RandomGenerator
----@param stddev number Standard deviation of the distribution. (defaults to `1`.)
----@param mean number? The mean of the distribution. (defaults to `0`.)
+---@param stddev number Standard deviation of the distribution. (defaults to `1`).
+---@param mean number? The mean of the distribution. (defaults to `0`).
 ---@return number number Normally distributed random number with variance (stddev)² and the specified mean.
 function RandomGenerator:randomNormal(stddev, mean) end
 
@@ -351,7 +351,7 @@ function Transform:rotate(angle) end
 ---
 ---@param self love.Transform
 ---@param sx number The relative scale factor along the x-axis.
----@param sy number? The relative scale factor along the y-axis. (defaults to `sx`.)
+---@param sy number? The relative scale factor along the y-axis. (defaults to `sx`).
 ---@return love.Transform transform The Transform object the method was called on. Allows easily chaining Transform methods.
 function Transform:scale(sx, sy) end
 
@@ -390,13 +390,13 @@ function Transform:setMatrix(layout, e1_1, e1_2, e1_3, e1_4, e2_1, e2_2, e2_3, e
 ---@param self love.Transform
 ---@param x number The position of the Transform on the x-axis.
 ---@param y number The position of the Transform on the y-axis.
----@param angle number? The orientation of the Transform in radians. (defaults to `0`.)
----@param sx number? Scale factor on the x-axis. (defaults to `1`.)
----@param sy number? Scale factor on the y-axis. (defaults to `sx`.)
----@param ox number? Origin offset on the x-axis. (defaults to `0`.)
----@param oy number? Origin offset on the y-axis. (defaults to `0`.)
----@param kx number? Shearing / skew factor on the x-axis. (defaults to `0`.)
----@param ky number? Shearing / skew factor on the y-axis. (defaults to `0`.)
+---@param angle number? The orientation of the Transform in radians. (defaults to `0`).
+---@param sx number? Scale factor on the x-axis. (defaults to `1`).
+---@param sy number? Scale factor on the y-axis. (defaults to `sx`).
+---@param ox number? Origin offset on the x-axis. (defaults to `0`).
+---@param oy number? Origin offset on the y-axis. (defaults to `0`).
+---@param kx number? Shearing / skew factor on the x-axis. (defaults to `0`).
+---@param ky number? Shearing / skew factor on the y-axis. (defaults to `0`).
 ---@return love.Transform transform The Transform object the method was called on. Allows easily chaining Transform methods.
 function Transform:setTransformation(x, y, angle, sx, sy, ox, oy, kx, ky) end
 
@@ -440,8 +440,8 @@ function Transform:translate(dx, dy) end
 ---[Open in Browser](https://love2d.org/wiki/MatrixLayout)
 ---
 ---@alias love.MatrixLayout
----| "row" # The matrix is row-major:
----| "column" # The matrix is column-major:
+---| '"row"' # The matrix is row-major:
+---| '"column"' # The matrix is column-major:
 
 ---Converts a color from 0..255 to 0..1 range.
 ---
@@ -479,7 +479,7 @@ function Transform:translate(dx, dy) end
 ---@param rb number Red color component in 0..255 range.
 ---@param gb number Green color component in 0..255 range.
 ---@param bb number Blue color component in 0..255 range.
----@param ab number? Alpha color component in 0..255 range. (defaults to `nil`.)
+---@param ab number? Alpha color component in 0..255 range. (defaults to `nil`).
 ---@return number r Red color component in 0..1 range.
 ---@return number g Green color component in 0..1 range.
 ---@return number b Blue color component in 0..1 range.
@@ -522,7 +522,7 @@ function love.math.colorFromBytes(rb, gb, bb, ab) end
 ---@param r number Red color component.
 ---@param g number Green color component.
 ---@param b number Blue color component.
----@param a number? Alpha color component. (defaults to `nil`.)
+---@param a number? Alpha color component. (defaults to `nil`).
 ---@return number rb Red color component in 0..255 range.
 ---@return number gb Green color component in 0..255 range.
 ---@return number bb Blue color component in 0..255 range.
@@ -637,13 +637,13 @@ function love.math.newRandomGenerator(low, high) end
 ---Creates a Transform with the specified transformation applied on creation.
 ---@param x number The position of the new Transform on the x-axis.
 ---@param y number The position of the new Transform on the y-axis.
----@param angle number? The orientation of the new Transform in radians. (defaults to `0`.)
----@param sx number? Scale factor on the x-axis. (defaults to `1`.)
----@param sy number? Scale factor on the y-axis. (defaults to `sx`.)
----@param ox number? Origin offset on the x-axis. (defaults to `0`.)
----@param oy number? Origin offset on the y-axis. (defaults to `0`.)
----@param kx number? Shearing / skew factor on the x-axis. (defaults to `0`.)
----@param ky number? Shearing / skew factor on the y-axis. (defaults to `0`.)
+---@param angle number? The orientation of the new Transform in radians. (defaults to `0`).
+---@param sx number? Scale factor on the x-axis. (defaults to `1`).
+---@param sy number? Scale factor on the y-axis. (defaults to `sx`).
+---@param ox number? Origin offset on the x-axis. (defaults to `0`).
+---@param oy number? Origin offset on the y-axis. (defaults to `0`).
+---@param kx number? Shearing / skew factor on the x-axis. (defaults to `0`).
+---@param ky number? Shearing / skew factor on the y-axis. (defaults to `0`).
 ---@return love.Transform transform The new Transform object.
 ---Creates a Transform with no transformations applied. Call methods on the returned object to apply transformations.
 ---@overload fun(): love.Transform
@@ -689,8 +689,8 @@ function love.math.random(min, max) end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.math.randomNormal)
 ---
----@param stddev number Standard deviation of the distribution. (defaults to `1`.)
----@param mean number? The mean of the distribution. (defaults to `0`.)
+---@param stddev number Standard deviation of the distribution. (defaults to `1`).
+---@param mean number? The mean of the distribution. (defaults to `0`).
 ---@return number number Normally distributed random number with variance (stddev)² and the specified mean.
 function love.math.randomNormal(stddev, mean) end
 

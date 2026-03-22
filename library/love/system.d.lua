@@ -12,11 +12,11 @@ love.system = {}
 ---[Open in Browser](https://love2d.org/wiki/PowerState)
 ---
 ---@alias love.PowerState
----| "unknown" # Cannot determine power status.
----| "battery" # Not plugged in, running on a battery.
----| "nobattery" # Plugged in, no battery available.
----| "charging" # Plugged in, charging battery.
----| "charged" # Plugged in, battery is fully charged.
+---| '"unknown"' # Cannot determine power status.
+---| '"battery"' # Not plugged in, running on a battery.
+---| '"nobattery"' # Plugged in, no battery available.
+---| '"charging"' # Plugged in, charging battery.
+---| '"charged"' # Plugged in, battery is fully charged.
 
 ---Gets text from the clipboard.
 ---
@@ -79,6 +79,6 @@ function love.system.setClipboardText(text) end
 ---
 ---[Open in Browser](https://love2d.org/wiki/love.system.vibrate)
 ---
----@param seconds number The duration to vibrate for. If called on an iOS device, it will always vibrate for 0.5 seconds due to limitations in the iOS system APIs. (defaults to `0.5`.)
+---@param seconds number The duration to vibrate for. If called on an iOS device, it will always vibrate for 0.5 seconds due to limitations in the iOS system APIs. (defaults to `0.5`).
 function love.system.vibrate(seconds) end
 
